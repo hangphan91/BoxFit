@@ -11,10 +11,14 @@ namespace boxfittingapp
     {
         public int X { get; set; }
         public int Y { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
         public RectangularBox()
         {
             X = 0;
             Y = 0;
+            Width = 0;
+            Height = 0;
         }
     }
     public class PairIndexValueComparer : IComparer<List<int>>
@@ -22,6 +26,27 @@ namespace boxfittingapp
         public int Compare(List<int> x, List<int> y)
         {
             return y[1].CompareTo(x[1]);
+        }
+    }
+    public class RectangularBoxComparerHorizontal : IComparer<RectangularBox>
+    {
+        public int Compare(RectangularBox x, RectangularBox y)
+        {
+            return y.X.CompareTo(x.X);
+        }
+    }
+    public class RectangularBoxComparerVertical : IComparer<RectangularBox>
+    {
+        public int Compare(RectangularBox x, RectangularBox y)
+        {
+            return y.Y.CompareTo(x.Y);
+        }
+    }
+    public class RectangularBoxHeightComparer : IComparer<RectangularBox>
+    {
+        public int Compare(RectangularBox x, RectangularBox y)
+        {
+            return (x.Y+x.Height).CompareTo(y.Y + y.Height);
         }
     }
 }

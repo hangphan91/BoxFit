@@ -13,7 +13,7 @@ namespace boxfittingapp
         private Dictionary<int, RectangularBox> BoxList { get; set; } = new Dictionary<int, RectangularBox>();
         public ReadCSVFile()
         {
-            using (var reader = new StreamReader(@"C:\Users\hang2\Desktop\fittingboxsamples2.csv"))
+            using (var reader = new StreamReader(@"C:\Users\Hang Phan\Desktop\fittingboxsamples2.csv"))
             {
                 List<int> listA = new List<int>();
                 List<int> listB = new List<int>();
@@ -25,13 +25,13 @@ namespace boxfittingapp
 
                     if (int.TryParse(values[0], out x) && int.TryParse(values[1], out y))
                     {
-                        listA.Add(x*3);
-                        listB.Add(y*3);
+                        listA.Add(x * 6);
+                        listB.Add(y * 6);
                     }
                 }
                 for (int i = 0; i < listA.Count; i++)
                 {
-                    BoxList.Add(i, new RectangularBox { X= listA[i], Y= listB[i] });
+                    BoxList.Add(i, new RectangularBox { X = listA[i], Y = listB[i] });
                 }
             }
             BoxListReadOnly = BoxList;
