@@ -25,8 +25,8 @@ namespace boxfittingapp
 
                     if (int.TryParse(values[0], out x) && int.TryParse(values[1], out y))
                     {
-                        listA.Add(x * 6);
-                        listB.Add(y * 6);
+                        listA.Add(x * 3);
+                        listB.Add(y * 3);
                     }
                 }
                 for (int i = 0; i < listA.Count; i++)

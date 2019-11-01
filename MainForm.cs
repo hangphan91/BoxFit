@@ -17,23 +17,36 @@ namespace boxfittingapp
         public List<Point> CursorPoints { get; set; }
         public int ContainerWidth { get; set; }
         public int MaxHeight { get; set; }
+        public UserInput UserInput { get; set; }
+        public BoxFittingAlgorithm applyAlgorith { get; set; }
+        public ReadCSVFile read { get; set; }
+        public Dictionary<int, RectangularBox> dictionary { get; set; }
 
         public MainForm()
         {
             InitializeComponent();
             Points = new List<RectangularBox>();
             MaxLine = new List<Point>();
-            ReadCSVFile read = new ReadCSVFile();
-            var dictionary = read.BoxListReadOnly;
-            var applyAlgorith = new BoxFittingAlgorithm();
-            ContainerWidth = applyAlgorith.ContainerWidth;
+            read = new ReadCSVFile();
+            dictionary = read.BoxListReadOnly;
+            applyAlgorith = new BoxFittingAlgorithm();
+            UserInput = new UserInput(this, applyAlgorith.InputWidth, applyAlgorith.InputHeight);
+            UserInput.ShowDialog();
+            PerformBoxFittingAlgorithm(dictionary);
+            this.Refresh();
+        }
+
+        private void PerformBoxFittingAlgorithm(Dictionary<int, RectangularBox> dictionary)
+        {
+            ContainerWidth = applyAlgorith.CurrentContainer.Width;
             applyAlgorith.GetOptimizationListOrder(dictionary);
             Points = applyAlgorith.Gaps;
             MaxHeight = applyAlgorith.MaxHeight;
             lblBoxes.Text = applyAlgorith.MyResult;
-            lblBoxes.Text += "\nTotal Wasted: " + applyAlgorith.WastedArea.ToString();
+            lblResult.Text = applyAlgorith.DisplayResult;
             var optimization = applyAlgorith.OptimizedBoxList;
             optimization = new Dictionary<int, RectangularBox>();
+
             for (int i = 0; i < applyAlgorith.BinList.Count; i++)
             {
                 optimization.Add(i, applyAlgorith.BinList[i]);
@@ -42,6 +55,7 @@ namespace boxfittingapp
             OptimumDrawing(applyAlgorith);
             MaxLine.Add(new Point(applyAlgorith.ContainerWidth, maxY));
             MaxLine.Add(new Point(0, maxY));
+            this.paper.Controls.Add(this.container);
             this.Refresh();
         }
 
@@ -55,24 +69,51 @@ namespace boxfittingapp
                 this.box.Name = "box " + index;
                 this.box.Size = new System.Drawing.Size(item.Width, item.Height);
                 this.box.TabIndex = 0;
-                this.box.Text = "box " + index + ": " + item.X + " x " + item.Y + "--W: " + item.Width
-                    + "H: " + item.Height;
+                this.box.Text = "box " + index;
+                   // + ": " + item.X + " x " + item.Y + "--W: " + item.Width
+                  //  + "H: " + item.Height;
                 this.box.UseVisualStyleBackColor = true;
+                var toolTip = new System.Windows.Forms.ToolTip();
+                toolTip.SetToolTip(box, $"X: { item.X} Y: {item.Y} Width: {item.Width} Height {item.Height}");
                 this.container.Controls.Add(this.box);
                 index++;
             }
-            txtWidth.Text = "Width: " + ContainerWidth.ToString() + " Total bins:" + applyAlgorith.BinList.Count;
-            txtHeight.Text = "Height:\n " + MaxHeight.ToString();
+            txtWidth.Text = "Width: " + applyAlgorith.MaxWidth.ToString();
+            txtHeight.Text = "Height: " + MaxHeight.ToString();
             this.box2 = new System.Windows.Forms.Button();
             this.box2.Location = new System.Drawing.Point(0, MaxHeight);
-            this.box2.Size = new System.Drawing.Size(ContainerWidth, 10);
+            this.box2.Size = new System.Drawing.Size(applyAlgorith.MaxWidth, 10);
             this.box2.BackColor = Color.Red;
+            var toolTip1 = new System.Windows.Forms.ToolTip();
+            toolTip1.SetToolTip(box2, $"Width: { applyAlgorith.MaxWidth}");
             this.container.Controls.Add(this.box2);
             this.box2 = new System.Windows.Forms.Button();
-            this.box2.Location = new System.Drawing.Point(ContainerWidth, 0);
+            this.box2.Location = new System.Drawing.Point(applyAlgorith.MaxWidth, 0);
             this.box2.Size = new System.Drawing.Size(10, MaxHeight);
             this.box2.BackColor = Color.Red;
+            toolTip1 = new System.Windows.Forms.ToolTip();
+            toolTip1.SetToolTip(box2, $"Height: { MaxHeight}");
             this.container.Controls.Add(this.box2);
+        }
+
+        internal void SetMultipleContainers(bool @checked)
+        {
+            applyAlgorith.SetMultipleContainers(@checked);
+        }
+
+        internal void SetAlgorithmType(bool isHorizontal)
+        {
+            applyAlgorith.SetAlgorithm(isHorizontal);
+        }
+
+        internal void SetMaxWidth(int maxwidth)
+        {
+            applyAlgorith.SetContainerWidth(maxwidth);
+        }
+
+        internal void SetMaxHeight(int maxheight)
+        {
+            applyAlgorith.SetContainerHeight(maxheight);
         }
 
         private void DefaultDrawing(BoxFittingAlgorithm applyAlgorith, Dictionary<int, RectangularBox> optimization, ref int XCoordinate, ref int YCoordinate, ref int maxY)
@@ -86,6 +127,7 @@ namespace boxfittingapp
                 this.box.TabIndex = 0;
                 this.box.Text = "box " + item.Key + item.Value.X + " x " + item.Value.Y;
                 this.box.UseVisualStyleBackColor = true;
+               
                 this.container.Controls.Add(this.box);
                 XCoordinate += item.Value.X;
                 maxY = Math.Max(maxY, item.Value.Y + YCoordinate);
@@ -110,7 +152,23 @@ namespace boxfittingapp
         private void Container_Paint(object sender, PaintEventArgs e)
         {
             //e.Graphics.DrawLines(Pens.Red, new List<Point> { new Point { X = this.ContainerWidth, Y = 0 }, new Point { X = this.ContainerWidth, Y = MaxHeight }, new Point { X = 0, Y = MaxHeight } }.ToArray());
-           // e.Graphics.DrawLines(Pens.Red, new List<Point> { new Point { X = 0, Y = MaxHeight }, new Point { X = this.ContainerWidth, Y = MaxHeight } }.ToArray());
+            // e.Graphics.DrawLines(Pens.Red, new List<Point> { new Point { X = 0, Y = MaxHeight }, new Point { X = this.ContainerWidth, Y = MaxHeight } }.ToArray());
+        }
+
+        private void btnUserInput_Click(object sender, EventArgs e)
+        {
+            container.Controls.Clear();
+            Points = new List<RectangularBox>();
+            MaxLine = new List<Point>();
+            read = new ReadCSVFile();
+            dictionary = read.BoxListReadOnly;
+            var inputWidth = applyAlgorith.InputWidth;
+            var inputHeight = applyAlgorith.InputHeight;
+            applyAlgorith = new BoxFittingAlgorithm();
+            UserInput = new UserInput(this, inputWidth, inputHeight);
+            UserInput.ShowDialog();
+            PerformBoxFittingAlgorithm(dictionary);
+            this.Refresh();
         }
     }
 

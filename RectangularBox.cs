@@ -20,6 +20,11 @@ namespace boxfittingapp
             Width = 0;
             Height = 0;
         }
+
+        internal bool Compare(RectangularBox C)
+        {
+            return this.X == C.X && this.Y == C.Y && this.Width == C.Width && this.Height == C.Height;
+        }
     }
     public class PairIndexValueComparer : IComparer<List<int>>
     {
