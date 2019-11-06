@@ -25,12 +25,14 @@ namespace boxfittingapp
         public List<RectangularBox> WastedGaps { get; set; }
         public RectangularBox CurrentContainer { get; set; }
         public RectangularBox PreviousContainer { get; set; }
+        public RectangularBox MyContainer { get; set; }
         public Dictionary<int, RectangularBox> OptimizedBoxList { get; set; }
         public List<RectangularBox> BinList { get; set; }
         public List<RectangularBox> Bins { get; set; }
         public List<Point> ResultListCoordinates { get; set; }
         public Dictionary<int, RectangularBox> BoxList { get; set; }
         public List<List<int>> PairIndexValueList { get; set; }
+        public List< RectangularBox> FitInBins { get; set; }
         public string MyResult { get; set; }
         public int WastedArea { get; set; }
         public int UsedArea { get; set; }
@@ -43,6 +45,7 @@ namespace boxfittingapp
         public int InputHeight { get; set; }
         public int InputWidth { get; set; }
         public bool IsMultipleContainers { get; private set; }
+        public int NumberOfMyContainerUsed { get; set; }
 
         public BoxFittingAlgorithm()
         {
@@ -62,24 +65,31 @@ namespace boxfittingapp
             Bins = new List<RectangularBox>();
             ResultListCoordinates = new List<Point>();
             TempBins = new List<RectangularBox>();
+            MyContainer = new RectangularBox();
+            FitInBins = new List<RectangularBox>();
             HasResult = true;
             IsMultipleContainers = false;
+            NumberOfMyContainerUsed = 0;
         }
         public void GetOptimizationListOrder(Dictionary<int, RectangularBox> BoxList)
         {
-
             try
             {
                 this.BoxList = BoxList;
                 PairIndexValueList = new List<List<int>>();
-                GetSortedListForPairIndexValue(PairIndexValueList);
+                GetSortedListForPairIndexValue();
+                MyContainer.Width = PairIndexValueList[0][1];
+                MyContainer.Height = PairIndexValueList[1][1];
+               
                 if (IsHorizontal)
                 {
-                    PerformHorizontalBoxFittingAlgorithm();
+                    var task = Task.Run(()=>PerformHorizontalBoxFittingAlgorithm());
+                    task.Wait();
                 }
                 else
                 {
-                    PerFormVerticalBoxFittingAlgorith();
+                    var task =Task.Run(()=>PerFormVerticalBoxFittingAlgorith());
+                    task.Wait();
                 }
                 MyResult = "";
                 int i = 0;
@@ -101,14 +111,7 @@ namespace boxfittingapp
 
                 if (HasResult)
                 {
-                    MyResult += "Used Area: " + UsedArea.ToString();
-                    TotalArea = MaxWidth * MaxHeight;
-                    WastedArea = TotalArea - UsedArea;
-                    MyResult += "\nTotal Area: " + TotalArea.ToString();
-                    MyResult += "\nWasted Area: " + (WastedArea).ToString();
-                    MyResult += "\nWasted percent: " + (double)WastedArea * 100 / TotalArea + " %";
-                    MyResult += "\nUsed percent: " + (double)UsedArea * 100 / TotalArea + " %";
-                    MyResult += "\nTotal Bins: " + BinList.Count.ToString();
+                    DisplayResults();
                 }
             }
             catch (Exception ex)
@@ -120,6 +123,18 @@ namespace boxfittingapp
                 BinList.Clear();
             }
 
+        }
+
+        public void DisplayResults()
+        {
+            MyResult += "Used Area: " + UsedArea.ToString();
+            TotalArea = MaxWidth * MaxHeight;
+            WastedArea = TotalArea - UsedArea;
+            MyResult += "\nTotal Area: " + TotalArea.ToString();
+            MyResult += "\nWasted Area: " + (WastedArea).ToString();
+            MyResult += "\nWasted percent: " + (double)WastedArea * 100 / TotalArea + " %";
+            MyResult += "\nUsed percent: " + (double)UsedArea * 100 / TotalArea + " %";
+            MyResult += "\nTotal Bins: " + BinList.Count.ToString();
         }
 
         internal void SetMultipleContainers(bool @checked)
@@ -226,6 +241,117 @@ namespace boxfittingapp
 
         }
 
+        internal void FitMyContainerVertical()
+        {
+            while (!ShouldStop())
+            {
+                if (SelectBin())
+                {
+                    CurrentGap1 = new RectangularBox { X = CurrentContainer.X + CurrentBin.Width, Y = CurrentContainer.Y, Width = CurrentContainer.Width - CurrentBin.Width, Height = CurrentContainer.Height };
+                    CurrentGap2 = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y + CurrentBin.Height, Width = CurrentBin.Width, Height = CurrentContainer.Height - CurrentBin.Height };
+
+                    Gaps1.Add(CurrentGap1);
+                    Gaps2.Add(CurrentGap2);
+                    CurrentContainer = CurrentGap1;
+                    RemoveBinFromListThenAddtoResultList();
+                    FitInBins.Add(CurrentBin);
+                    Gaps.Add(CurrentGap1);
+                    Gaps.Add(CurrentGap2);
+                }
+                else
+                {
+                    var lastgap2 = new RectangularBox();
+                    if (!WastedGaps.Contains(CurrentContainer))
+                    {
+                        WastedGaps.Add(CurrentContainer);
+                        Gaps1.Clear();
+                    }
+                    Gaps2.Reverse();
+                    foreach (var item in Gaps2.ToList())
+                    {
+                        CurrentContainer = item;
+                        Gaps2.Remove(item);
+                        FitMyContainerVertical();
+                    }
+                    Gaps2.Clear();
+                }
+                if (PairIndexValueList.Count == 0 & Gaps1.Count == 0 && Gaps2.Count == 0)
+                {
+                    return;
+                }
+            }
+        }
+
+        internal void FitMyContainerHorizontal()
+        {
+            while (!ShouldStop())
+            {
+                if (SelectBin())
+                {
+                    CurrentGap1 = new RectangularBox { X = CurrentContainer.X + CurrentBin.Width, Y = CurrentContainer.Y, Width = CurrentContainer.Width - CurrentBin.Width, Height = CurrentBin.Height };
+                    CurrentGap2 = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y + CurrentBin.Height, Width = CurrentContainer.Width, Height = CurrentContainer.Height - CurrentBin.Height };
+                    Gaps1.Add(CurrentGap1);
+                    Gaps2.Add(CurrentGap2);
+                    CurrentContainer = CurrentGap1;
+                    RemoveBinFromListThenAddtoResultList();
+                    FitInBins.Add(CurrentBin);
+                    Gaps.Add(CurrentGap1);
+                    Gaps.Add(CurrentGap2);
+                }
+                else
+                {
+                    var lastgap2 = new RectangularBox();
+                    if (!WastedGaps.Contains(CurrentContainer))
+                    {
+                        WastedGaps.Add(CurrentContainer);
+                        Gaps1.Clear();
+                    }
+                    Gaps2.Sort(new RectangularBoxComparerHorizontal());
+                    foreach (var item in Gaps2.ToList())
+                    {
+                        CurrentContainer = item;
+                        Gaps2.Remove(item);
+                        FitMyContainerHorizontal();
+                    }
+                    Gaps2.Clear();
+                }
+                if (PairIndexValueList.Count==0 & Gaps1.Count ==0 && Gaps2.Count ==0)
+                {
+                    return;
+                }
+            }
+        }
+
+        public bool ShouldStop()
+        {
+            bool result = false;
+            var MyContainerArea = MyContainer.Width * MyContainer.Height;
+            var WastedArea = WastedGaps.Count>0? WastedGaps.Sum(t => t.Height * t.Width):0;
+            var AllFitInBinArea = FitInBins.Sum(t => t.Width * t.Height);
+            if (MyContainerArea == AllFitInBinArea + WastedArea && WastedGaps.Count > 0)
+            {
+                NumberOfMyContainerUsed++;
+                WastedGaps.Clear();
+                CurrentContainer = MyContainer;
+                CurrentContainer.Y =CurrentContainer.Height * (NumberOfMyContainerUsed);
+               
+                FitInBins.Clear();
+                while (PairIndexValueList.Count>0)
+                {
+                    if (IsHorizontal)
+                    {
+                        FitMyContainerHorizontal();
+                    }
+                    else
+                    {
+                        FitMyContainerVertical();
+                    }
+                }
+                result = true;  
+            }
+            return result;
+        }
+
         private void PerformHorizontalBoxFittingAlgorithm()
         {
             while (PairIndexValueList.Count > 0 && HasResult)
@@ -309,7 +435,7 @@ namespace boxfittingapp
             return hasBin;
         }
 
-        private void GetSortedListForPairIndexValue(List<List<int>> PairIndexValueList)
+        public void GetSortedListForPairIndexValue()
         {
 
             OptimizedBoxList = new Dictionary<int, RectangularBox>(BoxList);

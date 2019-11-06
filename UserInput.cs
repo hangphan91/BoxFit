@@ -62,7 +62,6 @@ namespace boxfittingapp
                 {
                     MainForm.SetMaxWidth(int.Parse(txtWidth.Text));
                     MainForm.SetAlgorithmType(true);
-                    MainForm.SetMultipleContainers(chkMultiplecontainers.Checked);
                     this.Dispose();
                     errorProvider.Clear();
                 }
@@ -79,7 +78,6 @@ namespace boxfittingapp
                     errorProvider.Clear();
                     MainForm.SetMaxHeight(int.Parse(txtHeight.Text));
                     MainForm.SetMaxWidth(int.Parse(txtWidth.Text));
-                    MainForm.SetMultipleContainers(chkMultiplecontainers.Checked);
                     MainForm.SetAlgorithmType(false);
                     this.Dispose();
                 }
