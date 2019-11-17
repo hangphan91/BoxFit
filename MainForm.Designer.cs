@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.paper = new System.Windows.Forms.Panel();
             this.container = new System.Windows.Forms.Panel();
-            this.btnSave = new System.Windows.Forms.Button();
             this.lblBoxes = new System.Windows.Forms.Label();
             this.btnUserInput = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -43,6 +42,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.gdw = new System.Windows.Forms.DataGridView();
             this.rectangularBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dgvPanel = new System.Windows.Forms.DataGridView();
             this.paper.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabDrawPanel.SuspendLayout();
@@ -50,40 +50,29 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdw)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPanel)).BeginInit();
             this.SuspendLayout();
             // 
             // paper
             // 
+            this.paper.AutoScroll = true;
             this.paper.Controls.Add(this.container);
-            this.paper.Controls.Add(this.btnSave);
             this.paper.Dock = System.Windows.Forms.DockStyle.Fill;
             this.paper.Location = new System.Drawing.Point(3, 3);
             this.paper.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.paper.Name = "paper";
             this.paper.Padding = new System.Windows.Forms.Padding(80, 40, 40, 40);
-            this.paper.Size = new System.Drawing.Size(1312, 811);
+            this.paper.Size = new System.Drawing.Size(605, 507);
             this.paper.TabIndex = 0;
             // 
             // container
             // 
-            this.container.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.container.Location = new System.Drawing.Point(80, 40);
+            this.container.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.container.Location = new System.Drawing.Point(54, 48);
             this.container.Name = "container";
-            this.container.Size = new System.Drawing.Size(1192, 731);
+            this.container.Padding = new System.Windows.Forms.Padding(40, 40, 0, 0);
+            this.container.Size = new System.Drawing.Size(508, 438);
             this.container.TabIndex = 5;
-            // 
-            // btnSave
-            // 
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.ForeColor = System.Drawing.Color.Black;
-            this.btnSave.Location = new System.Drawing.Point(80, 773);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(202, 35);
-            this.btnSave.TabIndex = 4;
-            this.btnSave.Text = "Save To Grid";
-            this.btnSave.UseVisualStyleBackColor = false;
             // 
             // lblBoxes
             // 
@@ -116,10 +105,10 @@
             this.panel1.Controls.Add(this.btnUserInput);
             this.panel1.Controls.Add(this.lblBoxes);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(1315, 3);
+            this.panel1.Location = new System.Drawing.Point(608, 3);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(350, 811);
+            this.panel1.Size = new System.Drawing.Size(415, 507);
             this.panel1.TabIndex = 7;
             // 
             // btnMyContainer
@@ -161,7 +150,7 @@
             this.tabDrawPanel.Location = new System.Drawing.Point(0, 0);
             this.tabDrawPanel.Name = "tabDrawPanel";
             this.tabDrawPanel.SelectedIndex = 0;
-            this.tabDrawPanel.Size = new System.Drawing.Size(1676, 846);
+            this.tabDrawPanel.Size = new System.Drawing.Size(1034, 542);
             this.tabDrawPanel.TabIndex = 4;
             // 
             // tabPage1
@@ -171,18 +160,19 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1668, 817);
+            this.tabPage1.Size = new System.Drawing.Size(1026, 513);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Draw Panel";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.dgvPanel);
             this.tabPage2.Controls.Add(this.gdw);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1668, 817);
+            this.tabPage2.Size = new System.Drawing.Size(1026, 513);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Grid Panel";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -196,15 +186,26 @@
             this.gdw.Name = "gdw";
             this.gdw.RowHeadersWidth = 51;
             this.gdw.RowTemplate.Height = 24;
-            this.gdw.Size = new System.Drawing.Size(1662, 811);
+            this.gdw.Size = new System.Drawing.Size(1020, 507);
             this.gdw.TabIndex = 0;
+            // 
+            // dgvPanel
+            // 
+            this.dgvPanel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvPanel.Location = new System.Drawing.Point(3, 3);
+            this.dgvPanel.Name = "dgvPanel";
+            this.dgvPanel.RowHeadersWidth = 51;
+            this.dgvPanel.RowTemplate.Height = 24;
+            this.dgvPanel.Size = new System.Drawing.Size(1020, 507);
+            this.dgvPanel.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1676, 846);
+            this.ClientSize = new System.Drawing.Size(1034, 542);
             this.Controls.Add(this.tabDrawPanel);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainForm";
@@ -218,6 +219,7 @@
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gdw)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPanel)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -238,10 +240,10 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.DataGridView gdw;
         private System.Windows.Forms.BindingSource rectangularBoxBindingSource;
         private System.Windows.Forms.Panel container;
+        private System.Windows.Forms.DataGridView dgvPanel;
     }
 }
 

@@ -12,6 +12,7 @@ namespace boxfittingapp
 {
     public partial class MainForm : Form
     {
+        #region properties
         public List<RectangularBox> Points { get; set; }
         public List<Point> MaxLine { get; set; }
         public List<Point> CursorPoints { get; set; }
@@ -25,7 +26,7 @@ namespace boxfittingapp
         public RectangularBox BiggiestBin { get; set; }
         public bool IsHorizontal { get; set; }
         public List<Task> Tasks { get; set; }
-
+        #endregion
         public MainForm()
         {
             InitializeComponent();
@@ -85,37 +86,62 @@ namespace boxfittingapp
                 this.box.TabIndex = 0;
                 this.box.Text = "box " + index;
                 this.box.FlatStyle = FlatStyle.Popup;
-                this.box.BackColor = Color.FromArgb(180, (item.Height*2)%255, (item.Height *6 )%255, (item.Width*2)%255);
+                this.box.BackColor = Color.FromArgb(180, (item.Height * 2) % 255, (item.Height * 6) % 255, (item.Width * 2) % 255);
                 var toolTip = new System.Windows.Forms.ToolTip();
-                toolTip.SetToolTip(box, $"X: { item.X} Y: {item.Y} Width: {item.Width} Height {item.Height}");
+                toolTip.SetToolTip(box, $"Container# {applyAlgorith.ContainerNumbers[index]} X: { item.X} Y: {item.Y} Width: {item.Width} Height {item.Height}");
                 this.container.Controls.Add(this.box);
                 index++;
             }
+            DrawBorders(applyAlgorith);
+            DrawBarrierForEachContainer(applyAlgorith);
+            container.Size= new Size(applyAlgorith.MaxWidth, applyAlgorith.MaxHeight);
+            this.Refresh();
+        }
+
+        private void DrawBorders(BoxFittingAlgorithm applyAlgorith)
+        {
             txtWidth.Text = "Width: " + applyAlgorith.MaxWidth.ToString();
             txtHeight.Text = "Height: " + MaxHeight.ToString();
             this.box2 = new System.Windows.Forms.Button();
             this.box2.Location = new System.Drawing.Point(0, MaxHeight);
-            this.box2.Size = new System.Drawing.Size(applyAlgorith.MaxWidth, 5);
+            this.box2.Size = new System.Drawing.Size(applyAlgorith.MaxWidth, 2);
             this.box2.BackColor = Color.Red;
             this.box2.FlatStyle = FlatStyle.Flat;
-
             var toolTip1 = new System.Windows.Forms.ToolTip();
             toolTip1.SetToolTip(box2, $"Width: { applyAlgorith.MaxWidth}");
             this.container.Controls.Add(this.box2);
+
             this.box2 = new System.Windows.Forms.Button();
             this.box2.Location = new System.Drawing.Point(applyAlgorith.MaxWidth, 0);
-            this.box2.Size = new System.Drawing.Size(5, MaxHeight);
+            this.box2.Size = new System.Drawing.Size(2, MaxHeight);
             this.box2.BackColor = Color.Red;
             this.box2.FlatStyle = FlatStyle.Flat;
-
             toolTip1 = new System.Windows.Forms.ToolTip();
             toolTip1.SetToolTip(box2, $"Height: { MaxHeight}");
             this.container.Controls.Add(this.box2);
+
+            this.box2 = new System.Windows.Forms.Button();
+            this.box2.Location = new System.Drawing.Point(0, 0);
+            this.box2.Size = new System.Drawing.Size(2, MaxHeight);
+            this.box2.BackColor = Color.Red;
+            this.box2.FlatStyle = FlatStyle.Flat;
+            this.container.Controls.Add(this.box2);
+
+            this.box2 = new System.Windows.Forms.Button();
+            this.box2.Location = new System.Drawing.Point(0, 0);
+            this.box2.Size = new System.Drawing.Size(2, MaxHeight);
+            this.box2.BackColor = Color.Red;
+            this.box2.FlatStyle = FlatStyle.Flat;
+            this.container.Controls.Add(this.box2);
+        }
+
+        private void DrawBarrierForEachContainer(BoxFittingAlgorithm applyAlgorith)
+        {
             for (int i = 0; i < applyAlgorith.NumberOfMyContainerUsed; i++)
             {
                 this.box2 = new System.Windows.Forms.Button();
-                this.box2.Location = new System.Drawing.Point(0, MyContainer.Height*(i+1));
-                this.box2.Size = new System.Drawing.Size(MyContainer.Width, 5);
+                this.box2.Location = new System.Drawing.Point(0, MyContainer.Height * (i + 1));
+                this.box2.Size = new System.Drawing.Size(MyContainer.Width, 2);
                 this.box2.BackColor = Color.Red;
                 this.box2.FlatStyle = FlatStyle.Flat;
                 this.container.Controls.Add(this.box2);
@@ -231,6 +257,7 @@ namespace boxfittingapp
             container.Controls.Clear();
             Points = new List<RectangularBox>();
             MaxLine = new List<Point>();
+            applyAlgorith.ContainerNumbers.Clear();
             applyAlgorith.Gaps1.Clear();
             applyAlgorith.Gaps2.Clear();
             applyAlgorith.WastedGaps.Clear();

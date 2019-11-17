@@ -10,6 +10,7 @@ namespace boxfittingapp
 {
     public class BoxFittingAlgorithm
     {
+        #region Properties
         public int ContainerWidth { get; set; }
         public RectangularBox CurrentBin { get; set; }
         public RectangularBox PreviuosBin { get; set; }
@@ -46,7 +47,8 @@ namespace boxfittingapp
         public int InputWidth { get; set; }
         public bool IsMultipleContainers { get; private set; }
         public int NumberOfMyContainerUsed { get; set; }
-
+        public List<int> ContainerNumbers { get; set; }
+        #endregion
         public BoxFittingAlgorithm()
         {
             CurrentBin = new RectangularBox();
@@ -67,6 +69,7 @@ namespace boxfittingapp
             TempBins = new List<RectangularBox>();
             MyContainer = new RectangularBox();
             FitInBins = new List<RectangularBox>();
+            ContainerNumbers = new List<int>();
             HasResult = true;
             IsMultipleContainers = false;
             NumberOfMyContainerUsed = 0;
@@ -127,7 +130,7 @@ namespace boxfittingapp
             int i = 1;
             foreach (var item in Bins)
             {
-                MyResult += $"Box #{i}:: X: {item.X} - Y: {item.Y} - W: {item.Width} - H: {item.Height} \n";
+                MyResult += $"Container#: {ContainerNumbers[i-1]} Box {i}@ X: {item.X} - Y: {item.Y} - W: {item.Width} - H: {item.Height} \n";
                 i++;
             }
             MyResult += "Used Area: " + UsedArea.ToString();
@@ -138,7 +141,7 @@ namespace boxfittingapp
             MyResult += "\nWasted percent: " + (double)WastedArea * 100 / TotalArea + " %";
             MyResult += "\nUsed percent: " + (double)UsedArea * 100 / TotalArea + " %";
             MyResult += "\nTotal Bins: " + BinList.Count.ToString();
-            MyResult += "\nNumber of Containers: " + (NumberOfMyContainerUsed==0?1: NumberOfMyContainerUsed);
+            MyResult += "\nNumber of Containers: " + (NumberOfMyContainerUsed == 0 ? 1 : NumberOfMyContainerUsed);
         }
 
         internal void SetMultipleContainers(bool @checked)
@@ -349,8 +352,8 @@ namespace boxfittingapp
                 var MyContainerArea = MyContainer.Width * MyContainer.Height;
                 var WastedArea = WastedGaps.Count > 0 ? WastedGaps.Sum(t => t.Height * t.Width) : 0;
                 var AllFitInBinArea = FitInBins.Sum(t => t.Width * t.Height);
-              
-                if (MyContainerArea == AllFitInBinArea + WastedArea && WastedGaps.Count > 0 && WastedArea!= MyContainerArea)
+
+                if (MyContainerArea == AllFitInBinArea + WastedArea && WastedGaps.Count > 0 && WastedArea != MyContainerArea)
                 {
                     NumberOfMyContainerUsed++;
                     WastedGaps.Clear();
@@ -438,6 +441,7 @@ namespace boxfittingapp
             PairIndexValueList.Remove(CurrentPair1);
             PairIndexValueList.Remove(CurrentPair2);
             Bins.Add(CurrentBin);
+            ContainerNumbers.Add(NumberOfMyContainerUsed + 1);
         }
 
         private bool SelectBin()
