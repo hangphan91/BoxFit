@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.paper = new System.Windows.Forms.Panel();
             this.container = new System.Windows.Forms.Panel();
+            this.btnSave = new System.Windows.Forms.Button();
             this.lblBoxes = new System.Windows.Forms.Label();
             this.btnUserInput = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -40,7 +41,6 @@
             this.tabDrawPanel = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnSave = new System.Windows.Forms.Button();
             this.gdw = new System.Windows.Forms.DataGridView();
             this.rectangularBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.paper.SuspendLayout();
@@ -52,17 +52,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // container
-            // 
-            this.container.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.container.Location = new System.Drawing.Point(3, 3);
-            this.container.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.container.Name = "paper";
-            this.container.Padding = new System.Windows.Forms.Padding(80, 40, 40, 40);
-            this.container.Size = new System.Drawing.Size(1312, 811);
-            this.container.TabIndex = 0;     // 
             // paper
             // 
+            this.paper.Controls.Add(this.container);
             this.paper.Controls.Add(this.btnSave);
             this.paper.Dock = System.Windows.Forms.DockStyle.Fill;
             this.paper.Location = new System.Drawing.Point(3, 3);
@@ -71,6 +63,27 @@
             this.paper.Padding = new System.Windows.Forms.Padding(80, 40, 40, 40);
             this.paper.Size = new System.Drawing.Size(1312, 811);
             this.paper.TabIndex = 0;
+            // 
+            // container
+            // 
+            this.container.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.container.Location = new System.Drawing.Point(80, 40);
+            this.container.Name = "container";
+            this.container.Size = new System.Drawing.Size(1192, 731);
+            this.container.TabIndex = 5;
+            // 
+            // btnSave
+            // 
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.ForeColor = System.Drawing.Color.Black;
+            this.btnSave.Location = new System.Drawing.Point(80, 773);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(202, 35);
+            this.btnSave.TabIndex = 4;
+            this.btnSave.Text = "Save To Grid";
+            this.btnSave.UseVisualStyleBackColor = false;
             // 
             // lblBoxes
             // 
@@ -174,19 +187,6 @@
             this.tabPage2.Text = "Grid Panel";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // btnSave
-            // 
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.ForeColor = System.Drawing.Color.Black;
-            this.btnSave.Location = new System.Drawing.Point(80, 773);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(202, 35);
-            this.btnSave.TabIndex = 4;
-            this.btnSave.Text = "Save To Grid";
-            this.btnSave.UseVisualStyleBackColor = false;
-            // 
             // gdw
             // 
             this.gdw.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -225,7 +225,6 @@
         #endregion
 
         private System.Windows.Forms.Panel paper;
-        private System.Windows.Forms.Panel container;
         private System.Windows.Forms.Button box2;
         private System.Windows.Forms.Button box;
         private System.Windows.Forms.Label lblBoxes;
@@ -242,6 +241,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.DataGridView gdw;
         private System.Windows.Forms.BindingSource rectangularBoxBindingSource;
+        private System.Windows.Forms.Panel container;
     }
 }
 
