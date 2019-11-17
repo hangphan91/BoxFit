@@ -32,7 +32,7 @@ namespace boxfittingapp
         public List<Point> ResultListCoordinates { get; set; }
         public Dictionary<int, RectangularBox> BoxList { get; set; }
         public List<List<int>> PairIndexValueList { get; set; }
-        public List< RectangularBox> FitInBins { get; set; }
+        public List<RectangularBox> FitInBins { get; set; }
         public string MyResult { get; set; }
         public int WastedArea { get; set; }
         public int UsedArea { get; set; }
@@ -80,15 +80,15 @@ namespace boxfittingapp
                 GetSortedListForPairIndexValue();
                 MyContainer.Width = PairIndexValueList[0][1];
                 MyContainer.Height = PairIndexValueList[1][1];
-               
+
                 if (IsHorizontal)
                 {
-                    var task = Task.Run(()=>PerformHorizontalBoxFittingAlgorithm());
+                    var task = Task.Run(() => PerformHorizontalBoxFittingAlgorithm());
                     task.Wait();
                 }
                 else
                 {
-                    var task =Task.Run(()=>PerFormVerticalBoxFittingAlgorith());
+                    var task = Task.Run(() => PerFormVerticalBoxFittingAlgorith());
                     task.Wait();
                 }
                 MyResult = "";
@@ -96,8 +96,6 @@ namespace boxfittingapp
                 MaxWidth = 0;
                 foreach (var item in BinList)
                 {
-                    MyResult += $"{i} X:{item.X} Y: {item.Y} W: {item.Width} H: {item.Height}\n";
-                    i++;
                     UsedArea += item.Height * item.Width;
                     if (item.X + item.Width > MaxWidth)
                     {
@@ -108,7 +106,6 @@ namespace boxfittingapp
                         MaxHeight = item.Y + item.Height;
                     }
                 }
-
                 if (HasResult)
                 {
                     DisplayResults();
@@ -118,7 +115,7 @@ namespace boxfittingapp
             {
                 HasResult = false;
                 PairIndexValueList.Clear();
-                DisplayResult = $"No Solution available for\n Width: {InputWidth} Height: {InputHeight}";
+                MessageBox.Show("SIZE OF YOUR BIN IS TOO SMALL!!!!");
 
                 BinList.Clear();
             }
@@ -127,6 +124,12 @@ namespace boxfittingapp
 
         public void DisplayResults()
         {
+            int i = 1;
+            foreach (var item in Bins)
+            {
+                MyResult += $"Box #{i}:: X: {item.X} - Y: {item.Y} - W: {item.Width} - H: {item.Height} \n";
+                i++;
+            }
             MyResult += "Used Area: " + UsedArea.ToString();
             TotalArea = MaxWidth * MaxHeight;
             WastedArea = TotalArea - UsedArea;
@@ -135,6 +138,7 @@ namespace boxfittingapp
             MyResult += "\nWasted percent: " + (double)WastedArea * 100 / TotalArea + " %";
             MyResult += "\nUsed percent: " + (double)UsedArea * 100 / TotalArea + " %";
             MyResult += "\nTotal Bins: " + BinList.Count.ToString();
+            MyResult += "\nNumber of Containers: " + (NumberOfMyContainerUsed==0?1: NumberOfMyContainerUsed);
         }
 
         internal void SetMultipleContainers(bool @checked)
@@ -243,111 +247,145 @@ namespace boxfittingapp
 
         internal void FitMyContainerVertical()
         {
-            while (!ShouldStop())
+            try
             {
-                if (SelectBin())
+                while (!ShouldStop())
                 {
-                    CurrentGap1 = new RectangularBox { X = CurrentContainer.X + CurrentBin.Width, Y = CurrentContainer.Y, Width = CurrentContainer.Width - CurrentBin.Width, Height = CurrentContainer.Height };
-                    CurrentGap2 = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y + CurrentBin.Height, Width = CurrentBin.Width, Height = CurrentContainer.Height - CurrentBin.Height };
+                    if (SelectBin())
+                    {
+                        CurrentGap1 = new RectangularBox { X = CurrentContainer.X + CurrentBin.Width, Y = CurrentContainer.Y, Width = CurrentContainer.Width - CurrentBin.Width, Height = CurrentContainer.Height };
+                        CurrentGap2 = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y + CurrentBin.Height, Width = CurrentBin.Width, Height = CurrentContainer.Height - CurrentBin.Height };
 
-                    Gaps1.Add(CurrentGap1);
-                    Gaps2.Add(CurrentGap2);
-                    CurrentContainer = CurrentGap1;
-                    RemoveBinFromListThenAddtoResultList();
-                    FitInBins.Add(CurrentBin);
-                    Gaps.Add(CurrentGap1);
-                    Gaps.Add(CurrentGap2);
-                }
-                else
-                {
-                    var lastgap2 = new RectangularBox();
-                    if (!WastedGaps.Contains(CurrentContainer))
-                    {
-                        WastedGaps.Add(CurrentContainer);
-                        Gaps1.Clear();
+                        Gaps1.Add(CurrentGap1);
+                        Gaps2.Add(CurrentGap2);
+                        CurrentContainer = CurrentGap1;
+                        RemoveBinFromListThenAddtoResultList();
+                        FitInBins.Add(CurrentBin);
+                        Gaps.Add(CurrentGap1);
+                        Gaps.Add(CurrentGap2);
                     }
-                    Gaps2.Reverse();
-                    foreach (var item in Gaps2.ToList())
+                    else
                     {
-                        CurrentContainer = item;
-                        Gaps2.Remove(item);
-                        FitMyContainerVertical();
+                        var lastgap2 = new RectangularBox();
+                        if (!WastedGaps.Contains(CurrentContainer))
+                        {
+                            WastedGaps.Add(CurrentContainer);
+                            Gaps1.Clear();
+                        }
+                        Gaps2.Reverse();
+                        foreach (var item in Gaps2.ToList())
+                        {
+                            CurrentContainer = item;
+                            Gaps2.Remove(item);
+                            FitMyContainerVertical();
+                        }
+                        Gaps2.Clear();
                     }
-                    Gaps2.Clear();
+                    if (PairIndexValueList.Count == 0 & Gaps1.Count == 0 && Gaps2.Count == 0)
+                    {
+                        return;
+                    }
                 }
-                if (PairIndexValueList.Count == 0 & Gaps1.Count == 0 && Gaps2.Count == 0)
-                {
-                    return;
-                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("SIZE OF YOUR BIN IS TOO SMALL!!!!");
             }
         }
 
         internal void FitMyContainerHorizontal()
         {
-            while (!ShouldStop())
+            try
             {
-                if (SelectBin())
+                while (!ShouldStop())
                 {
-                    CurrentGap1 = new RectangularBox { X = CurrentContainer.X + CurrentBin.Width, Y = CurrentContainer.Y, Width = CurrentContainer.Width - CurrentBin.Width, Height = CurrentBin.Height };
-                    CurrentGap2 = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y + CurrentBin.Height, Width = CurrentContainer.Width, Height = CurrentContainer.Height - CurrentBin.Height };
-                    Gaps1.Add(CurrentGap1);
-                    Gaps2.Add(CurrentGap2);
-                    CurrentContainer = CurrentGap1;
-                    RemoveBinFromListThenAddtoResultList();
-                    FitInBins.Add(CurrentBin);
-                    Gaps.Add(CurrentGap1);
-                    Gaps.Add(CurrentGap2);
-                }
-                else
-                {
-                    var lastgap2 = new RectangularBox();
-                    if (!WastedGaps.Contains(CurrentContainer))
+                    if (SelectBin())
                     {
-                        WastedGaps.Add(CurrentContainer);
-                        Gaps1.Clear();
+                        CurrentGap1 = new RectangularBox { X = CurrentContainer.X + CurrentBin.Width, Y = CurrentContainer.Y, Width = CurrentContainer.Width - CurrentBin.Width, Height = CurrentBin.Height };
+                        CurrentGap2 = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y + CurrentBin.Height, Width = CurrentContainer.Width, Height = CurrentContainer.Height - CurrentBin.Height };
+                        Gaps1.Add(CurrentGap1);
+                        Gaps2.Add(CurrentGap2);
+                        CurrentContainer = CurrentGap1;
+                        RemoveBinFromListThenAddtoResultList();
+                        FitInBins.Add(CurrentBin);
+                        Gaps.Add(CurrentGap1);
+                        Gaps.Add(CurrentGap2);
                     }
-                    Gaps2.Sort(new RectangularBoxComparerHorizontal());
-                    foreach (var item in Gaps2.ToList())
+                    else
                     {
-                        CurrentContainer = item;
-                        Gaps2.Remove(item);
-                        FitMyContainerHorizontal();
+                        var lastgap2 = new RectangularBox();
+                        if (!WastedGaps.Contains(CurrentContainer))
+                        {
+                            WastedGaps.Add(CurrentContainer);
+                            Gaps1.Clear();
+                        }
+                        Gaps2.Sort(new RectangularBoxComparerHorizontal());
+                        foreach (var item in Gaps2.ToList())
+                        {
+                            CurrentContainer = item;
+                            Gaps2.Remove(item);
+                            FitMyContainerHorizontal();
+                        }
+                        Gaps2.Clear();
                     }
-                    Gaps2.Clear();
-                }
-                if (PairIndexValueList.Count==0 & Gaps1.Count ==0 && Gaps2.Count ==0)
-                {
-                    return;
+                    if (PairIndexValueList.Count == 0 & Gaps1.Count == 0 && Gaps2.Count == 0)
+                    {
+                        return;
+                    }
                 }
             }
+            catch (Exception EX)
+            {
+                MessageBox.Show("SIZE OF YOUR BIN IS TOO SMALL!!!!");
+            }
+
         }
 
         public bool ShouldStop()
         {
             bool result = false;
-            var MyContainerArea = MyContainer.Width * MyContainer.Height;
-            var WastedArea = WastedGaps.Count>0? WastedGaps.Sum(t => t.Height * t.Width):0;
-            var AllFitInBinArea = FitInBins.Sum(t => t.Width * t.Height);
-            if (MyContainerArea == AllFitInBinArea + WastedArea && WastedGaps.Count > 0)
+            try
             {
-                NumberOfMyContainerUsed++;
-                WastedGaps.Clear();
-                CurrentContainer = MyContainer;
-                CurrentContainer.Y =CurrentContainer.Height * (NumberOfMyContainerUsed);
-               
-                FitInBins.Clear();
-                while (PairIndexValueList.Count>0)
+                var MyContainerArea = MyContainer.Width * MyContainer.Height;
+                var WastedArea = WastedGaps.Count > 0 ? WastedGaps.Sum(t => t.Height * t.Width) : 0;
+                var AllFitInBinArea = FitInBins.Sum(t => t.Width * t.Height);
+              
+                if (MyContainerArea == AllFitInBinArea + WastedArea && WastedGaps.Count > 0 && WastedArea!= MyContainerArea)
                 {
-                    if (IsHorizontal)
+                    NumberOfMyContainerUsed++;
+                    WastedGaps.Clear();
+                    CurrentContainer = MyContainer;
+                    CurrentContainer.Y = CurrentContainer.Height * (NumberOfMyContainerUsed);
+
+                    FitInBins.Clear();
+                    while (PairIndexValueList.Count > 0)
                     {
-                        FitMyContainerHorizontal();
+                        if (IsHorizontal)
+                        {
+                            FitMyContainerHorizontal();
+                        }
+                        else
+                        {
+                            FitMyContainerVertical();
+                        }
                     }
-                    else
+                    result = true;
+                }
+                if (AllFitInBinArea == 0 && !SelectBin() && WastedArea == 0)
+                {
+                    if (PairIndexValueList.Count > 0)
                     {
-                        FitMyContainerVertical();
+                        PairIndexValueList.Clear();
+                        BinList.Clear();
+                        Bins.Clear();
+                        MessageBox.Show("SIZE OF YOUR BIN IS TOO SMALL!!!!");
+                        return true;
                     }
                 }
-                result = true;  
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("SIZE OF YOUR BIN IS TOO SMALL!!!!");
             }
             return result;
         }
@@ -373,7 +411,7 @@ namespace boxfittingapp
                     if (Gaps2.Count == 0 && Gaps1.Count == 0)
                     {
                         PairIndexValueList.Clear();
-                        DisplayResult = $"No Solution available for\n Width: {InputWidth}";
+                        MessageBox.Show("SIZE OF YOUR BIN IS TOO SMALL!!!!");
                         HasResult = false;
                         BinList.Clear();
                         return;
@@ -405,32 +443,41 @@ namespace boxfittingapp
         private bool SelectBin()
         {
             var hasBin = false;
-            foreach (var item in PairIndexValueList)
+            try
             {
-                var width = item[1];
-                var matchitem = PairIndexValueList.Find(t => t[0] == item[0] && PairIndexValueList.IndexOf(item) != PairIndexValueList.IndexOf(t));
-                var height = matchitem[1];
+                int numOfPair = PairIndexValueList.Count;
+                foreach (var item in PairIndexValueList)
+                {
+                    numOfPair--;
+                    var width = item[1];
+                    var matchitem = PairIndexValueList.Find(t => t[0] == item[0] && PairIndexValueList.IndexOf(item) != PairIndexValueList.IndexOf(t));
+                    var height = matchitem[1];
 
-                if (width <= CurrentContainer.Width && height <= CurrentContainer.Height)
-                {
-                    CurrentPair1 = item;
-                    CurrentPair2 = matchitem;
-                    CurrentBin = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y, Width = width, Height = height };
-                    hasBin = true;
-                    return hasBin;
+                    if (width <= CurrentContainer.Width && height <= CurrentContainer.Height)
+                    {
+                        CurrentPair1 = item;
+                        CurrentPair2 = matchitem;
+                        CurrentBin = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y, Width = width, Height = height };
+                        hasBin = true;
+                        return hasBin;
+                    }
+                    else if (height <= CurrentContainer.Width && width <= CurrentContainer.Height)
+                    {
+                        CurrentPair1 = item;
+                        CurrentPair2 = matchitem;
+                        CurrentBin = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y, Width = height, Height = width };
+                        hasBin = true;
+                        return hasBin;
+                    }
+                    else
+                    {
+                        hasBin = false;
+                    }
                 }
-                else if (height <= CurrentContainer.Width && width <= CurrentContainer.Height)
-                {
-                    CurrentPair1 = item;
-                    CurrentPair2 = matchitem;
-                    CurrentBin = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y, Width = height, Height = width };
-                    hasBin = true;
-                    return hasBin;
-                }
-                else
-                {
-                    hasBin = false;
-                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show("SIZE OF YOUR BIN IS TOO SMALL!!!!");
             }
             return hasBin;
         }
