@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.paper = new System.Windows.Forms.Panel();
+            this.container = new System.Windows.Forms.Panel();
             this.lblBoxes = new System.Windows.Forms.Label();
             this.btnUserInput = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -51,6 +52,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
+            // container
+            // 
+            this.container.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.container.Location = new System.Drawing.Point(3, 3);
+            this.container.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.container.Name = "paper";
+            this.container.Padding = new System.Windows.Forms.Padding(80, 40, 40, 40);
+            this.container.Size = new System.Drawing.Size(1312, 811);
+            this.container.TabIndex = 0;     // 
             // paper
             // 
             this.paper.Controls.Add(this.btnSave);
@@ -176,7 +186,6 @@
             this.btnSave.TabIndex = 4;
             this.btnSave.Text = "Save To Grid";
             this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // gdw
             // 
@@ -189,10 +198,6 @@
             this.gdw.RowTemplate.Height = 24;
             this.gdw.Size = new System.Drawing.Size(1662, 811);
             this.gdw.TabIndex = 0;
-            // 
-            // rectangularBoxBindingSource
-            // 
-            this.rectangularBoxBindingSource.DataSource = typeof(boxfittingapp.RectangularBox);
             // 
             // MainForm
             // 
@@ -220,6 +225,7 @@
         #endregion
 
         private System.Windows.Forms.Panel paper;
+        private System.Windows.Forms.Panel container;
         private System.Windows.Forms.Button box2;
         private System.Windows.Forms.Button box;
         private System.Windows.Forms.Label lblBoxes;

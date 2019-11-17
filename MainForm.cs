@@ -52,7 +52,6 @@ namespace boxfittingapp
             Points = applyAlgorith.Gaps;
             MaxHeight = applyAlgorith.MaxHeight;
             lblBoxes.Text = applyAlgorith.MyResult;
-            lblResult.Text = applyAlgorith.DisplayResult;
             var optimization = applyAlgorith.OptimizedBoxList;
             optimization = new Dictionary<int, RectangularBox>();
 
@@ -207,7 +206,6 @@ namespace boxfittingapp
             applyAlgorith.UsedArea = applyAlgorith.BinList.Sum(t => t.Height * t.Width);
             applyAlgorith.DisplayResults();
             lblBoxes.Text = applyAlgorith.MyResult;
-            lblResult.Text = applyAlgorith.DisplayResult;
             OptimumDrawing(applyAlgorith);
             this.paper.Controls.Add(this.container);
             this.Show();
