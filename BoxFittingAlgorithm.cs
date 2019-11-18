@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using boxfittingapp.Model;
 
 namespace boxfittingapp
 {
@@ -130,7 +131,7 @@ namespace boxfittingapp
             int i = 1;
             foreach (var item in Bins)
             {
-                MyResult += $"Container#: {ContainerNumbers[i-1]} Box {i}@ X: {item.X} - Y: {item.Y} - W: {item.Width} - H: {item.Height} \n";
+                MyResult += $"Container#: {ContainerNumbers[i - 1]} Box {i}@ X: {item.X} - Y: {item.Y} - W: {item.Width} - H: {item.Height} \n";
                 i++;
             }
             MyResult += "Used Area: " + UsedArea.ToString();
@@ -294,6 +295,42 @@ namespace boxfittingapp
             {
                 MessageBox.Show("SIZE OF YOUR BIN IS TOO SMALL!!!!");
             }
+        }
+
+        internal GridView MapToGridView()
+        {
+            var result = new GridView
+            {
+                ContainerWidth = this.ContainerWidth,
+                CurrentBin = this.CurrentBin,
+                LayerHeights = this.LayerHeights,
+                UserContainer = this.MyContainer,
+                Gaps = this.Gaps,
+                WastedArea = this.WastedArea,
+                BinList = this.BinList,
+                Bins = this.Bins,
+                BoxList = this.BoxList,
+                UsedArea = this.UsedArea,
+                MaxHeight = this.MaxHeight,
+                MaxWidth = this.MaxWidth,
+                IsHorizontal = this.IsHorizontal,
+                HasResult = this.HasResult,
+                InputHeight = this.InputHeight,
+                InputWidth = this.InputWidth,
+                NumberOfMyContainerUsed = this.NumberOfMyContainerUsed == 0 ? 1 : this.NumberOfMyContainerUsed,
+                ContainerNumbers = this.ContainerNumbers,
+                TotalArea = this.TotalArea,
+                UsedPercent = (float)this.UsedArea * 100 / this.TotalArea,
+                WastedPercent = (float)this.WastedArea * 100 / this.TotalArea
+            };
+            foreach (var item in BinList)
+            {
+                result.ArrangedBins += $"X: {item.X}; Y: {item.Y}; W: {item.Width}; H: {item.Height}{Environment.NewLine}";
+            }
+            result.ContainerWidthAndHeight = $"W:{this.MyContainer.Width}; H:{this.MyContainer.Height}";
+            result.UserContainerHeight = this.MyContainer.Height;
+            result.UserContainerWidth = this.MyContainer.Width;
+            return result;
         }
 
         internal void FitMyContainerHorizontal()

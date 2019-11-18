@@ -1,18 +1,23 @@
-﻿using System;
+﻿using boxfittingapp.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace boxfittingapp
 {
     public partial class MainForm : Form
     {
         #region properties
+
         public List<RectangularBox> Points { get; set; }
         public List<Point> MaxLine { get; set; }
         public List<Point> CursorPoints { get; set; }
@@ -26,6 +31,9 @@ namespace boxfittingapp
         public RectangularBox BiggiestBin { get; set; }
         public bool IsHorizontal { get; set; }
         public List<Task> Tasks { get; set; }
+        public GridView CurrentRow { get; set; }
+        public BindingList<GridView> Rows { get; set; }
+        public Bitmap Bitmap { get; private set; }
         #endregion
         public MainForm()
         {
@@ -36,6 +44,8 @@ namespace boxfittingapp
             MyContainer = new RectangularBox();
             BiggiestBin = new RectangularBox();
             Tasks = new List<Task>();
+            CurrentRow = new GridView();
+            Rows = new BindingList<GridView>();
             dictionary = read.BoxListReadOnly;
             applyAlgorith = new BoxFittingAlgorithm();
             PerformBoxFittingAlgorithm(dictionary);
@@ -94,7 +104,7 @@ namespace boxfittingapp
             }
             DrawBorders(applyAlgorith);
             DrawBarrierForEachContainer(applyAlgorith);
-            container.Size= new Size(applyAlgorith.MaxWidth, applyAlgorith.MaxHeight);
+            container.Size = new Size(applyAlgorith.MaxWidth, applyAlgorith.MaxHeight);
             this.Refresh();
         }
 
@@ -267,6 +277,129 @@ namespace boxfittingapp
             applyAlgorith.NumberOfMyContainerUsed = 0;
             MyContainer.Y = 0;
             applyAlgorith.CurrentContainer = MyContainer;
+        }
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            if (applyAlgorith.BinList.Count > 0)
+            {
+                CurrentRow = applyAlgorith.MapToGridView();
+                CurrentRow.Image = Bitmap;
+                CurrentRow.RowID = Rows.Any(t => t.RowID == Rows.Count + 1) ? Rows.LastOrDefault().RowID + 1 : Rows.Count + 1;
+                Rows.Add(CurrentRow);
+                SavetoGrid();
+            }
+        }
+
+        private void SavetoGrid()
+        {
+            dgvPanel.DataSource = Rows;
+            dgvPanel.Refresh();
+        }
+
+        private void BtnExport_Click(object sender, EventArgs e)
+        {
+            copyAlltoClipboard();
+
+            ExportToExcel();
+        }
+
+        private void ExportToExcel()
+        {
+            Microsoft.Office.Interop.Excel.Application xlexcel;
+            Microsoft.Office.Interop.Excel.Workbook xlWorkBook;
+            Microsoft.Office.Interop.Excel.Worksheet xlWorkSheet;
+            object misValue = System.Reflection.Missing.Value;
+            xlexcel = new Microsoft.Office.Interop.Excel.Application();
+            xlexcel.Visible = true;
+            xlWorkBook = xlexcel.Workbooks.Add(misValue);
+            xlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+            int j = 0, i = 0;
+            int StartCol = 1;
+            int StartRow = 1;
+
+            //Write Headers
+            for (j = 0; j < dgvPanel.Columns.Count; j++)
+            {
+                if (dgvPanel.Columns[j].Visible == true)
+                {
+                    Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[StartRow, StartCol + j];
+                    myRange.Value2 = dgvPanel.Columns[j].HeaderText;
+                }
+            }
+            xlWorkSheet.Columns.AutoFit();
+            StartRow++;
+
+            //Write datagridview content
+            for (i = 0; i < dgvPanel.Rows.Count; i++)
+            {
+                for (j = 0; j < dgvPanel.Columns.Count; j++)
+                {
+                    try
+                    {
+                        if (dgvPanel.Columns[j].Visible == true)
+                        {
+                            Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[StartRow + i, StartCol + j];
+                            myRange.Value2 = dgvPanel[j, i].Value == null ? "" : dgvPanel[j, i].Value;
+
+                        }
+                    }
+                    catch
+                    {
+                        ;
+                    }
+                }
+            }
+        }
+
+        private void copyAlltoClipboard()
+        {
+            dgvPanel.SelectAll();
+            DataObject dataObj = dgvPanel.GetClipboardContent();
+            if (dataObj != null)
+                Clipboard.SetDataObject(dataObj);
+        }
+
+        private void RemoveColumnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Make every column not sortable.
+            for (int i = 0; i < dgvPanel.Columns.Count; i++)
+                dgvPanel.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            if (dgvPanel.CurrentCell != null && dgvPanel.CurrentCell.ColumnIndex != 0)
+            {
+                int columnIndex = dgvPanel.CurrentCell.ColumnIndex;
+                dgvPanel.Columns.RemoveAt(columnIndex);
+                dgvPanel.Columns[columnIndex].Visible = false;
+            }
+        }
+
+        private void RemoveRowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dgvPanel.CurrentCell != null)
+            {
+                int rowIndex = dgvPanel.CurrentCell.RowIndex;
+                dgvPanel.Rows.RemoveAt(rowIndex);
+            }
+        }
+
+        private void DgvPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                contextMenuStrip1.Visible = true;
+                contextMenuStrip1.Show(this, e.X, e.Y + contextMenuStrip1.Size.Height);
+            }
+        }
+
+        private void BtnSaveImage_Click(object sender, EventArgs e)
+        {
+            Bitmap = new Bitmap(this.Width, this.Height);
+            Graphics graphics = Graphics.FromImage(Bitmap);
+            Rectangle rect = container.RectangleToScreen(container.ClientRectangle);
+            graphics.CopyFromScreen(rect.Location, new Point(container.Location.X, container.Location.Y), paper.Size);
+            Bitmap.Save(@"C:\Users\hang2\Source\Repos\BoxFit2\Images\container"+CurrentRow.RowID+".bmp");
+            System.Diagnostics.Process.Start(@"C:\Users\hang2\Source\Repos\BoxFit2\Images\container" +CurrentRow.RowID+".bmp");
         }
     }
 
