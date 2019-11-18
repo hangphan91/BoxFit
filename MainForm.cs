@@ -293,6 +293,7 @@ namespace boxfittingapp
 
         private void SavetoGrid()
         {
+            SaveImage();
             dgvPanel.DataSource = Rows;
             dgvPanel.Refresh();
         }
@@ -394,12 +395,18 @@ namespace boxfittingapp
 
         private void BtnSaveImage_Click(object sender, EventArgs e)
         {
+            SaveImage();
+            System.Diagnostics.Process.Start(@"C:\Users\hang2\Source\Repos\BoxFit2\Images\container" + CurrentRow.RowID + ".bmp");
+
+        }
+
+        private void SaveImage()
+        {
             Bitmap = new Bitmap(this.Width, this.Height);
             Graphics graphics = Graphics.FromImage(Bitmap);
             Rectangle rect = container.RectangleToScreen(container.ClientRectangle);
             graphics.CopyFromScreen(rect.Location, new Point(container.Location.X, container.Location.Y), paper.Size);
-            Bitmap.Save(@"C:\Users\hang2\Source\Repos\BoxFit2\Images\container"+CurrentRow.RowID+".bmp");
-            System.Diagnostics.Process.Start(@"C:\Users\hang2\Source\Repos\BoxFit2\Images\container" +CurrentRow.RowID+".bmp");
+            Bitmap.Save(@"C:\Users\hang2\Source\Repos\BoxFit2\Images\container" + CurrentRow.RowID + ".bmp");
         }
     }
 

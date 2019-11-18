@@ -304,7 +304,6 @@ namespace boxfittingapp
                 ContainerWidth = this.ContainerWidth,
                 CurrentBin = this.CurrentBin,
                 LayerHeights = this.LayerHeights,
-                UserContainer = this.MyContainer,
                 Gaps = this.Gaps,
                 WastedArea = this.WastedArea,
                 BinList = this.BinList,
@@ -327,9 +326,11 @@ namespace boxfittingapp
             {
                 result.ArrangedBins += $"X: {item.X}; Y: {item.Y}; W: {item.Width}; H: {item.Height}{Environment.NewLine}";
             }
-            result.ContainerWidthAndHeight = $"W:{this.MyContainer.Width}; H:{this.MyContainer.Height}";
-            result.UserContainerHeight = this.MyContainer.Height;
-            result.UserContainerWidth = this.MyContainer.Width;
+
+            result.UserContainer = this.NumberOfMyContainerUsed != 0 ? this.MyContainer : new RectangularBox { Width = MaxWidth, Height = MaxHeight };
+            result.ContainerWidthAndHeight = $"W:{result.UserContainer.Width}; H:{result.UserContainer.Height}";
+            result.UserContainerHeight = result.UserContainer.Height;
+            result.UserContainerWidth = result.UserContainer.Width;
             return result;
         }
 

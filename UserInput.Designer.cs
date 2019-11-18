@@ -57,7 +57,7 @@
             this.panel1.Controls.Add(this.lblInput);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(615, 448);
             this.panel1.TabIndex = 0;
@@ -65,9 +65,10 @@
             // btbSubmit
             // 
             this.btbSubmit.BackColor = System.Drawing.Color.Transparent;
+            this.btbSubmit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btbSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btbSubmit.Location = new System.Drawing.Point(449, 346);
-            this.btbSubmit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btbSubmit.Margin = new System.Windows.Forms.Padding(4);
             this.btbSubmit.Name = "btbSubmit";
             this.btbSubmit.Size = new System.Drawing.Size(117, 47);
             this.btbSubmit.TabIndex = 10;
@@ -77,9 +78,10 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Location = new System.Drawing.Point(319, 346);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(123, 47);
             this.btnCancel.TabIndex = 9;
@@ -115,7 +117,7 @@
             // 
             this.txtHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHeight.Location = new System.Drawing.Point(243, 258);
-            this.txtHeight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtHeight.Margin = new System.Windows.Forms.Padding(4);
             this.txtHeight.Name = "txtHeight";
             this.txtHeight.Size = new System.Drawing.Size(159, 36);
             this.txtHeight.TabIndex = 6;
@@ -125,7 +127,7 @@
             // 
             this.txtWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtWidth.Location = new System.Drawing.Point(243, 214);
-            this.txtWidth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtWidth.Margin = new System.Windows.Forms.Padding(4);
             this.txtWidth.Name = "txtWidth";
             this.txtWidth.Size = new System.Drawing.Size(159, 36);
             this.txtWidth.TabIndex = 5;
@@ -133,26 +135,30 @@
             // 
             // btnBoxFittingHorizontal
             // 
+            this.btnBoxFittingHorizontal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnBoxFittingHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnBoxFittingHorizontal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBoxFittingHorizontal.Location = new System.Drawing.Point(84, 92);
-            this.btnBoxFittingHorizontal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBoxFittingHorizontal.Margin = new System.Windows.Forms.Padding(4);
             this.btnBoxFittingHorizontal.Name = "btnBoxFittingHorizontal";
             this.btnBoxFittingHorizontal.Size = new System.Drawing.Size(205, 86);
             this.btnBoxFittingHorizontal.TabIndex = 4;
             this.btnBoxFittingHorizontal.Text = "Box Fitting Horizontal";
-            this.btnBoxFittingHorizontal.UseVisualStyleBackColor = true;
+            this.btnBoxFittingHorizontal.UseVisualStyleBackColor = false;
             this.btnBoxFittingHorizontal.Click += new System.EventHandler(this.btnBoxFittingHorizontal_Click);
             // 
             // btnBoxFittingVeritical
             // 
+            this.btnBoxFittingVeritical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnBoxFittingVeritical.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnBoxFittingVeritical.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBoxFittingVeritical.Location = new System.Drawing.Point(373, 92);
-            this.btnBoxFittingVeritical.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBoxFittingVeritical.Margin = new System.Windows.Forms.Padding(4);
             this.btnBoxFittingVeritical.Name = "btnBoxFittingVeritical";
             this.btnBoxFittingVeritical.Size = new System.Drawing.Size(193, 86);
             this.btnBoxFittingVeritical.TabIndex = 3;
             this.btnBoxFittingVeritical.Text = "Box Fitting Vertical";
-            this.btnBoxFittingVeritical.UseVisualStyleBackColor = true;
+            this.btnBoxFittingVeritical.UseVisualStyleBackColor = false;
             this.btnBoxFittingVeritical.Click += new System.EventHandler(this.btnBoxFittingVeritical_Click);
             // 
             // lblInput
@@ -177,7 +183,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(615, 448);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "UserInput";
             this.Text = "User Input";
             this.panel1.ResumeLayout(false);

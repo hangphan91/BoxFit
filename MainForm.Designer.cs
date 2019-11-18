@@ -66,8 +66,6 @@
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ContainerWidthAndHeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Image = new System.Windows.Forms.DataGridViewImageColumn();
             this.paper.SuspendLayout();
@@ -130,14 +128,17 @@
             // 
             // btnUserInput
             // 
+            this.btnUserInput.BackColor = System.Drawing.Color.Black;
+            this.btnUserInput.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnUserInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUserInput.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnUserInput.Location = new System.Drawing.Point(18, 14);
             this.btnUserInput.Margin = new System.Windows.Forms.Padding(4);
             this.btnUserInput.Name = "btnUserInput";
             this.btnUserInput.Size = new System.Drawing.Size(228, 53);
             this.btnUserInput.TabIndex = 5;
             this.btnUserInput.Text = "Select Algorithm";
-            this.btnUserInput.UseVisualStyleBackColor = true;
+            this.btnUserInput.UseVisualStyleBackColor = false;
             this.btnUserInput.Click += new System.EventHandler(this.btnUserInput_Click);
             // 
             // panel1
@@ -157,15 +158,17 @@
             // 
             // btnMyContainer
             // 
-            this.btnMyContainer.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnMyContainer.BackColor = System.Drawing.Color.Black;
+            this.btnMyContainer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMyContainer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMyContainer.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnMyContainer.Location = new System.Drawing.Point(18, 75);
             this.btnMyContainer.Margin = new System.Windows.Forms.Padding(4);
             this.btnMyContainer.Name = "btnMyContainer";
             this.btnMyContainer.Size = new System.Drawing.Size(228, 53);
             this.btnMyContainer.TabIndex = 9;
             this.btnMyContainer.Text = "My Container";
-            this.btnMyContainer.UseVisualStyleBackColor = true;
+            this.btnMyContainer.UseVisualStyleBackColor = false;
             this.btnMyContainer.Click += new System.EventHandler(this.BtnMyContainer_Click);
             // 
             // txtWidth
@@ -261,8 +264,6 @@
             this.dataGridViewTextBoxColumn14,
             this.dataGridViewCheckBoxColumn1,
             this.dataGridViewCheckBoxColumn2,
-            this.dataGridViewTextBoxColumn16,
-            this.dataGridViewTextBoxColumn17,
             this.ContainerWidthAndHeight,
             this.Image});
             this.dgvPanel.DataSource = this.gridViewBindingSource1;
@@ -341,7 +342,7 @@
             this.btnSaveImage.Name = "btnSaveImage";
             this.btnSaveImage.Size = new System.Drawing.Size(121, 28);
             this.btnSaveImage.TabIndex = 7;
-            this.btnSaveImage.Text = "Save Image";
+            this.btnSaveImage.Text = "Show Image";
             this.btnSaveImage.UseVisualStyleBackColor = false;
             this.btnSaveImage.Click += new System.EventHandler(this.BtnSaveImage_Click);
             // 
@@ -448,25 +449,9 @@
             this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
             this.dataGridViewCheckBoxColumn2.Width = 125;
             // 
-            // dataGridViewTextBoxColumn16
-            // 
-            this.dataGridViewTextBoxColumn16.DataPropertyName = "InputHeight";
-            this.dataGridViewTextBoxColumn16.HeaderText = "Input Height";
-            this.dataGridViewTextBoxColumn16.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
-            this.dataGridViewTextBoxColumn16.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn17
-            // 
-            this.dataGridViewTextBoxColumn17.DataPropertyName = "InputWidth";
-            this.dataGridViewTextBoxColumn17.HeaderText = "Input Width";
-            this.dataGridViewTextBoxColumn17.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
-            this.dataGridViewTextBoxColumn17.Width = 125;
-            // 
             // ContainerWidthAndHeight
             // 
-            this.ContainerWidthAndHeight.DataPropertyName = "ContainerWidthAndHeight";
+            this.ContainerWidthAndHeight.DataPropertyName = "Container Size";
             this.ContainerWidthAndHeight.HeaderText = "ContainerWidthAndHeight";
             this.ContainerWidthAndHeight.MinimumWidth = 6;
             this.ContainerWidthAndHeight.Name = "ContainerWidthAndHeight";
@@ -569,8 +554,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
         private System.Windows.Forms.DataGridViewTextBoxColumn ContainerWidthAndHeight;
         private System.Windows.Forms.DataGridViewImageColumn Image;
     }

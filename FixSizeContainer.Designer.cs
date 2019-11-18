@@ -74,6 +74,7 @@
             // 
             // btnCanceling
             // 
+            this.btnCanceling.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCanceling.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCanceling.Location = new System.Drawing.Point(196, 162);
             this.btnCanceling.Name = "btnCanceling";
@@ -85,6 +86,7 @@
             // 
             // btnOk
             // 
+            this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOk.Location = new System.Drawing.Point(294, 162);
             this.btnOk.Name = "btnOk";
