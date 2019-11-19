@@ -49,6 +49,7 @@ namespace boxfittingapp
             dictionary = read.BoxListReadOnly;
             applyAlgorith = new BoxFittingAlgorithm();
             PerformBoxFittingAlgorithm(dictionary);
+            FitMyContainerHorizontal();
             this.Refresh();
         }
 
@@ -273,6 +274,7 @@ namespace boxfittingapp
             applyAlgorith.WastedGaps.Clear();
             applyAlgorith.BinList.Clear();
             applyAlgorith.Bins.Clear();
+            applyAlgorith.SuggestionBins.Clear();
             applyAlgorith.MyResult = "";
             applyAlgorith.NumberOfMyContainerUsed = 0;
             MyContainer.Y = 0;
@@ -407,6 +409,35 @@ namespace boxfittingapp
             Rectangle rect = container.RectangleToScreen(container.ClientRectangle);
             graphics.CopyFromScreen(rect.Location, new Point(container.Location.X, container.Location.Y), paper.Size);
             Bitmap.Save(@"C:\Users\hang2\Source\Repos\BoxFit2\Images\container" + CurrentRow.RowID + ".bmp");
+        }
+
+        private void BtnSuggestion_Click(object sender, EventArgs e)
+        {
+            var areaWasteed = 0;
+            lblBoxes.Text += $"\nSuggestions Bins to fill gaps:{applyAlgorith.SuggestionBins.Count}\n";
+            foreach (var item in applyAlgorith.SuggestionBins)
+            {
+                lblBoxes.Text += $"X: {item.X} Y: {item.Y} -- W: {item.Width} H:{item.Height}\n";
+                areaWasteed += item.Height * item.Width;
+            }
+            lblBoxes.Text += $"Total wasted area: {areaWasteed}";
+            DrawSuggestionBins();
+            this.Refresh();
+        }
+
+        private void DrawSuggestionBins()
+        {
+            foreach (var item in applyAlgorith.SuggestionBins)
+            {
+                this.box = new System.Windows.Forms.Button();
+                this.box.Location = new System.Drawing.Point(item.X, item.Y);
+                this.box.Size = new System.Drawing.Size(item.Width, item.Height);
+                this.box.FlatStyle = FlatStyle.Popup;
+                this.box.BackColor = Color.FromArgb(180, 0,0,0);
+                var toolTip = new System.Windows.Forms.ToolTip();
+                toolTip.SetToolTip(box, $"Suggestion Box: X: { item.X} Y: {item.Y} Width: {item.Width} Height {item.Height}");
+                this.container.Controls.Add(this.box);
+            }
         }
     }
 

@@ -31,6 +31,8 @@ namespace boxfittingapp.Model
         public int UserContainerWidth { get; set; }
         public int UserContainerHeight { get; set; }
         public Dictionary<int, RectangularBox> OptimizedBoxList { get; set; }
+        public List<RectangularBox> SuggestionBins { get; set; }
+        public string Suggestions { get; set; }
         public List<RectangularBox> BinList { get; set; }
         public String ArrangedBins { get; set; }
         public List<RectangularBox> Bins { get; set; }

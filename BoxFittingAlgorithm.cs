@@ -25,6 +25,7 @@ namespace boxfittingapp
         public List<RectangularBox> TempBins { get; set; }
         public List<RectangularBox> LayerHeights { get; set; }
         public List<RectangularBox> WastedGaps { get; set; }
+        public List<RectangularBox> SuggestionBins { get; set; }
         public RectangularBox CurrentContainer { get; set; }
         public RectangularBox PreviousContainer { get; set; }
         public RectangularBox MyContainer { get; set; }
@@ -70,6 +71,7 @@ namespace boxfittingapp
             TempBins = new List<RectangularBox>();
             MyContainer = new RectangularBox();
             FitInBins = new List<RectangularBox>();
+            SuggestionBins = new List<RectangularBox>();
             ContainerNumbers = new List<int>();
             HasResult = true;
             IsMultipleContainers = false;
@@ -331,6 +333,11 @@ namespace boxfittingapp
             result.ContainerWidthAndHeight = $"W:{result.UserContainer.Width}; H:{result.UserContainer.Height}";
             result.UserContainerHeight = result.UserContainer.Height;
             result.UserContainerWidth = result.UserContainer.Width;
+            result.SuggestionBins = this.SuggestionBins;
+            foreach (var item in this.SuggestionBins)
+            {
+                result.Suggestions += $"W: {item.Width}; H: {item.Height}\n";
+            }
             return result;
         }
 
@@ -393,6 +400,7 @@ namespace boxfittingapp
 
                 if (MyContainerArea == AllFitInBinArea + WastedArea && WastedGaps.Count > 0 && WastedArea != MyContainerArea)
                 {
+                    GetSuggestionBins();
                     NumberOfMyContainerUsed++;
                     WastedGaps.Clear();
                     CurrentContainer = MyContainer;
@@ -429,6 +437,16 @@ namespace boxfittingapp
                 MessageBox.Show("SIZE OF YOUR BIN IS TOO SMALL!!!!");
             }
             return result;
+        }
+
+        private void GetSuggestionBins()
+        {
+            var areaWasted = 0;
+            foreach (var item in WastedGaps.Where(t => t.Width != 0 && t.Height != 0))
+            {
+                SuggestionBins.Add(item);
+                areaWasted += item.Height * item.Width;
+            }
         }
 
         private void PerformHorizontalBoxFittingAlgorithm()

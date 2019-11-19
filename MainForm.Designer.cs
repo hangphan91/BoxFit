@@ -53,6 +53,7 @@
             this.rectangularBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.removeColumnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSaveImage = new System.Windows.Forms.Button();
+            this.btnSuggestion = new System.Windows.Forms.Button();
             this.gridViewBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.RowID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UsedPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,12 +63,13 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ContainerWidthAndHeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ContainerWidthAndHeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Image = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Suggestions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.paper.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabDrawPanel.SuspendLayout();
@@ -84,6 +86,7 @@
             // paper
             // 
             this.paper.AutoScroll = true;
+            this.paper.Controls.Add(this.btnSuggestion);
             this.paper.Controls.Add(this.btnSaveImage);
             this.paper.Controls.Add(this.btnSave);
             this.paper.Controls.Add(this.container);
@@ -119,7 +122,7 @@
             // lblBoxes
             // 
             this.lblBoxes.AutoSize = true;
-            this.lblBoxes.Location = new System.Drawing.Point(15, 214);
+            this.lblBoxes.Location = new System.Drawing.Point(15, 165);
             this.lblBoxes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBoxes.Name = "lblBoxes";
             this.lblBoxes.Size = new System.Drawing.Size(52, 17);
@@ -130,15 +133,16 @@
             // 
             this.btnUserInput.BackColor = System.Drawing.Color.Black;
             this.btnUserInput.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnUserInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUserInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUserInput.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnUserInput.Location = new System.Drawing.Point(18, 14);
+            this.btnUserInput.Location = new System.Drawing.Point(223, 14);
             this.btnUserInput.Margin = new System.Windows.Forms.Padding(4);
             this.btnUserInput.Name = "btnUserInput";
-            this.btnUserInput.Size = new System.Drawing.Size(228, 53);
+            this.btnUserInput.Size = new System.Drawing.Size(172, 63);
             this.btnUserInput.TabIndex = 5;
             this.btnUserInput.Text = "Select Algorithm";
             this.btnUserInput.UseVisualStyleBackColor = false;
+            this.btnUserInput.Visible = false;
             this.btnUserInput.Click += new System.EventHandler(this.btnUserInput_Click);
             // 
             // panel1
@@ -160,21 +164,21 @@
             // 
             this.btnMyContainer.BackColor = System.Drawing.Color.Black;
             this.btnMyContainer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnMyContainer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMyContainer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMyContainer.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnMyContainer.Location = new System.Drawing.Point(18, 75);
+            this.btnMyContainer.Location = new System.Drawing.Point(18, 14);
             this.btnMyContainer.Margin = new System.Windows.Forms.Padding(4);
             this.btnMyContainer.Name = "btnMyContainer";
-            this.btnMyContainer.Size = new System.Drawing.Size(228, 53);
+            this.btnMyContainer.Size = new System.Drawing.Size(197, 63);
             this.btnMyContainer.TabIndex = 9;
-            this.btnMyContainer.Text = "My Container";
+            this.btnMyContainer.Text = "Set Container Size";
             this.btnMyContainer.UseVisualStyleBackColor = false;
             this.btnMyContainer.Click += new System.EventHandler(this.BtnMyContainer_Click);
             // 
             // txtWidth
             // 
             this.txtWidth.AutoSize = true;
-            this.txtWidth.Location = new System.Drawing.Point(15, 149);
+            this.txtWidth.Location = new System.Drawing.Point(15, 100);
             this.txtWidth.Name = "txtWidth";
             this.txtWidth.Size = new System.Drawing.Size(44, 17);
             this.txtWidth.TabIndex = 7;
@@ -183,7 +187,7 @@
             // txtHeight
             // 
             this.txtHeight.AutoSize = true;
-            this.txtHeight.Location = new System.Drawing.Point(15, 184);
+            this.txtHeight.Location = new System.Drawing.Point(15, 135);
             this.txtHeight.Name = "txtHeight";
             this.txtHeight.Size = new System.Drawing.Size(49, 17);
             this.txtHeight.TabIndex = 8;
@@ -237,6 +241,7 @@
             // 
             // dgvPanel
             // 
+            this.dgvPanel.AllowUserToAddRows = false;
             this.dgvPanel.AllowUserToOrderColumns = true;
             this.dgvPanel.AutoGenerateColumns = false;
             this.dgvPanel.BackgroundColor = System.Drawing.Color.Azure;
@@ -260,12 +265,13 @@
             this.dataGridViewTextBoxColumn10,
             this.dataGridViewTextBoxColumn11,
             this.dataGridViewTextBoxColumn12,
+            this.ContainerWidthAndHeight,
             this.dataGridViewTextBoxColumn13,
             this.dataGridViewTextBoxColumn14,
             this.dataGridViewCheckBoxColumn1,
             this.dataGridViewCheckBoxColumn2,
-            this.ContainerWidthAndHeight,
-            this.Image});
+            this.Image,
+            this.Suggestions});
             this.dgvPanel.DataSource = this.gridViewBindingSource1;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.HighlightText;
@@ -279,6 +285,7 @@
             this.dgvPanel.GridColor = System.Drawing.Color.Gray;
             this.dgvPanel.Location = new System.Drawing.Point(40, 40);
             this.dgvPanel.Name = "dgvPanel";
+            this.dgvPanel.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -346,6 +353,18 @@
             this.btnSaveImage.UseVisualStyleBackColor = false;
             this.btnSaveImage.Click += new System.EventHandler(this.BtnSaveImage_Click);
             // 
+            // btnSuggestion
+            // 
+            this.btnSuggestion.BackColor = System.Drawing.Color.Aqua;
+            this.btnSuggestion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSuggestion.Location = new System.Drawing.Point(338, 14);
+            this.btnSuggestion.Name = "btnSuggestion";
+            this.btnSuggestion.Size = new System.Drawing.Size(168, 28);
+            this.btnSuggestion.TabIndex = 8;
+            this.btnSuggestion.Text = "Get Suggestions Bins";
+            this.btnSuggestion.UseVisualStyleBackColor = false;
+            this.btnSuggestion.Click += new System.EventHandler(this.BtnSuggestion_Click);
+            // 
             // gridViewBindingSource1
             // 
             this.gridViewBindingSource1.DataSource = typeof(boxfittingapp.Model.GridView);
@@ -357,6 +376,7 @@
             this.RowID.HeaderText = "Row ID";
             this.RowID.MinimumWidth = 6;
             this.RowID.Name = "RowID";
+            this.RowID.ReadOnly = true;
             this.RowID.Width = 125;
             // 
             // UsedPercent
@@ -366,6 +386,7 @@
             this.UsedPercent.HeaderText = "Used Percent";
             this.UsedPercent.MinimumWidth = 6;
             this.UsedPercent.Name = "UsedPercent";
+            this.UsedPercent.ReadOnly = true;
             this.UsedPercent.Width = 125;
             // 
             // WastedPercent
@@ -375,6 +396,7 @@
             this.WastedPercent.HeaderText = "Wasted Percent";
             this.WastedPercent.MinimumWidth = 6;
             this.WastedPercent.Name = "WastedPercent";
+            this.WastedPercent.ReadOnly = true;
             this.WastedPercent.Width = 125;
             // 
             // ArrangedBins
@@ -383,6 +405,7 @@
             this.ArrangedBins.HeaderText = "ArrangedBins";
             this.ArrangedBins.MinimumWidth = 6;
             this.ArrangedBins.Name = "ArrangedBins";
+            this.ArrangedBins.ReadOnly = true;
             this.ArrangedBins.Width = 125;
             // 
             // dataGridViewTextBoxColumn18
@@ -391,6 +414,7 @@
             this.dataGridViewTextBoxColumn18.HeaderText = "Used Containers ";
             this.dataGridViewTextBoxColumn18.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            this.dataGridViewTextBoxColumn18.ReadOnly = true;
             this.dataGridViewTextBoxColumn18.Width = 125;
             // 
             // dataGridViewTextBoxColumn10
@@ -399,6 +423,7 @@
             this.dataGridViewTextBoxColumn10.HeaderText = "Wasted Area";
             this.dataGridViewTextBoxColumn10.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
             this.dataGridViewTextBoxColumn10.Width = 125;
             // 
             // dataGridViewTextBoxColumn11
@@ -407,6 +432,7 @@
             this.dataGridViewTextBoxColumn11.HeaderText = "Used Area";
             this.dataGridViewTextBoxColumn11.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
             this.dataGridViewTextBoxColumn11.Width = 125;
             // 
             // dataGridViewTextBoxColumn12
@@ -415,7 +441,17 @@
             this.dataGridViewTextBoxColumn12.HeaderText = "Total Area";
             this.dataGridViewTextBoxColumn12.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
             this.dataGridViewTextBoxColumn12.Width = 125;
+            // 
+            // ContainerWidthAndHeight
+            // 
+            this.ContainerWidthAndHeight.DataPropertyName = "ContainerWidthAndHeight";
+            this.ContainerWidthAndHeight.HeaderText = "Container Size";
+            this.ContainerWidthAndHeight.MinimumWidth = 6;
+            this.ContainerWidthAndHeight.Name = "ContainerWidthAndHeight";
+            this.ContainerWidthAndHeight.ReadOnly = true;
+            this.ContainerWidthAndHeight.Width = 125;
             // 
             // dataGridViewTextBoxColumn13
             // 
@@ -423,6 +459,7 @@
             this.dataGridViewTextBoxColumn13.HeaderText = "Max Height";
             this.dataGridViewTextBoxColumn13.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.dataGridViewTextBoxColumn13.ReadOnly = true;
             this.dataGridViewTextBoxColumn13.Width = 125;
             // 
             // dataGridViewTextBoxColumn14
@@ -431,6 +468,7 @@
             this.dataGridViewTextBoxColumn14.HeaderText = "Max Width";
             this.dataGridViewTextBoxColumn14.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            this.dataGridViewTextBoxColumn14.ReadOnly = true;
             this.dataGridViewTextBoxColumn14.Width = 125;
             // 
             // dataGridViewCheckBoxColumn1
@@ -439,6 +477,7 @@
             this.dataGridViewCheckBoxColumn1.HeaderText = "Is Horizontal";
             this.dataGridViewCheckBoxColumn1.MinimumWidth = 6;
             this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
             this.dataGridViewCheckBoxColumn1.Width = 125;
             // 
             // dataGridViewCheckBoxColumn2
@@ -447,15 +486,8 @@
             this.dataGridViewCheckBoxColumn2.HeaderText = "HasResult";
             this.dataGridViewCheckBoxColumn2.MinimumWidth = 6;
             this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
+            this.dataGridViewCheckBoxColumn2.ReadOnly = true;
             this.dataGridViewCheckBoxColumn2.Width = 125;
-            // 
-            // ContainerWidthAndHeight
-            // 
-            this.ContainerWidthAndHeight.DataPropertyName = "Container Size";
-            this.ContainerWidthAndHeight.HeaderText = "ContainerWidthAndHeight";
-            this.ContainerWidthAndHeight.MinimumWidth = 6;
-            this.ContainerWidthAndHeight.Name = "ContainerWidthAndHeight";
-            this.ContainerWidthAndHeight.Width = 125;
             // 
             // Image
             // 
@@ -463,7 +495,17 @@
             this.Image.HeaderText = "Image";
             this.Image.MinimumWidth = 6;
             this.Image.Name = "Image";
+            this.Image.ReadOnly = true;
             this.Image.Width = 125;
+            // 
+            // Suggestions
+            // 
+            this.Suggestions.DataPropertyName = "Suggestions";
+            this.Suggestions.HeaderText = "Suggestions";
+            this.Suggestions.MinimumWidth = 6;
+            this.Suggestions.Name = "Suggestions";
+            this.Suggestions.ReadOnly = true;
+            this.Suggestions.Width = 125;
             // 
             // MainForm
             // 
@@ -542,6 +584,7 @@
         private System.Windows.Forms.ToolStripMenuItem removeColumnToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeRowToolStripMenuItem;
         private System.Windows.Forms.Button btnSaveImage;
+        private System.Windows.Forms.Button btnSuggestion;
         private System.Windows.Forms.DataGridViewTextBoxColumn RowID;
         private System.Windows.Forms.DataGridViewTextBoxColumn UsedPercent;
         private System.Windows.Forms.DataGridViewTextBoxColumn WastedPercent;
@@ -550,12 +593,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ContainerWidthAndHeight;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ContainerWidthAndHeight;
         private System.Windows.Forms.DataGridViewImageColumn Image;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Suggestions;
     }
 }
 
