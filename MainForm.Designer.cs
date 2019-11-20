@@ -33,6 +33,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.paper = new System.Windows.Forms.Panel();
+            this.btnSuggestion = new System.Windows.Forms.Button();
+            this.btnSaveImage = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.container = new System.Windows.Forms.Panel();
             this.lblBoxes = new System.Windows.Forms.Label();
@@ -44,32 +46,37 @@
             this.tabDrawPanel = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnExport = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dgvPanel = new System.Windows.Forms.DataGridView();
-            this.btnExport = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.removeRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gridViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.rectangularBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.removeColumnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnSaveImage = new System.Windows.Forms.Button();
-            this.btnSuggestion = new System.Windows.Forms.Button();
-            this.gridViewBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.RowID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UsedPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WastedPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ArrangedBins = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ContainerWidthAndHeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Suggestions = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.Image = new System.Windows.Forms.DataGridViewImageColumn();
+            this.removeColumnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridViewBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.rectangularBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pnlAlgorithm = new System.Windows.Forms.Panel();
+            this.pnlTab34 = new System.Windows.Forms.Panel();
+            this.btnSuggestionResult = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ContainerWidthAndHeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Image = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Suggestions = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gridViewBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.panel3 = new System.Windows.Forms.Panel();
             this.paper.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabDrawPanel.SuspendLayout();
@@ -78,17 +85,19 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPanel)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource)).BeginInit();
+            this.pnlAlgorithm.SuspendLayout();
+            this.pnlTab34.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource1)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // paper
             // 
             this.paper.AutoScroll = true;
-            this.paper.Controls.Add(this.btnSuggestion);
-            this.paper.Controls.Add(this.btnSaveImage);
-            this.paper.Controls.Add(this.btnSave);
             this.paper.Controls.Add(this.container);
             this.paper.Dock = System.Windows.Forms.DockStyle.Fill;
             this.paper.Location = new System.Drawing.Point(3, 3);
@@ -98,13 +107,37 @@
             this.paper.Size = new System.Drawing.Size(605, 507);
             this.paper.TabIndex = 0;
             // 
+            // btnSuggestion
+            // 
+            this.btnSuggestion.BackColor = System.Drawing.Color.Aqua;
+            this.btnSuggestion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSuggestion.Location = new System.Drawing.Point(245, 11);
+            this.btnSuggestion.Name = "btnSuggestion";
+            this.btnSuggestion.Size = new System.Drawing.Size(166, 28);
+            this.btnSuggestion.TabIndex = 8;
+            this.btnSuggestion.Text = "Get Suggestions Bins";
+            this.btnSuggestion.UseVisualStyleBackColor = false;
+            this.btnSuggestion.Click += new System.EventHandler(this.BtnSuggestion_Click);
+            // 
+            // btnSaveImage
+            // 
+            this.btnSaveImage.BackColor = System.Drawing.Color.Aqua;
+            this.btnSaveImage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSaveImage.Location = new System.Drawing.Point(130, 11);
+            this.btnSaveImage.Name = "btnSaveImage";
+            this.btnSaveImage.Size = new System.Drawing.Size(109, 28);
+            this.btnSaveImage.TabIndex = 7;
+            this.btnSaveImage.Text = "Show Image";
+            this.btnSaveImage.UseVisualStyleBackColor = false;
+            this.btnSaveImage.Click += new System.EventHandler(this.BtnSaveImage_Click);
+            // 
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.Color.Aqua;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSave.Location = new System.Drawing.Point(54, 14);
+            this.btnSave.Location = new System.Drawing.Point(19, 11);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(126, 28);
+            this.btnSave.Size = new System.Drawing.Size(105, 28);
             this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Save to Grid";
             this.btnSave.UseVisualStyleBackColor = false;
@@ -115,14 +148,17 @@
             this.container.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.container.Location = new System.Drawing.Point(54, 48);
             this.container.Name = "container";
-            this.container.Padding = new System.Windows.Forms.Padding(40, 40, 0, 0);
+            this.container.Padding = new System.Windows.Forms.Padding(40);
             this.container.Size = new System.Drawing.Size(508, 438);
             this.container.TabIndex = 5;
+            this.container.DragDrop += new System.Windows.Forms.DragEventHandler(this.Container_DragDrop);
+            this.container.DragEnter += new System.Windows.Forms.DragEventHandler(this.Container_DragEnter);
+            this.container.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Container_MouseDown);
             // 
             // lblBoxes
             // 
             this.lblBoxes.AutoSize = true;
-            this.lblBoxes.Location = new System.Drawing.Point(15, 165);
+            this.lblBoxes.Location = new System.Drawing.Point(11, 83);
             this.lblBoxes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBoxes.Name = "lblBoxes";
             this.lblBoxes.Size = new System.Drawing.Size(52, 17);
@@ -133,12 +169,12 @@
             // 
             this.btnUserInput.BackColor = System.Drawing.Color.Black;
             this.btnUserInput.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnUserInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUserInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUserInput.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnUserInput.Location = new System.Drawing.Point(223, 14);
+            this.btnUserInput.Location = new System.Drawing.Point(18, 50);
             this.btnUserInput.Margin = new System.Windows.Forms.Padding(4);
             this.btnUserInput.Name = "btnUserInput";
-            this.btnUserInput.Size = new System.Drawing.Size(172, 63);
+            this.btnUserInput.Size = new System.Drawing.Size(377, 28);
             this.btnUserInput.TabIndex = 5;
             this.btnUserInput.Text = "Select Algorithm";
             this.btnUserInput.UseVisualStyleBackColor = false;
@@ -148,11 +184,8 @@
             // panel1
             // 
             this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.btnMyContainer);
-            this.panel1.Controls.Add(this.txtWidth);
-            this.panel1.Controls.Add(this.txtHeight);
-            this.panel1.Controls.Add(this.btnUserInput);
-            this.panel1.Controls.Add(this.lblBoxes);
+            this.panel1.Controls.Add(this.pnlTab34);
+            this.panel1.Controls.Add(this.pnlAlgorithm);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(608, 3);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
@@ -164,12 +197,12 @@
             // 
             this.btnMyContainer.BackColor = System.Drawing.Color.Black;
             this.btnMyContainer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnMyContainer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMyContainer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMyContainer.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnMyContainer.Location = new System.Drawing.Point(18, 14);
             this.btnMyContainer.Margin = new System.Windows.Forms.Padding(4);
             this.btnMyContainer.Name = "btnMyContainer";
-            this.btnMyContainer.Size = new System.Drawing.Size(197, 63);
+            this.btnMyContainer.Size = new System.Drawing.Size(377, 28);
             this.btnMyContainer.TabIndex = 9;
             this.btnMyContainer.Text = "Set Container Size";
             this.btnMyContainer.UseVisualStyleBackColor = false;
@@ -178,7 +211,7 @@
             // txtWidth
             // 
             this.txtWidth.AutoSize = true;
-            this.txtWidth.Location = new System.Drawing.Point(15, 100);
+            this.txtWidth.Location = new System.Drawing.Point(11, 18);
             this.txtWidth.Name = "txtWidth";
             this.txtWidth.Size = new System.Drawing.Size(44, 17);
             this.txtWidth.TabIndex = 7;
@@ -187,7 +220,7 @@
             // txtHeight
             // 
             this.txtHeight.AutoSize = true;
-            this.txtHeight.Location = new System.Drawing.Point(15, 135);
+            this.txtHeight.Location = new System.Drawing.Point(11, 53);
             this.txtHeight.Name = "txtHeight";
             this.txtHeight.Size = new System.Drawing.Size(49, 17);
             this.txtHeight.TabIndex = 8;
@@ -206,6 +239,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.panel3);
             this.tabPage1.Controls.Add(this.paper);
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
@@ -227,6 +261,21 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Grid Panel";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btnExport
+            // 
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExport.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExport.ForeColor = System.Drawing.Color.White;
+            this.btnExport.Location = new System.Drawing.Point(830, 474);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(147, 30);
+            this.btnExport.TabIndex = 2;
+            this.btnExport.Text = "Export to Excel";
+            this.btnExport.UseVisualStyleBackColor = false;
+            this.btnExport.Click += new System.EventHandler(this.BtnExport_Click);
             // 
             // panel2
             // 
@@ -301,74 +350,6 @@
             this.dgvPanel.TabIndex = 1;
             this.dgvPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DgvPanel_MouseDown);
             // 
-            // btnExport
-            // 
-            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExport.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExport.ForeColor = System.Drawing.Color.White;
-            this.btnExport.Location = new System.Drawing.Point(830, 474);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(147, 30);
-            this.btnExport.TabIndex = 2;
-            this.btnExport.Text = "Export to Excel";
-            this.btnExport.UseVisualStyleBackColor = false;
-            this.btnExport.Click += new System.EventHandler(this.BtnExport_Click);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeColumnToolStripMenuItem,
-            this.removeRowToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(192, 56);
-            // 
-            // removeRowToolStripMenuItem
-            // 
-            this.removeRowToolStripMenuItem.Image = global::boxfittingapp.Properties.Resources.red_delete_button;
-            this.removeRowToolStripMenuItem.Name = "removeRowToolStripMenuItem";
-            this.removeRowToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
-            this.removeRowToolStripMenuItem.Text = "Remove Row";
-            this.removeRowToolStripMenuItem.Click += new System.EventHandler(this.RemoveRowToolStripMenuItem_Click);
-            // 
-            // removeColumnToolStripMenuItem
-            // 
-            this.removeColumnToolStripMenuItem.Image = global::boxfittingapp.Properties.Resources.red_delete_button;
-            this.removeColumnToolStripMenuItem.Name = "removeColumnToolStripMenuItem";
-            this.removeColumnToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
-            this.removeColumnToolStripMenuItem.Text = "Remove Column";
-            this.removeColumnToolStripMenuItem.Click += new System.EventHandler(this.RemoveColumnToolStripMenuItem_Click);
-            // 
-            // btnSaveImage
-            // 
-            this.btnSaveImage.BackColor = System.Drawing.Color.Aqua;
-            this.btnSaveImage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSaveImage.Location = new System.Drawing.Point(199, 14);
-            this.btnSaveImage.Name = "btnSaveImage";
-            this.btnSaveImage.Size = new System.Drawing.Size(121, 28);
-            this.btnSaveImage.TabIndex = 7;
-            this.btnSaveImage.Text = "Show Image";
-            this.btnSaveImage.UseVisualStyleBackColor = false;
-            this.btnSaveImage.Click += new System.EventHandler(this.BtnSaveImage_Click);
-            // 
-            // btnSuggestion
-            // 
-            this.btnSuggestion.BackColor = System.Drawing.Color.Aqua;
-            this.btnSuggestion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSuggestion.Location = new System.Drawing.Point(338, 14);
-            this.btnSuggestion.Name = "btnSuggestion";
-            this.btnSuggestion.Size = new System.Drawing.Size(168, 28);
-            this.btnSuggestion.TabIndex = 8;
-            this.btnSuggestion.Text = "Get Suggestions Bins";
-            this.btnSuggestion.UseVisualStyleBackColor = false;
-            this.btnSuggestion.Click += new System.EventHandler(this.BtnSuggestion_Click);
-            // 
-            // gridViewBindingSource1
-            // 
-            this.gridViewBindingSource1.DataSource = typeof(boxfittingapp.Model.GridView);
-            // 
             // RowID
             // 
             this.RowID.DataPropertyName = "RowID";
@@ -408,6 +389,129 @@
             this.ArrangedBins.ReadOnly = true;
             this.ArrangedBins.Width = 125;
             // 
+            // ContainerWidthAndHeight
+            // 
+            this.ContainerWidthAndHeight.DataPropertyName = "ContainerWidthAndHeight";
+            this.ContainerWidthAndHeight.HeaderText = "Container Size";
+            this.ContainerWidthAndHeight.MinimumWidth = 6;
+            this.ContainerWidthAndHeight.Name = "ContainerWidthAndHeight";
+            this.ContainerWidthAndHeight.ReadOnly = true;
+            this.ContainerWidthAndHeight.Width = 125;
+            // 
+            // Suggestions
+            // 
+            this.Suggestions.DataPropertyName = "Suggestions";
+            this.Suggestions.HeaderText = "Suggestions";
+            this.Suggestions.MinimumWidth = 6;
+            this.Suggestions.Name = "Suggestions";
+            this.Suggestions.ReadOnly = true;
+            this.Suggestions.Width = 125;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeColumnToolStripMenuItem,
+            this.removeRowToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(192, 56);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(415, 419);
+            this.tabControl1.TabIndex = 10;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.AutoScroll = true;
+            this.tabPage3.Controls.Add(this.txtWidth);
+            this.tabPage3.Controls.Add(this.lblBoxes);
+            this.tabPage3.Controls.Add(this.txtHeight);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(407, 390);
+            this.tabPage3.TabIndex = 0;
+            this.tabPage3.Text = "Result in Text";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.AutoScroll = true;
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(407, 390);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "Suggested Bins";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage4.DragDrop += new System.Windows.Forms.DragEventHandler(this.TabPage4_DragDrop);
+            this.tabPage4.DragEnter += new System.Windows.Forms.DragEventHandler(this.TabPage4_DragEnter);
+            this.tabPage4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TabPage4_MouseDown);
+            // 
+            // Image
+            // 
+            this.Image.DataPropertyName = "Image";
+            this.Image.HeaderText = "Image";
+            this.Image.MinimumWidth = 6;
+            this.Image.Name = "Image";
+            this.Image.ReadOnly = true;
+            this.Image.Width = 125;
+            // 
+            // removeColumnToolStripMenuItem
+            // 
+            this.removeColumnToolStripMenuItem.Image = global::boxfittingapp.Properties.Resources.red_delete_button;
+            this.removeColumnToolStripMenuItem.Name = "removeColumnToolStripMenuItem";
+            this.removeColumnToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
+            this.removeColumnToolStripMenuItem.Text = "Remove Column";
+            this.removeColumnToolStripMenuItem.Click += new System.EventHandler(this.RemoveColumnToolStripMenuItem_Click);
+            // 
+            // removeRowToolStripMenuItem
+            // 
+            this.removeRowToolStripMenuItem.Image = global::boxfittingapp.Properties.Resources.red_delete_button;
+            this.removeRowToolStripMenuItem.Name = "removeRowToolStripMenuItem";
+            this.removeRowToolStripMenuItem.Size = new System.Drawing.Size(191, 26);
+            this.removeRowToolStripMenuItem.Text = "Remove Row";
+            this.removeRowToolStripMenuItem.Click += new System.EventHandler(this.RemoveRowToolStripMenuItem_Click);
+            // 
+            // pnlAlgorithm
+            // 
+            this.pnlAlgorithm.Controls.Add(this.btnMyContainer);
+            this.pnlAlgorithm.Controls.Add(this.btnUserInput);
+            this.pnlAlgorithm.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlAlgorithm.Location = new System.Drawing.Point(0, 0);
+            this.pnlAlgorithm.Name = "pnlAlgorithm";
+            this.pnlAlgorithm.Size = new System.Drawing.Size(415, 88);
+            this.pnlAlgorithm.TabIndex = 11;
+            // 
+            // pnlTab34
+            // 
+            this.pnlTab34.AutoScroll = true;
+            this.pnlTab34.Controls.Add(this.tabControl1);
+            this.pnlTab34.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTab34.Location = new System.Drawing.Point(0, 88);
+            this.pnlTab34.Name = "pnlTab34";
+            this.pnlTab34.Size = new System.Drawing.Size(415, 419);
+            this.pnlTab34.TabIndex = 9;
+            // 
+            // btnSuggestionResult
+            // 
+            this.btnSuggestionResult.BackColor = System.Drawing.Color.Aqua;
+            this.btnSuggestionResult.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSuggestionResult.Location = new System.Drawing.Point(417, 11);
+            this.btnSuggestionResult.Name = "btnSuggestionResult";
+            this.btnSuggestionResult.Size = new System.Drawing.Size(110, 28);
+            this.btnSuggestionResult.TabIndex = 9;
+            this.btnSuggestionResult.Text = "Show Result";
+            this.btnSuggestionResult.UseVisualStyleBackColor = false;
+            this.btnSuggestionResult.Click += new System.EventHandler(this.BtnSuggestionResult_Click);
+            // 
             // dataGridViewTextBoxColumn18
             // 
             this.dataGridViewTextBoxColumn18.DataPropertyName = "NumberOfMyContainerUsed";
@@ -443,15 +547,6 @@
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
             this.dataGridViewTextBoxColumn12.Width = 125;
-            // 
-            // ContainerWidthAndHeight
-            // 
-            this.ContainerWidthAndHeight.DataPropertyName = "ContainerWidthAndHeight";
-            this.ContainerWidthAndHeight.HeaderText = "Container Size";
-            this.ContainerWidthAndHeight.MinimumWidth = 6;
-            this.ContainerWidthAndHeight.Name = "ContainerWidthAndHeight";
-            this.ContainerWidthAndHeight.ReadOnly = true;
-            this.ContainerWidthAndHeight.Width = 125;
             // 
             // dataGridViewTextBoxColumn13
             // 
@@ -489,23 +584,21 @@
             this.dataGridViewCheckBoxColumn2.ReadOnly = true;
             this.dataGridViewCheckBoxColumn2.Width = 125;
             // 
-            // Image
+            // gridViewBindingSource1
             // 
-            this.Image.DataPropertyName = "Image";
-            this.Image.HeaderText = "Image";
-            this.Image.MinimumWidth = 6;
-            this.Image.Name = "Image";
-            this.Image.ReadOnly = true;
-            this.Image.Width = 125;
+            this.gridViewBindingSource1.DataSource = typeof(boxfittingapp.Model.GridView);
             // 
-            // Suggestions
+            // panel3
             // 
-            this.Suggestions.DataPropertyName = "Suggestions";
-            this.Suggestions.HeaderText = "Suggestions";
-            this.Suggestions.MinimumWidth = 6;
-            this.Suggestions.Name = "Suggestions";
-            this.Suggestions.ReadOnly = true;
-            this.Suggestions.Width = 125;
+            this.panel3.Controls.Add(this.btnSaveImage);
+            this.panel3.Controls.Add(this.btnSuggestion);
+            this.panel3.Controls.Add(this.btnSuggestionResult);
+            this.panel3.Controls.Add(this.btnSave);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(3, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(605, 42);
+            this.panel3.TabIndex = 10;
             // 
             // MainForm
             // 
@@ -520,16 +613,21 @@
             this.Text = "Form1";
             this.paper.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.tabDrawPanel.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPanel)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource)).EndInit();
+            this.pnlAlgorithm.ResumeLayout(false);
+            this.pnlTab34.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource1)).EndInit();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -600,6 +698,13 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
         private System.Windows.Forms.DataGridViewImageColumn Image;
         private System.Windows.Forms.DataGridViewTextBoxColumn Suggestions;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Panel pnlAlgorithm;
+        private System.Windows.Forms.Panel pnlTab34;
+        private System.Windows.Forms.Button btnSuggestionResult;
+        private System.Windows.Forms.Panel panel3;
     }
 }
 

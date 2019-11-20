@@ -34,6 +34,8 @@ namespace boxfittingapp
         public GridView CurrentRow { get; set; }
         public BindingList<GridView> Rows { get; set; }
         public Bitmap Bitmap { get; private set; }
+        public List<Button> SuggestionButtonList { get; set; }
+        public Button CurrentSelection { get; set; }
         #endregion
         public MainForm()
         {
@@ -48,6 +50,8 @@ namespace boxfittingapp
             Rows = new BindingList<GridView>();
             dictionary = read.BoxListReadOnly;
             applyAlgorith = new BoxFittingAlgorithm();
+            CurrentSelection = new Button();
+            SuggestionButtonList = new List<Button>();
             PerformBoxFittingAlgorithm(dictionary);
             FitMyContainerHorizontal();
             this.Refresh();
@@ -413,6 +417,8 @@ namespace boxfittingapp
 
         private void BtnSuggestion_Click(object sender, EventArgs e)
         {
+            container.Controls.Clear();
+            OptimumDrawing(applyAlgorith);
             var areaWasteed = 0;
             lblBoxes.Text += $"\nSuggestions Bins to fill gaps:{applyAlgorith.SuggestionBins.Count}\n";
             foreach (var item in applyAlgorith.SuggestionBins)
@@ -427,17 +433,95 @@ namespace boxfittingapp
 
         private void DrawSuggestionBins()
         {
+            container.AllowDrop = true;
+            container.DragEnter += Container_DragEnter;
+            container.DragDrop += Container_DragDrop;
+            tabPage4.AllowDrop = true;
+            tabPage4.DragEnter += TabPage4_DragEnter;
+            tabPage4.DragDrop += TabPage4_DragDrop;
+            int x = 0;
+            int y = 0;
+            tabPage4.Controls.Clear();
+            int index = 0;
+            foreach (var item in applyAlgorith.SuggestionBins)
+            {
+                this.box = new System.Windows.Forms.Button();
+                this.box.Location = new System.Drawing.Point(x, y);
+                this.box.Size = new System.Drawing.Size(item.Width, item.Height);
+                this.box.FlatStyle = FlatStyle.Popup;
+                this.box.BackColor = Color.FromArgb(180, 0, 0, 0);
+                var toolTip = new System.Windows.Forms.ToolTip();
+                toolTip.SetToolTip(box, $"Suggestion Box: X: { item.X} Y: {item.Y} Width: {item.Width} Height {item.Height}");
+                this.tabPage4.Controls.Add(this.box);
+                this.box.MouseDown += Container_MouseDown;
+                this.box.Tag = index;
+                index++;
+                y += item.Height + 5;
+            }
+            if (applyAlgorith.SuggestionBins.Count > 0)
+            {
+                panel1.Width = this.Width - paper.Width;
+            }
+            tabControl1.SelectedIndex = 1;
+        }
+
+        private void Container_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void Container_DragDrop(object sender, DragEventArgs e)
+        {
+            var currentBin = new RectangularBox();
+            ((Button)e.Data.GetData(typeof(Button))).Parent = (Panel)sender;
+            var button = (Button)e.Data.GetData(typeof(Button));
+            currentBin = applyAlgorith.SuggestionBins[(int)button.Tag];
+            button.SetBounds(currentBin.X, currentBin.Y, currentBin.Width, currentBin.Height);
+        }
+
+        private void Container_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (sender as Button != null)
+            {
+                CurrentSelection = (Button)sender;
+                CurrentSelection.DoDragDrop(CurrentSelection, DragDropEffects.Move);
+            }
+        }
+
+        private void TabPage4_DragDrop(object sender, DragEventArgs e)
+        {
+            ((Button)e.Data.GetData(typeof(Button))).Parent = (Panel)sender;
+            var button = (Button)e.Data.GetData(typeof(Button));
+        }
+
+        private void TabPage4_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void TabPage4_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void BtnSuggestionResult_Click(object sender, EventArgs e)
+        {
+            SuggestionButtonList = new List<Button>();
             foreach (var item in applyAlgorith.SuggestionBins)
             {
                 this.box = new System.Windows.Forms.Button();
                 this.box.Location = new System.Drawing.Point(item.X, item.Y);
                 this.box.Size = new System.Drawing.Size(item.Width, item.Height);
                 this.box.FlatStyle = FlatStyle.Popup;
-                this.box.BackColor = Color.FromArgb(180, 0,0,0);
+                this.box.BackColor = Color.FromArgb(180, 0, 0, 0);
                 var toolTip = new System.Windows.Forms.ToolTip();
                 toolTip.SetToolTip(box, $"Suggestion Box: X: { item.X} Y: {item.Y} Width: {item.Width} Height {item.Height}");
                 this.container.Controls.Add(this.box);
+                this.box.MouseDown += Container_MouseDown;
+                this.box.BringToFront();
+                SuggestionButtonList.Add(this.box);
             }
+            tabPage4.Controls.Clear();
         }
     }
 
