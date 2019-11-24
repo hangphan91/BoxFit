@@ -97,6 +97,7 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\boxfittingapp.Model.GridView.datasource" />
     <EmbeddedResource Include="Properties\fittingboxsamples2.csv" />
+    <None Include="Properties\DataSources\RectangularBox.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

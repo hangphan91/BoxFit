@@ -30,6 +30,9 @@ namespace boxfittingapp
         public RectangularBox PreviousContainer { get; set; }
         public RectangularBox MyContainer { get; set; }
         public Dictionary<int, RectangularBox> OptimizedBoxList { get; set; }
+
+        private List<RectangularBox> boxListCopy;
+
         public List<RectangularBox> BinList { get; set; }
         public List<RectangularBox> Bins { get; set; }
         public List<Point> ResultListCoordinates { get; set; }
@@ -133,8 +136,10 @@ namespace boxfittingapp
             int i = 1;
             foreach (var item in Bins)
             {
-                MyResult += $"Container#: {ContainerNumbers[i - 1]} Box {i}@ X: {item.X} - Y: {item.Y} - W: {item.Width} - H: {item.Height} \n";
+                item.TagID = i - 1;
+                MyResult += $"Container#: {ContainerNumbers[i - 1]} Box {i-1}@ X: {item.X} - Y: {item.Y} - W: {item.Width} - H: {item.Height} \n";
                 i++;
+                
             }
             MyResult += "Used Area: " + UsedArea.ToString();
             TotalArea = MaxWidth * MaxHeight;
@@ -547,17 +552,21 @@ namespace boxfittingapp
 
             OptimizedBoxList = new Dictionary<int, RectangularBox>(BoxList);
             OptimizedBoxList = BoxList;
+            boxListCopy = BoxList.Select(t => t.Value).ToList();
+            boxListCopy.Sort(new AreaComparer());
             foreach (var item in BoxList)
             {
-                PairIndexValueList.Add(new List<int> { item.Key, item.Value.X });
-                PairIndexValueList.Add(new List<int> { item.Key, item.Value.Y });
+                PairIndexValueList.Add(new List<int> { item.Key, boxListCopy[item.Key].X });
+                PairIndexValueList.Add(new List<int> { item.Key, boxListCopy[item.Key].Y });
             }
             Console.WriteLine("sorted List: ");
 
-            PairIndexValueList.Sort(new PairIndexValueComparer());
+            //PairIndexValueList.Sort(new PairIndexValueComparerByKey());
+            //PairIndexValueList.Sort(new PairIndexValueComparer());
 
             foreach (var item in PairIndexValueList)
             {
+
                 MyResult += item[0] + " " + item[1] + ",";
             }
         }

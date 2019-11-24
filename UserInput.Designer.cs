@@ -64,9 +64,12 @@
             // 
             // btbSubmit
             // 
-            this.btbSubmit.BackColor = System.Drawing.Color.Transparent;
+            this.btbSubmit.BackColor = System.Drawing.Color.Cyan;
+            this.btbSubmit.FlatAppearance.BorderColor = System.Drawing.Color.Fuchsia;
+            this.btbSubmit.FlatAppearance.BorderSize = 2;
             this.btbSubmit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btbSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btbSubmit.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btbSubmit.Location = new System.Drawing.Point(449, 346);
             this.btbSubmit.Margin = new System.Windows.Forms.Padding(4);
             this.btbSubmit.Name = "btbSubmit";
@@ -78,15 +81,18 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.BackColor = System.Drawing.Color.Cyan;
+            this.btnCancel.FlatAppearance.BorderColor = System.Drawing.Color.Fuchsia;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnCancel.Location = new System.Drawing.Point(319, 346);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(123, 47);
             this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // lblHeight
@@ -115,6 +121,7 @@
             // 
             // txtHeight
             // 
+            this.txtHeight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHeight.Location = new System.Drawing.Point(243, 258);
             this.txtHeight.Margin = new System.Windows.Forms.Padding(4);
@@ -125,6 +132,7 @@
             // 
             // txtWidth
             // 
+            this.txtWidth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtWidth.Location = new System.Drawing.Point(243, 214);
             this.txtWidth.Margin = new System.Windows.Forms.Padding(4);
@@ -132,12 +140,14 @@
             this.txtWidth.Size = new System.Drawing.Size(159, 36);
             this.txtWidth.TabIndex = 5;
             this.txtWidth.Visible = false;
+            this.txtWidth.WordWrap = false;
             // 
             // btnBoxFittingHorizontal
             // 
-            this.btnBoxFittingHorizontal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnBoxFittingHorizontal.BackColor = System.Drawing.Color.Cyan;
             this.btnBoxFittingHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnBoxFittingHorizontal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBoxFittingHorizontal.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnBoxFittingHorizontal.Location = new System.Drawing.Point(84, 92);
             this.btnBoxFittingHorizontal.Margin = new System.Windows.Forms.Padding(4);
             this.btnBoxFittingHorizontal.Name = "btnBoxFittingHorizontal";
@@ -149,9 +159,10 @@
             // 
             // btnBoxFittingVeritical
             // 
-            this.btnBoxFittingVeritical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnBoxFittingVeritical.BackColor = System.Drawing.Color.Cyan;
             this.btnBoxFittingVeritical.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnBoxFittingVeritical.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBoxFittingVeritical.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnBoxFittingVeritical.Location = new System.Drawing.Point(373, 92);
             this.btnBoxFittingVeritical.Margin = new System.Windows.Forms.Padding(4);
             this.btnBoxFittingVeritical.Name = "btnBoxFittingVeritical";
@@ -181,8 +192,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(615, 448);
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
+            this.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.HelpButton = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "UserInput";
             this.Text = "User Input";

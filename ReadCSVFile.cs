@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -7,34 +8,59 @@ using System.Threading.Tasks;
 
 namespace boxfittingapp
 {
-   public class ReadCSVFile
+    public class ReadInputSizes
     {
         public Dictionary<int, RectangularBox> BoxListReadOnly { get; set; } = new Dictionary<int, RectangularBox>();
         private Dictionary<int, RectangularBox> BoxList { get; set; } = new Dictionary<int, RectangularBox>();
-        public ReadCSVFile()
+        public bool IsReadFile { get; set; } = true;
+        public List<int> listA { get; set; }
+        public List<int> listB { get; set; }
+        public ReadInputSizes()
         {
-            using (var reader = new StreamReader(@"C:\Users\hang2\Source\Repos\BoxFit2\Properties\fittingboxsamples2.csv"))
+            listA = new List<int>();
+            listB = new List<int>();
+            if (IsReadFile)
             {
-                List<int> listA = new List<int>();
-                List<int> listB = new List<int>();
-                while (!reader.EndOfStream)
+                using (var reader = new StreamReader(@"C:\Users\hang2\Source\Repos\BoxFit2\Properties\fittingboxsamples2.csv"))
                 {
-                    var line = reader.ReadLine();
-                    var values = line.Split(',');
-                    int x, y;
-
-                    if (int.TryParse(values[0], out x) && int.TryParse(values[1], out y))
+                    while (!reader.EndOfStream)
                     {
-                        listA.Add(x);
-                        listB.Add(y);
+                        var line = reader.ReadLine();
+                        var values = line.Split(',');
+                        int x, y;
+
+                        if (int.TryParse(values[0], out x) && int.TryParse(values[1], out y))
+                        {
+                            listA.Add(x);
+                            listB.Add(y);
+                        }
                     }
                 }
-                for (int i = 0; i < listA.Count; i++)
-                {
-                    BoxList.Add(i, new RectangularBox { X = listA[i], Y = listB[i] });
-                }
+            }
+            AssignBoxlistSizes();
+        }
+
+        private void AssignBoxlistSizes()
+        {
+            BoxList.Clear();
+            BoxListReadOnly.Clear();
+            for (int i = 0; i < listA.Count; i++)
+            {
+                BoxList.Add(i, new RectangularBox { X = listA[i], Y = listB[i] });
             }
             BoxListReadOnly = BoxList;
+        }
+
+        public void SetSizes(BindingList<RectangularBox> rects)
+        {
+            listA.Clear();
+            listB.Clear();
+            foreach (var item in rects)
+            {
+                listA.Add(item.Width);
+                listB.Add(item.Height);
+            }
+            AssignBoxlistSizes();
         }
     }
 }

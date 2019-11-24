@@ -74,31 +74,40 @@
             // 
             // btnCanceling
             // 
+            this.btnCanceling.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnCanceling.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnCanceling.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Fuchsia;
             this.btnCanceling.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCanceling.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCanceling.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnCanceling.Location = new System.Drawing.Point(196, 162);
             this.btnCanceling.Name = "btnCanceling";
             this.btnCanceling.Size = new System.Drawing.Size(92, 36);
             this.btnCanceling.TabIndex = 3;
             this.btnCanceling.Text = "Cancel";
-            this.btnCanceling.UseVisualStyleBackColor = true;
+            this.btnCanceling.UseVisualStyleBackColor = false;
             this.btnCanceling.Click += new System.EventHandler(this.BtnCanceling_Click);
             // 
             // btnOk
             // 
+            this.btnOk.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Fuchsia;
             this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOk.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnOk.Location = new System.Drawing.Point(294, 162);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(86, 36);
             this.btnOk.TabIndex = 4;
             this.btnOk.Text = "OK";
-            this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.UseVisualStyleBackColor = false;
             this.btnOk.Click += new System.EventHandler(this.BtnOk_Click);
             // 
             // txtWidth
             // 
+            this.txtWidth.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtWidth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWidth.ImeMode = System.Windows.Forms.ImeMode.Katakana;
             this.txtWidth.Location = new System.Drawing.Point(139, 77);
             this.txtWidth.Name = "txtWidth";
             this.txtWidth.Size = new System.Drawing.Size(150, 30);
@@ -106,6 +115,7 @@
             // 
             // txtHeight
             // 
+            this.txtHeight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.txtHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHeight.Location = new System.Drawing.Point(139, 115);
             this.txtHeight.Name = "txtHeight";
@@ -143,6 +153,7 @@
             // 
             // FixSizeContainer
             // 
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(410, 228);
             this.Controls.Add(this.chkVertical);
             this.Controls.Add(this.chkHorizontal);
@@ -153,6 +164,7 @@
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblHeight);
             this.Controls.Add(this.lblWidth);
+            this.ForeColor = System.Drawing.SystemColors.Control;
             this.Name = "FixSizeContainer";
             this.Load += new System.EventHandler(this.FixSizeContainer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();

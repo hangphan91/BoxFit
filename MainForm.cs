@@ -16,8 +16,10 @@ namespace boxfittingapp
 {
     public partial class MainForm : Form
     {
+        private int timeleft;
         #region properties
-
+        public Timer Timer { get; set; }
+        public int Score { get; set; }
         public List<RectangularBox> Points { get; set; }
         public List<Point> MaxLine { get; set; }
         public List<Point> CursorPoints { get; set; }
@@ -25,7 +27,7 @@ namespace boxfittingapp
         public int MaxHeight { get; set; }
         public UserInput UserInput { get; set; }
         public BoxFittingAlgorithm applyAlgorith { get; set; }
-        public ReadCSVFile read { get; set; }
+        public ReadInputSizes read { get; set; }
         public Dictionary<int, RectangularBox> dictionary { get; set; }
         public RectangularBox MyContainer { get; set; }
         public RectangularBox BiggiestBin { get; set; }
@@ -36,22 +38,38 @@ namespace boxfittingapp
         public Bitmap Bitmap { get; private set; }
         public List<Button> SuggestionButtonList { get; set; }
         public Button CurrentSelection { get; set; }
+        public List<int> RandomList { get; private set; }
+        public List<Button> ListSuggestionToShow { get; private set; }
+        public BindingList<RectangularBox> InputBoxes { get; set; }
+
+        public const int TimeLimit = 120;
         #endregion
         public MainForm()
         {
             InitializeComponent();
+            Score = 0;
+            InputBoxes = new BindingList<RectangularBox>();
             Points = new List<RectangularBox>();
             MaxLine = new List<Point>();
-            read = new ReadCSVFile();
+            read = new ReadInputSizes();
             MyContainer = new RectangularBox();
             BiggiestBin = new RectangularBox();
             Tasks = new List<Task>();
             CurrentRow = new GridView();
             Rows = new BindingList<GridView>();
+            dgvInputSizes.DataSource = InputBoxes;
+            ListSuggestionToShow = new List<Button>();
+            Start();
+        }
+
+        private void Start()
+        {
             dictionary = read.BoxListReadOnly;
             applyAlgorith = new BoxFittingAlgorithm();
             CurrentSelection = new Button();
             SuggestionButtonList = new List<Button>();
+            Timer = new Timer();
+            timeleft = TimeLimit;
             PerformBoxFittingAlgorithm(dictionary);
             FitMyContainerHorizontal();
             this.Refresh();
@@ -110,6 +128,12 @@ namespace boxfittingapp
             DrawBorders(applyAlgorith);
             DrawBarrierForEachContainer(applyAlgorith);
             container.Size = new Size(applyAlgorith.MaxWidth, applyAlgorith.MaxHeight);
+
+            //foreach (Control item in container.Controls)
+            //{
+            //    pnlCopycontainer.Controls.Add(item);
+            //}
+
             this.Refresh();
         }
 
@@ -199,7 +223,6 @@ namespace boxfittingapp
             container.Controls.Clear();
             Points = new List<RectangularBox>();
             MaxLine = new List<Point>();
-            read = new ReadCSVFile();
             dictionary = read.BoxListReadOnly;
             var inputWidth = applyAlgorith.InputWidth;
             var inputHeight = applyAlgorith.InputHeight;
@@ -260,6 +283,18 @@ namespace boxfittingapp
             applyAlgorith.MaxHeight = MaxHeight;
             applyAlgorith.UsedArea = applyAlgorith.BinList.Sum(t => t.Height * t.Width);
             applyAlgorith.DisplayResults();
+            if (applyAlgorith.Bins.Count > 0)
+            {
+                InputBoxes.Clear();
+                dgvInputSizes.Columns[3].Visible = true;
+                dgvInputSizes.Columns[4].Visible = true;
+                dgvInputSizes.Columns[0].Visible = true;
+            }
+            foreach (var item in applyAlgorith.Bins)
+            {
+                InputBoxes.Add(item);
+            }
+
             lblBoxes.Text = applyAlgorith.MyResult;
             OptimumDrawing(applyAlgorith);
             this.paper.Controls.Add(this.container);
@@ -295,6 +330,7 @@ namespace boxfittingapp
                 Rows.Add(CurrentRow);
                 SavetoGrid();
             }
+            this.tabPage2.Show();
         }
 
         private void SavetoGrid()
@@ -402,7 +438,7 @@ namespace boxfittingapp
         private void BtnSaveImage_Click(object sender, EventArgs e)
         {
             SaveImage();
-            System.Diagnostics.Process.Start(@"C:\Users\hang2\Source\Repos\BoxFit2\Images\container" + CurrentRow.RowID + ".bmp");
+            System.Diagnostics.Process.Start(@"C:\Users\hang2\Source\Repos\BoxFit2\Images" + CurrentRow.RowID + ".bmp");
 
         }
 
@@ -412,12 +448,20 @@ namespace boxfittingapp
             Graphics graphics = Graphics.FromImage(Bitmap);
             Rectangle rect = container.RectangleToScreen(container.ClientRectangle);
             graphics.CopyFromScreen(rect.Location, new Point(container.Location.X, container.Location.Y), paper.Size);
-            Bitmap.Save(@"C:\Users\hang2\Source\Repos\BoxFit2\Images\container" + CurrentRow.RowID + ".bmp");
+            Bitmap.Save(@"C:\Users\hang2\Source\Repos\BoxFit2\Images" + CurrentRow.RowID + ".bmp");
         }
 
         private void BtnSuggestion_Click(object sender, EventArgs e)
         {
+            timeleft = TimeLimit;
+            Timer.Start();
+            Timer.Interval = 1000;
+            Timer.Tick += Timer_Tick;
             container.Controls.Clear();
+            if (applyAlgorith.SuggestionBins.Count == 0)
+            {
+                CalculateSuggestionBins();
+            }
             OptimumDrawing(applyAlgorith);
             var areaWasteed = 0;
             lblBoxes.Text += $"\nSuggestions Bins to fill gaps:{applyAlgorith.SuggestionBins.Count}\n";
@@ -431,6 +475,58 @@ namespace boxfittingapp
             this.Refresh();
         }
 
+        private void CalculateSuggestionBins()
+        {
+            if (applyAlgorith.IsHorizontal)
+            {
+                applyAlgorith.GetSortedListForPairIndexValue();
+                applyAlgorith.MyContainer.Width = applyAlgorith.MaxWidth;
+                applyAlgorith.MyContainer.Height = applyAlgorith.MaxHeight;
+                FitMyContainerHorizontal();
+            }
+            else
+            {
+                applyAlgorith.GetSortedListForPairIndexValue();
+                applyAlgorith.MyContainer.Width = applyAlgorith.MaxWidth;
+                applyAlgorith.MyContainer.Height = applyAlgorith.MaxHeight;
+                FitMyContainerVertical();
+            }
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            timeleft -= 1;
+            lblTime.Text = "TIME: " + timeleft + " seconds";
+            if (timeleft <= 0)
+            {
+                container.AllowDrop = false;
+                container.DragEnter -= Container_DragEnter;
+                container.DragDrop -= Container_DragDrop;
+                tabPage4.AllowDrop = false;
+                tabPage4.DragEnter -= TabPage4_DragEnter;
+                tabPage4.DragDrop -= TabPage4_DragDrop;
+                Timer.Stop();
+                MessageBox.Show("Game Over!");
+                ListSuggestionToShow.Clear();
+                container.AllowDrop = false;
+                lblTime.Text = "TIME: 0";
+                timeleft = TimeLimit;
+            }
+            else if (ListSuggestionToShow.Count == 0 && Score != 0)
+            {
+                container.AllowDrop = false;
+                container.DragEnter -= Container_DragEnter;
+                container.DragDrop -= Container_DragDrop;
+                tabPage4.AllowDrop = false;
+                tabPage4.DragEnter -= TabPage4_DragEnter;
+                tabPage4.DragDrop -= TabPage4_DragDrop;
+                Timer.Stop();
+                MessageBox.Show($"Congrat!! You Won!!!\n Your Score: {Score}");
+                lblTime.Text = "TIME: 0";
+                timeleft = TimeLimit;
+            }
+        }
+
         private void DrawSuggestionBins()
         {
             container.AllowDrop = true;
@@ -439,12 +535,27 @@ namespace boxfittingapp
             tabPage4.AllowDrop = true;
             tabPage4.DragEnter += TabPage4_DragEnter;
             tabPage4.DragDrop += TabPage4_DragDrop;
-            int x = 0;
-            int y = 0;
+            int x = 10;
+            int y = 10;
             tabPage4.Controls.Clear();
-            int index = 0;
-            foreach (var item in applyAlgorith.SuggestionBins)
+
+            RandomList = GetRandomListOfInterger();
+            SuggestionListToShow(x, y);
+            ShowNextSuggestionBox();
+            //if (applyAlgorith.SuggestionBins.Count > 0)
+            //{
+            //    panel1.Width = this.Width - container.Width - 200;
+            //}
+            tabControl1.SelectedIndex = 1;
+            this.Refresh();
+        }
+
+        private void SuggestionListToShow(int x, int y)
+        {
+            for (int i = 0; i < applyAlgorith.SuggestionBins.Count; i++)
             {
+                int index = RandomList[i];
+                var item = applyAlgorith.SuggestionBins[index];
                 this.box = new System.Windows.Forms.Button();
                 this.box.Location = new System.Drawing.Point(x, y);
                 this.box.Size = new System.Drawing.Size(item.Width, item.Height);
@@ -455,28 +566,68 @@ namespace boxfittingapp
                 this.tabPage4.Controls.Add(this.box);
                 this.box.MouseDown += Container_MouseDown;
                 this.box.Tag = index;
-                index++;
-                y += item.Height + 5;
+                this.box.Visible = false;
+                ListSuggestionToShow.Add(this.box);
             }
-            if (applyAlgorith.SuggestionBins.Count > 0)
+        }
+
+        private void ShowNextSuggestionBox()
+        {
+            if (ListSuggestionToShow != null && ListSuggestionToShow.Count > 0)
             {
-                panel1.Width = this.Width - paper.Width;
+                CurrentSelection = ListSuggestionToShow.FirstOrDefault();
+                CurrentSelection.Visible = true;
             }
-            tabControl1.SelectedIndex = 1;
+        }
+
+        private List<int> GetRandomListOfInterger()
+        {
+            var resultList = new List<int>();
+            Random rnd = new Random();
+            foreach (var item in applyAlgorith.SuggestionBins)
+            {
+                var randomNumber = rnd.Next(0, applyAlgorith.SuggestionBins.Count);
+                while (resultList.Contains(randomNumber))
+                {
+                    randomNumber = rnd.Next(0, applyAlgorith.SuggestionBins.Count);
+                }
+                resultList.Add(randomNumber);
+            }
+            return resultList;
         }
 
         private void Container_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
+            this.Refresh();
         }
 
         private void Container_DragDrop(object sender, DragEventArgs e)
+        {
+            DropIntoContainer(sender, e);
+        }
+
+        private void DropIntoContainer(object sender, DragEventArgs e)
         {
             var currentBin = new RectangularBox();
             ((Button)e.Data.GetData(typeof(Button))).Parent = (Panel)sender;
             var button = (Button)e.Data.GetData(typeof(Button));
             currentBin = applyAlgorith.SuggestionBins[(int)button.Tag];
-            button.SetBounds(currentBin.X, currentBin.Y, currentBin.Width, currentBin.Height);
+            if ((currentBin.X - 30 <= e.X - container.Location.X && e.X - container.Location.X <= currentBin.X + Width + 70)
+                && (currentBin.Y - 30 <= e.Y - container.Location.Y && e.Y - container.Location.Y <= currentBin.Y + currentBin.Height + 70))
+            {
+                button.SetBounds(currentBin.X, currentBin.Y, currentBin.Width, currentBin.Height);
+                ListSuggestionToShow.Remove(button);
+                ShowNextSuggestionBox();
+                Score += 10;
+                lblScore.Text = "SCORE: " + Score;
+            }
+            else
+            {
+                container.Controls.Remove(button);
+                tabPage4.Controls.Add(button);
+            }
+            this.Refresh();
         }
 
         private void Container_MouseDown(object sender, MouseEventArgs e)
@@ -486,26 +637,48 @@ namespace boxfittingapp
                 CurrentSelection = (Button)sender;
                 CurrentSelection.DoDragDrop(CurrentSelection, DragDropEffects.Move);
             }
+            this.Refresh();
         }
 
         private void TabPage4_DragDrop(object sender, DragEventArgs e)
         {
             ((Button)e.Data.GetData(typeof(Button))).Parent = (Panel)sender;
             var button = (Button)e.Data.GetData(typeof(Button));
+            this.Refresh();
         }
 
         private void TabPage4_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
+            this.Refresh();
         }
 
         private void TabPage4_MouseDown(object sender, MouseEventArgs e)
         {
-
+            this.Refresh();
         }
 
         private void BtnSuggestionResult_Click(object sender, EventArgs e)
         {
+            container.AllowDrop = false;
+            container.DragEnter -= Container_DragEnter;
+            container.DragDrop -= Container_DragDrop;
+            tabPage4.AllowDrop = false;
+            tabPage4.DragEnter -= TabPage4_DragEnter;
+            tabPage4.DragDrop -= TabPage4_DragDrop;
+            Timer.Stop();
+            SuggestionButtonList = new List<Button>();
+            GetSuggestionBins();
+            tabPage4.Controls.Clear();
+            tabPage3.Show();
+        }
+
+        private void GetSuggestionBins()
+        {
+            if (applyAlgorith.SuggestionBins.Count == 0)
+            {
+                CalculateSuggestionBins();
+            }
             SuggestionButtonList = new List<Button>();
             foreach (var item in applyAlgorith.SuggestionBins)
             {
@@ -519,9 +692,100 @@ namespace boxfittingapp
                 this.container.Controls.Add(this.box);
                 this.box.MouseDown += Container_MouseDown;
                 this.box.BringToFront();
+                this.box.Visible = true;
+
                 SuggestionButtonList.Add(this.box);
             }
-            tabPage4.Controls.Clear();
+        }
+
+        private void BtnDrawInputSizes_Click(object sender, EventArgs e)
+        {
+            if (InputBoxes.Count > 0)
+            {
+                read.IsReadFile = false;
+                read.SetSizes(InputBoxes);
+                Start();
+            }
+            tabPage1.Show();
+            this.Refresh();
+        }
+        private void Container_Click(object sender, EventArgs e)
+        {
+            // GetSuggestionBins();
+            if (applyAlgorith.SuggestionBins.Count > 0)
+            {
+                foreach (var item in applyAlgorith.SuggestionBins)
+                {
+                    if (CurrentSelection != null && CurrentSelection.Tag != null)
+                    {
+                        var currentBin = applyAlgorith.SuggestionBins[(int)CurrentSelection.Tag];
+                        var button = new Button();
+                        button.BackColor = Color.FromArgb(190, 125, 125, 250);
+                        button.FlatStyle = FlatStyle.Popup;
+                        button.SetBounds(currentBin.X, currentBin.Y, currentBin.Width, currentBin.Height);
+                        //lblScore.Text = $"Cursor: x: {Cursor.Position.X -container.Location.X} y: {Cursor.Position.Y - container.Location.Y -50} " +
+                        //$"Item x: {button.Location.X} y: {button.Location.Y}";
+                        if (Cursor.Position.X - container.Location.X > button.Location.X
+                            && Cursor.Position.X - container.Location.X < button.Location.X + button.Width
+                            && Cursor.Position.Y - container.Location.Y - 50 > button.Location.Y
+                            && Cursor.Position.Y - container.Location.Y - 50 < button.Location.Y + button.Height)
+                        {
+                            ListSuggestionToShow.Remove(CurrentSelection);
+                            CurrentSelection.Visible = false;
+                            container.Controls.Add(button);
+                            ShowNextSuggestionBox();
+                            Score = Score + 10;
+                            lblScore.Text = $"Score: {Score}";
+                        }
+                    }
+                }
+            }
+        }
+
+        private void TxtNumber_TextChanged(object sender, EventArgs e)
+        {
+            if (!txtNumber.Text.All(t => Char.IsDigit(t)))
+            {
+                errorProvider.SetError(txtNumber, "Please Enter Number Only");
+            }
+            else
+            {
+                errorProvider.Clear();
+            }
+        }
+
+        private void TxtNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            {
+                errorProvider.Clear();
+                InputBoxes.Clear();
+                var number = int.Parse(txtNumber.Text);
+                if (number > 1)
+                {
+                    var rand = new Random();
+                    for (int i = 0; i < number; i++)
+                    {
+                        InputBoxes.Add(new RectangularBox
+                        {
+                            Width = rand.Next(1, 3) * rand.Next(1, 4) * 20,
+                            Height = rand.Next(1, 3) * rand.Next(1, 4) * 20
+                        });
+                    }
+                }
+                else
+                {
+                    errorProvider.SetError(txtNumber, "Please Enter a number greater than 1.");
+                }
+
+            }
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            txtNumber.Visible = true;
+            lblNumber.Visible = true;
+            InputBoxes.Clear();
         }
     }
 

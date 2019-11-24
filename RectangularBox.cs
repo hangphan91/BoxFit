@@ -9,6 +9,7 @@ namespace boxfittingapp
 {
     public class RectangularBox
     {
+        public int TagID { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
         public int Width { get; set; }
@@ -33,6 +34,20 @@ namespace boxfittingapp
             return y[1].CompareTo(x[1]);
         }
     }
+    public class AreaComparer : IComparer<RectangularBox>
+    {
+        public int Compare(RectangularBox x, RectangularBox y)
+        {
+            return (y.X * y.Y).CompareTo(x.X * x.Y);
+        }
+    }
+    public class PairIndexValueComparerByKey : IComparer<List<int>>
+    {
+        public int Compare(List<int> x, List<int> y)
+        {
+            return y[0].CompareTo(x[0]);
+        }
+    }
     public class RectangularBoxComparerHorizontal : IComparer<RectangularBox>
     {
         public int Compare(RectangularBox x, RectangularBox y)
@@ -51,7 +66,7 @@ namespace boxfittingapp
     {
         public int Compare(RectangularBox x, RectangularBox y)
         {
-            return (x.Y+x.Height).CompareTo(y.Y + y.Height);
+            return (x.Y + x.Height).CompareTo(y.Y + y.Height);
         }
     }
 }
