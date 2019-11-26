@@ -41,6 +41,20 @@ namespace boxfittingapp
             return (y.X * y.Y).CompareTo(x.X * x.Y);
         }
     }
+    public class MaxSideComparer : IComparer<RectangularBox>
+    {
+        public int Compare(RectangularBox x, RectangularBox y)
+        {
+            return (Math.Max(y.X , y.Y).CompareTo(Math.Max(x.X , x.Y)));
+        }
+    }
+    public class PerimeterComparer : IComparer<RectangularBox>
+    {
+        public int Compare(RectangularBox x, RectangularBox y)
+        {
+            return (y.X + y.Y).CompareTo(x.X + x.Y);
+        }
+    }
     public class PairIndexValueComparerByKey : IComparer<List<int>>
     {
         public int Compare(List<int> x, List<int> y)

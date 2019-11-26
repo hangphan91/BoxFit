@@ -32,7 +32,7 @@ namespace boxfittingapp
         public Dictionary<int, RectangularBox> OptimizedBoxList { get; set; }
 
         private List<RectangularBox> boxListCopy;
-
+        public SortType TypeOfSort { get; set; }
         public List<RectangularBox> BinList { get; set; }
         public List<RectangularBox> Bins { get; set; }
         public List<Point> ResultListCoordinates { get; set; }
@@ -76,6 +76,7 @@ namespace boxfittingapp
             FitInBins = new List<RectangularBox>();
             SuggestionBins = new List<RectangularBox>();
             ContainerNumbers = new List<int>();
+            TypeOfSort = SortType.Area;
             HasResult = true;
             IsMultipleContainers = false;
             NumberOfMyContainerUsed = 0;
@@ -137,9 +138,9 @@ namespace boxfittingapp
             foreach (var item in Bins)
             {
                 item.TagID = i - 1;
-                MyResult += $"Container#: {ContainerNumbers[i - 1]} Box {i-1}@ X: {item.X} - Y: {item.Y} - W: {item.Width} - H: {item.Height} \n";
+                MyResult += $"Container#: {ContainerNumbers[i - 1]} Box {i - 1}@ X: {item.X} - Y: {item.Y} - W: {item.Width} - H: {item.Height} \n";
                 i++;
-                
+
             }
             MyResult += "Used Area: " + UsedArea.ToString();
             TotalArea = MaxWidth * MaxHeight;
@@ -546,14 +547,28 @@ namespace boxfittingapp
             }
             return hasBin;
         }
-
+        public enum SortType
+        {
+            Area,
+            Perimeter
+        }
+        public void SetTypeOfSort(SortType type)
+        {
+            TypeOfSort = type;
+        }
         public void GetSortedListForPairIndexValue()
         {
 
             OptimizedBoxList = new Dictionary<int, RectangularBox>(BoxList);
             OptimizedBoxList = BoxList;
             boxListCopy = BoxList.Select(t => t.Value).ToList();
-            boxListCopy.Sort(new AreaComparer());
+            if (TypeOfSort == SortType.Area)
+            {
+                boxListCopy.Sort(new AreaComparer());
+            }
+            else
+                boxListCopy.Sort(new PerimeterComparer());
+            boxListCopy.Sort(new MaxSideComparer());
             foreach (var item in BoxList)
             {
                 PairIndexValueList.Add(new List<int> { item.Key, boxListCopy[item.Key].X });
@@ -563,6 +578,7 @@ namespace boxfittingapp
 
             //PairIndexValueList.Sort(new PairIndexValueComparerByKey());
             //PairIndexValueList.Sort(new PairIndexValueComparer());
+            PairIndexValueList.Sort(new PairIndexValueComparer());
 
             foreach (var item in PairIndexValueList)
             {

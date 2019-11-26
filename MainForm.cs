@@ -57,6 +57,7 @@ namespace boxfittingapp
             Tasks = new List<Task>();
             CurrentRow = new GridView();
             Rows = new BindingList<GridView>();
+            chartPerfomance.DataSource = dgvPanel;
             dgvInputSizes.DataSource = InputBoxes;
             ListSuggestionToShow = new List<Button>();
             Start();
@@ -331,6 +332,45 @@ namespace boxfittingapp
                 SavetoGrid();
             }
             this.tabPage2.Show();
+            ShowChart();
+        }
+
+        private void ShowChart()
+        {
+            int w = 0;
+            int h = 0;
+            foreach (DataGridViewRow item in dgvPanel.Rows)
+            {
+                foreach (DataGridViewCell col in item.Cells)
+                {
+                    if (col.OwningColumn.Name == "WastedPercent")
+                    {
+                        chartPerfomance.Series["Wasted Area"].Points.AddXY(item.Index, (float)col.Value);
+                    }
+                    if (col.OwningColumn.Name == "UsedPercent")
+                    {
+                        chartPerfomance.Series["Used Area"].Points.AddXY(item.Index, (float)col.Value);
+                    }
+                    if (col.OwningColumn.Name == "MaxWidthCol")
+                    {
+                        w = (int)col.Value;
+                    }
+                    if (col.OwningColumn.Name == "MaxHeightCol")
+                    {
+                        h = (int)(int)col.Value;
+                    }
+                    if (w>0 && h>0)
+                    {
+                        chartPerfomance.Series["Width"].Points.AddXY(item.Index, w*100 / (w + h));
+                        chartPerfomance.Series["Height"].Points.AddXY(item.Index, h*100 / (w + h));
+                    }
+                   
+
+                    //chartPerfomance.Series["Area"].Points.AddXY(item.Index, w*h);
+                    //chartPerfomance.Series["Perimeter"].Points.AddXY(item.Index, (w+h));
+
+                }
+            }
         }
 
         private void SavetoGrid()
@@ -786,6 +826,20 @@ namespace boxfittingapp
             txtNumber.Visible = true;
             lblNumber.Visible = true;
             InputBoxes.Clear();
+        }
+
+        private void CheckPerimeter_Click(object sender, EventArgs e)
+        {
+            checkArea.Checked = false;
+            checkPerimeter.Checked = true;
+            applyAlgorith.SetTypeOfSort(BoxFittingAlgorithm.SortType.Perimeter);
+        }
+
+        private void CheckArea_Click(object sender, EventArgs e)
+        {
+            checkPerimeter.Checked = false;
+            checkArea.Checked = true;
+            applyAlgorith.SetTypeOfSort(BoxFittingAlgorithm.SortType.Area);
         }
     }
 
