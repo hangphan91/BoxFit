@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using static boxfittingapp.BoxFittingAlgorithm;
 
 namespace boxfittingapp
 {
@@ -41,6 +41,8 @@ namespace boxfittingapp
         public List<int> RandomList { get; private set; }
         public List<Button> ListSuggestionToShow { get; private set; }
         public BindingList<RectangularBox> InputBoxes { get; set; }
+        public BindingList<RectangularBox> UserCustomizedBoxes{ get; set; }
+        public List<DataGridView> ListUserCustomizedBoxes { get; set; }
 
         public const int TimeLimit = 120;
         #endregion
@@ -49,6 +51,8 @@ namespace boxfittingapp
             InitializeComponent();
             Score = 0;
             InputBoxes = new BindingList<RectangularBox>();
+            UserCustomizedBoxes = new BindingList<RectangularBox>();
+            ListUserCustomizedBoxes = new List<DataGridView>();
             Points = new List<RectangularBox>();
             MaxLine = new List<Point>();
             read = new ReadInputSizes();
@@ -59,6 +63,7 @@ namespace boxfittingapp
             Rows = new BindingList<GridView>();
             chartPerfomance.DataSource = dgvPanel;
             dgvInputSizes.DataSource = InputBoxes;
+            dgvUserInputs.DataSource = UserCustomizedBoxes;
             ListSuggestionToShow = new List<Button>();
             Start();
         }
@@ -341,11 +346,13 @@ namespace boxfittingapp
             int h = 0;
             foreach (DataGridViewRow item in dgvPanel.Rows)
             {
+                chartPerfomance.Titles[0].Text = "Percent of Space in Use and Wasted";
                 foreach (DataGridViewCell col in item.Cells)
                 {
                     if (col.OwningColumn.Name == "WastedPercent")
                     {
                         chartPerfomance.Series["Wasted Area"].Points.AddXY(item.Index, (float)col.Value);
+                        
                     }
                     if (col.OwningColumn.Name == "UsedPercent")
                     {
@@ -359,15 +366,6 @@ namespace boxfittingapp
                     {
                         h = (int)(int)col.Value;
                     }
-                    if (w>0 && h>0)
-                    {
-                        chartPerfomance.Series["Width"].Points.AddXY(item.Index, w*100 / (w + h));
-                        chartPerfomance.Series["Height"].Points.AddXY(item.Index, h*100 / (w + h));
-                    }
-                   
-
-                    //chartPerfomance.Series["Area"].Points.AddXY(item.Index, w*h);
-                    //chartPerfomance.Series["Perimeter"].Points.AddXY(item.Index, (w+h));
 
                 }
             }
@@ -377,6 +375,7 @@ namespace boxfittingapp
         {
             SaveImage();
             dgvPanel.DataSource = Rows;
+            ListUserCustomizedBoxes.Add(dgvInputSizes);
             dgvPanel.Refresh();
         }
 
@@ -397,33 +396,48 @@ namespace boxfittingapp
             xlexcel.Visible = true;
             xlWorkBook = xlexcel.Workbooks.Add(misValue);
             xlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+            AddSheet(xlWorkSheet, dgvPanel);
+            xlWorkSheet.Name = "Box Fitting Result";
+            int index = 0;
+            foreach (var item in ListUserCustomizedBoxes)
+            {
+                xlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                xlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkBook.Worksheets.Add();
+                AddSheet(xlWorkSheet, item);
+                xlWorkSheet.Name = "Row ID " + ((int)dgvPanel.Rows[index].Cells[0].Value).ToString();
+                index++;
+            }
+        }
+
+        private void AddSheet(Microsoft.Office.Interop.Excel.Worksheet xlWorkSheet, DataGridView gridView)
+        {
             int j = 0, i = 0;
             int StartCol = 1;
             int StartRow = 1;
 
             //Write Headers
-            for (j = 0; j < dgvPanel.Columns.Count; j++)
+            for (j = 0; j < gridView.Columns.Count; j++)
             {
-                if (dgvPanel.Columns[j].Visible == true)
+                if (gridView.Columns[j].Visible == true)
                 {
                     Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[StartRow, StartCol + j];
-                    myRange.Value2 = dgvPanel.Columns[j].HeaderText;
+                    myRange.Value2 = gridView.Columns[j].HeaderText;
                 }
             }
             xlWorkSheet.Columns.AutoFit();
             StartRow++;
 
             //Write datagridview content
-            for (i = 0; i < dgvPanel.Rows.Count; i++)
+            for (i = 0; i < gridView.Rows.Count; i++)
             {
-                for (j = 0; j < dgvPanel.Columns.Count; j++)
+                for (j = 0; j < gridView.Columns.Count; j++)
                 {
                     try
                     {
-                        if (dgvPanel.Columns[j].Visible == true)
+                        if (gridView.Columns[j].Visible == true)
                         {
                             Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)xlWorkSheet.Cells[StartRow + i, StartCol + j];
-                            myRange.Value2 = dgvPanel[j, i].Value == null ? "" : dgvPanel[j, i].Value;
+                            myRange.Value2 = gridView[j, i].Value == null ? "" : gridView[j, i].Value;
 
                         }
                     }
@@ -463,6 +477,7 @@ namespace boxfittingapp
             {
                 int rowIndex = dgvPanel.CurrentCell.RowIndex;
                 dgvPanel.Rows.RemoveAt(rowIndex);
+                ListUserCustomizedBoxes.RemoveAt(rowIndex);
             }
         }
 
@@ -743,6 +758,8 @@ namespace boxfittingapp
             if (InputBoxes.Count > 0)
             {
                 read.IsReadFile = false;
+                lblNumber.Visible = false;
+                txtNumber.Visible = false;
                 read.SetSizes(InputBoxes);
                 Start();
             }
@@ -808,8 +825,8 @@ namespace boxfittingapp
                     {
                         InputBoxes.Add(new RectangularBox
                         {
-                            Width = rand.Next(1, 3) * rand.Next(1, 4) * 20,
-                            Height = rand.Next(1, 3) * rand.Next(1, 4) * 20
+                            Width = rand.Next(1, 5) * rand.Next(1, 5) * 20,
+                            Height = rand.Next(1, 5) * rand.Next(1, 5) * 20
                         });
                     }
                 }
@@ -840,6 +857,30 @@ namespace boxfittingapp
             checkPerimeter.Checked = false;
             checkArea.Checked = true;
             applyAlgorith.SetTypeOfSort(BoxFittingAlgorithm.SortType.Area);
+        }
+
+        private void BtnUserInputs_Click(object sender, EventArgs e)
+        {
+            UserCustomizedBoxes.Clear();
+            dgvUserInputs.Visible = true;
+            btnAdd.Visible = true;
+        }
+
+        private void BtnAdd_Click(object sender, EventArgs e)
+        {
+            if (UserCustomizedBoxes.Count >0)
+            {
+                InputBoxes.Clear();
+                foreach (var item in UserCustomizedBoxes)
+                {
+                    for (int i = 0; i < item.Quantity; i++)
+                    {
+                        InputBoxes.Add(item);
+                    }
+                }
+                dgvInputSizes.DataSource = InputBoxes;
+                this.Refresh();
+            }
         }
     }
 

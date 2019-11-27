@@ -328,7 +328,8 @@ namespace boxfittingapp
                 ContainerNumbers = this.ContainerNumbers,
                 TotalArea = this.TotalArea,
                 UsedPercent = (float)this.UsedArea * 100 / this.TotalArea,
-                WastedPercent = (float)this.WastedArea * 100 / this.TotalArea
+                WastedPercent = (float)this.WastedArea * 100 / this.TotalArea,
+                SortType = this.TypeOfSort
             };
             foreach (var item in BinList)
             {
@@ -568,7 +569,7 @@ namespace boxfittingapp
             }
             else
                 boxListCopy.Sort(new PerimeterComparer());
-            boxListCopy.Sort(new MaxSideComparer());
+            //boxListCopy.Sort(new MaxSideComparer());
             foreach (var item in BoxList)
             {
                 PairIndexValueList.Add(new List<int> { item.Key, boxListCopy[item.Key].X });
@@ -578,7 +579,7 @@ namespace boxfittingapp
 
             //PairIndexValueList.Sort(new PairIndexValueComparerByKey());
             //PairIndexValueList.Sort(new PairIndexValueComparer());
-            PairIndexValueList.Sort(new PairIndexValueComparer());
+            //PairIndexValueList.Sort(new PairIndexValueComparer());
 
             foreach (var item in PairIndexValueList)
             {

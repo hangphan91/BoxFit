@@ -36,8 +36,7 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.paper = new System.Windows.Forms.Panel();
             this.container = new System.Windows.Forms.Panel();
             this.btnSuggestion = new System.Windows.Forms.Button();
@@ -89,13 +88,23 @@
             this.rectangularBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel6 = new System.Windows.Forms.Panel();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.dgvUserInputs = new System.Windows.Forms.DataGridView();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnUserInputs = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.panel11 = new System.Windows.Forms.Panel();
             this.RowID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UsedPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WastedPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ArrangedBins = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ContainerWidthAndHeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Image = new System.Windows.Forms.DataGridViewImageColumn();
             this.Suggestions = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SortType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.widthDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rectangularBoxBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.widthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.heightDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rectangularBoxBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -109,7 +118,7 @@
             this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.gridViewBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.gridViewBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.panel9 = new System.Windows.Forms.Panel();
+            this.inputValuesModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.paper.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlTab34.SuspendLayout();
@@ -135,10 +144,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource)).BeginInit();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            this.panel9.SuspendLayout();
+            this.panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUserInputs)).BeginInit();
+            this.panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource2)).BeginInit();
-            this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.inputValuesModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // paper
@@ -384,6 +398,7 @@
             // 
             this.tabPage5.AutoScroll = true;
             this.tabPage5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.tabPage5.Controls.Add(this.panel10);
             this.tabPage5.Controls.Add(this.panel5);
             this.tabPage5.Controls.Add(this.panel4);
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
@@ -456,6 +471,7 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.panel11);
             this.panel4.Controls.Add(this.lblNumber);
             this.panel4.Controls.Add(this.txtNumber);
             this.panel4.Controls.Add(this.button3);
@@ -506,9 +522,9 @@
             this.btnDrawInputSizes.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnDrawInputSizes.Location = new System.Drawing.Point(3, 0);
             this.btnDrawInputSizes.Name = "btnDrawInputSizes";
-            this.btnDrawInputSizes.Size = new System.Drawing.Size(126, 31);
+            this.btnDrawInputSizes.Size = new System.Drawing.Size(145, 31);
             this.btnDrawInputSizes.TabIndex = 1;
-            this.btnDrawInputSizes.Text = "Save Bins Size";
+            this.btnDrawInputSizes.Text = "Use These Boxes";
             this.btnDrawInputSizes.UseVisualStyleBackColor = false;
             this.btnDrawInputSizes.Click += new System.EventHandler(this.BtnDrawInputSizes_Click);
             // 
@@ -622,7 +638,6 @@
             this.RowID,
             this.UsedPercent,
             this.WastedPercent,
-            this.ArrangedBins,
             this.dataGridViewTextBoxColumn18,
             this.dataGridViewTextBoxColumn10,
             this.dataGridViewTextBoxColumn11,
@@ -633,7 +648,8 @@
             this.dataGridViewCheckBoxColumn1,
             this.dataGridViewCheckBoxColumn2,
             this.Image,
-            this.Suggestions});
+            this.Suggestions,
+            this.SortType});
             this.dgvPanel.DataSource = this.gridViewBindingSource1;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.HighlightText;
@@ -711,22 +727,17 @@
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Wasted Area";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
             series2.ChartArea = "ChartArea1";
             series2.Legend = "Legend1";
             series2.Name = "Used Area";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Height";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Width";
             this.chartPerfomance.Series.Add(series1);
             this.chartPerfomance.Series.Add(series2);
-            this.chartPerfomance.Series.Add(series3);
-            this.chartPerfomance.Series.Add(series4);
             this.chartPerfomance.Size = new System.Drawing.Size(1253, 513);
             this.chartPerfomance.TabIndex = 0;
             this.chartPerfomance.Text = "chart1";
+            title1.Name = "Wasted and Used in Percentage Chart";
+            this.chartPerfomance.Titles.Add(title1);
             // 
             // contextMenuStrip1
             // 
@@ -767,6 +778,91 @@
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.chartPerfomance);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel9.Location = new System.Drawing.Point(0, 0);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(1253, 513);
+            this.panel9.TabIndex = 2;
+            // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.dgvUserInputs);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel10.Location = new System.Drawing.Point(658, 71);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(575, 422);
+            this.panel10.TabIndex = 4;
+            // 
+            // dgvUserInputs
+            // 
+            this.dgvUserInputs.AutoGenerateColumns = false;
+            this.dgvUserInputs.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.dgvUserInputs.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvUserInputs.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgvUserInputs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUserInputs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.widthDataGridViewTextBoxColumn1,
+            this.heightDataGridViewTextBoxColumn1,
+            this.Quantity});
+            this.dgvUserInputs.DataSource = this.rectangularBoxBindingSource2;
+            this.dgvUserInputs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvUserInputs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.dgvUserInputs.Location = new System.Drawing.Point(0, 0);
+            this.dgvUserInputs.Name = "dgvUserInputs";
+            this.dgvUserInputs.RowHeadersWidth = 51;
+            this.dgvUserInputs.RowTemplate.Height = 24;
+            this.dgvUserInputs.Size = new System.Drawing.Size(575, 422);
+            this.dgvUserInputs.TabIndex = 0;
+            this.dgvUserInputs.Visible = false;
+            // 
+            // Quantity
+            // 
+            this.Quantity.DataPropertyName = "Quantity";
+            this.Quantity.HeaderText = "Quantity";
+            this.Quantity.MinimumWidth = 6;
+            this.Quantity.Name = "Quantity";
+            this.Quantity.Width = 125;
+            // 
+            // btnUserInputs
+            // 
+            this.btnUserInputs.BackColor = System.Drawing.Color.Cyan;
+            this.btnUserInputs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnUserInputs.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnUserInputs.Location = new System.Drawing.Point(3, 0);
+            this.btnUserInputs.Name = "btnUserInputs";
+            this.btnUserInputs.Size = new System.Drawing.Size(180, 31);
+            this.btnUserInputs.TabIndex = 5;
+            this.btnUserInputs.Text = "Customize My Boxes";
+            this.btnUserInputs.UseVisualStyleBackColor = false;
+            this.btnUserInputs.Click += new System.EventHandler(this.BtnUserInputs_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.BackColor = System.Drawing.Color.Cyan;
+            this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAdd.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnAdd.Location = new System.Drawing.Point(211, 0);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(180, 31);
+            this.btnAdd.TabIndex = 6;
+            this.btnAdd.Text = "Add My Boxes";
+            this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.Visible = false;
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.btnUserInputs);
+            this.panel11.Controls.Add(this.btnAdd);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel11.Location = new System.Drawing.Point(638, 0);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(575, 51);
+            this.panel11.TabIndex = 7;
+            // 
             // RowID
             // 
             this.RowID.DataPropertyName = "RowID";
@@ -797,15 +893,6 @@
             this.WastedPercent.ReadOnly = true;
             this.WastedPercent.Width = 125;
             // 
-            // ArrangedBins
-            // 
-            this.ArrangedBins.DataPropertyName = "ArrangedBins";
-            this.ArrangedBins.HeaderText = "ArrangedBins";
-            this.ArrangedBins.MinimumWidth = 6;
-            this.ArrangedBins.Name = "ArrangedBins";
-            this.ArrangedBins.ReadOnly = true;
-            this.ArrangedBins.Width = 125;
-            // 
             // ContainerWidthAndHeight
             // 
             this.ContainerWidthAndHeight.DataPropertyName = "ContainerWidthAndHeight";
@@ -832,6 +919,35 @@
             this.Suggestions.Name = "Suggestions";
             this.Suggestions.ReadOnly = true;
             this.Suggestions.Width = 125;
+            // 
+            // SortType
+            // 
+            this.SortType.DataPropertyName = "SortType";
+            this.SortType.HeaderText = "SortType";
+            this.SortType.MinimumWidth = 6;
+            this.SortType.Name = "SortType";
+            this.SortType.ReadOnly = true;
+            this.SortType.Width = 125;
+            // 
+            // widthDataGridViewTextBoxColumn1
+            // 
+            this.widthDataGridViewTextBoxColumn1.DataPropertyName = "Width";
+            this.widthDataGridViewTextBoxColumn1.HeaderText = "Width";
+            this.widthDataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.widthDataGridViewTextBoxColumn1.Name = "widthDataGridViewTextBoxColumn1";
+            this.widthDataGridViewTextBoxColumn1.Width = 125;
+            // 
+            // heightDataGridViewTextBoxColumn1
+            // 
+            this.heightDataGridViewTextBoxColumn1.DataPropertyName = "Height";
+            this.heightDataGridViewTextBoxColumn1.HeaderText = "Height";
+            this.heightDataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.heightDataGridViewTextBoxColumn1.Name = "heightDataGridViewTextBoxColumn1";
+            this.heightDataGridViewTextBoxColumn1.Width = 125;
+            // 
+            // rectangularBoxBindingSource2
+            // 
+            this.rectangularBoxBindingSource2.DataSource = typeof(boxfittingapp.RectangularBox);
             // 
             // widthDataGridViewTextBoxColumn
             // 
@@ -933,14 +1049,9 @@
             // 
             this.gridViewBindingSource2.DataSource = typeof(boxfittingapp.Model.GridView);
             // 
-            // panel9
+            // inputValuesModelBindingSource
             // 
-            this.panel9.Controls.Add(this.chartPerfomance);
-            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(0, 0);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(1253, 513);
-            this.panel9.TabIndex = 2;
+            this.inputValuesModelBindingSource.DataSource = typeof(boxfittingapp.Model.InputValuesModel);
             // 
             // MainForm
             // 
@@ -982,10 +1093,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource)).EndInit();
             this.panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            this.panel9.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUserInputs)).EndInit();
+            this.panel11.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource2)).EndInit();
-            this.panel9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.inputValuesModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1074,10 +1190,20 @@
         private System.Windows.Forms.TabPage tabGraph;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartPerfomance;
         private System.Windows.Forms.BindingSource gridViewBindingSource2;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.DataGridView dgvUserInputs;
+        private System.Windows.Forms.BindingSource inputValuesModelBindingSource;
+        private System.Windows.Forms.BindingSource rectangularBoxBindingSource2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn widthDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn heightDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
+        private System.Windows.Forms.Button btnUserInputs;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.DataGridViewTextBoxColumn RowID;
         private System.Windows.Forms.DataGridViewTextBoxColumn UsedPercent;
         private System.Windows.Forms.DataGridViewTextBoxColumn WastedPercent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ArrangedBins;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
@@ -1089,7 +1215,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
         private System.Windows.Forms.DataGridViewImageColumn Image;
         private System.Windows.Forms.DataGridViewTextBoxColumn Suggestions;
-        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortType;
     }
 }
 

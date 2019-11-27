@@ -14,6 +14,7 @@ namespace boxfittingapp
         public int Y { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
+        public int Quantity { get; set; }
         public RectangularBox()
         {
             X = 0;

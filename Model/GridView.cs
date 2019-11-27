@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static boxfittingapp.BoxFittingAlgorithm;
 
 namespace boxfittingapp.Model
 {
@@ -57,5 +58,6 @@ namespace boxfittingapp.Model
         public int NumberOfMyContainerUsed { get; set; }
         public List<int> ContainerNumbers { get; set; }
         public Bitmap Image { get; set; }
+        public SortType SortType { get; set; }
     }
 }

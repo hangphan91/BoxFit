@@ -66,6 +66,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\GridView.cs" />
+    <Compile Include="Model\InputValuesModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadCSVFile.cs" />
@@ -98,6 +99,7 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\boxfittingapp.Model.GridView.datasource" />
     <EmbeddedResource Include="Properties\fittingboxsamples2.csv" />
+    <None Include="Properties\DataSources\boxfittingapp.Model.InputValuesModel.datasource" />
     <None Include="Properties\DataSources\RectangularBox.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
