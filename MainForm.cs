@@ -41,7 +41,7 @@ namespace boxfittingapp
         public List<int> RandomList { get; private set; }
         public List<Button> ListSuggestionToShow { get; private set; }
         public BindingList<RectangularBox> InputBoxes { get; set; }
-        public BindingList<RectangularBox> UserCustomizedBoxes{ get; set; }
+        public BindingList<RectangularBox> UserCustomizedBoxes { get; set; }
         public List<DataGridView> ListUserCustomizedBoxes { get; set; }
 
         public const int TimeLimit = 120;
@@ -100,6 +100,8 @@ namespace boxfittingapp
                 optimization.Add(i, applyAlgorith.BinList[i]);
             }
             var maxY = 0;
+
+
             OptimumDrawing(applyAlgorith);
             MaxLine.Add(new Point(applyAlgorith.ContainerWidth, maxY));
             MaxLine.Add(new Point(0, maxY));
@@ -232,9 +234,14 @@ namespace boxfittingapp
             dictionary = read.BoxListReadOnly;
             var inputWidth = applyAlgorith.InputWidth;
             var inputHeight = applyAlgorith.InputHeight;
-            applyAlgorith = new BoxFittingAlgorithm();
+
+            var task2 = Task.Run(() => applyAlgorith = new BoxFittingAlgorithm());
+            applyAlgorith.TypeOfSort = checkPerimeter.Checked ? BoxFittingAlgorithm.SortType.Perimeter : BoxFittingAlgorithm.SortType.Area;
+            Tasks.Add(task2);
+            Task.WaitAll(Tasks.ToArray());
             UserInput = new UserInput(this, inputWidth, inputHeight);
             UserInput.ShowDialog();
+
             PerformBoxFittingAlgorithm(dictionary);
 
             this.Show();
@@ -252,7 +259,10 @@ namespace boxfittingapp
 
         private void FittingBinsIntoMyContainer()
         {
-            applyAlgorith.GetSortedListForPairIndexValue();
+            var task2 = Task.Run(() => applyAlgorith.GetSortedListForPairIndexValue());
+
+            Tasks.Add(task2);
+            Task.WaitAll(Tasks.ToArray());
             if (IsHorizontal)
             {
                 FitMyContainerHorizontal();
@@ -352,7 +362,7 @@ namespace boxfittingapp
                     if (col.OwningColumn.Name == "WastedPercent")
                     {
                         chartPerfomance.Series["Wasted Area"].Points.AddXY(item.Index, (float)col.Value);
-                        
+
                     }
                     if (col.OwningColumn.Name == "UsedPercent")
                     {
@@ -763,8 +773,6 @@ namespace boxfittingapp
                 read.SetSizes(InputBoxes);
                 Start();
             }
-            tabPage1.Show();
-            this.Refresh();
         }
         private void Container_Click(object sender, EventArgs e)
         {
@@ -780,8 +788,6 @@ namespace boxfittingapp
                         button.BackColor = Color.FromArgb(190, 125, 125, 250);
                         button.FlatStyle = FlatStyle.Popup;
                         button.SetBounds(currentBin.X, currentBin.Y, currentBin.Width, currentBin.Height);
-                        //lblScore.Text = $"Cursor: x: {Cursor.Position.X -container.Location.X} y: {Cursor.Position.Y - container.Location.Y -50} " +
-                        //$"Item x: {button.Location.X} y: {button.Location.Y}";
                         if (Cursor.Position.X - container.Location.X > button.Location.X
                             && Cursor.Position.X - container.Location.X < button.Location.X + button.Width
                             && Cursor.Position.Y - container.Location.Y - 50 > button.Location.Y
@@ -791,6 +797,7 @@ namespace boxfittingapp
                             CurrentSelection.Visible = false;
                             container.Controls.Add(button);
                             ShowNextSuggestionBox();
+
                             Score = Score + 10;
                             lblScore.Text = $"Score: {Score}";
                         }
@@ -868,7 +875,7 @@ namespace boxfittingapp
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
-            if (UserCustomizedBoxes.Count >0)
+            if (UserCustomizedBoxes.Count > 0)
             {
                 InputBoxes.Clear();
                 foreach (var item in UserCustomizedBoxes)

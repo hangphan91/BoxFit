@@ -46,7 +46,7 @@ namespace boxfittingapp
             BoxListReadOnly.Clear();
             for (int i = 0; i < listA.Count; i++)
             {
-                BoxList.Add(i, new RectangularBox { X = listA[i], Y = listB[i] });
+                BoxList.Add(i, new RectangularBox { Width = listA[i], Height = listB[i] });
             }
             BoxListReadOnly = BoxList;
         }

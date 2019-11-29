@@ -53,6 +53,7 @@ namespace boxfittingapp
         public bool IsMultipleContainers { get; private set; }
         public int NumberOfMyContainerUsed { get; set; }
         public List<int> ContainerNumbers { get; set; }
+        public List<Task> Tasks { get; set; }
         #endregion
         public BoxFittingAlgorithm()
         {
@@ -75,6 +76,7 @@ namespace boxfittingapp
             MyContainer = new RectangularBox();
             FitInBins = new List<RectangularBox>();
             SuggestionBins = new List<RectangularBox>();
+            Tasks = new List<Task>();
             ContainerNumbers = new List<int>();
             TypeOfSort = SortType.Area;
             HasResult = true;
@@ -210,6 +212,8 @@ namespace boxfittingapp
                     {
                         CurrentContainer = item;
                         Gaps2.Remove(item);
+
+
                         PerFormVerticalBoxFittingAlgorith();
                     }
                     Gaps2.Clear();
@@ -270,7 +274,7 @@ namespace boxfittingapp
 
                         Gaps1.Add(CurrentGap1);
                         Gaps2.Add(CurrentGap2);
-                        CurrentContainer = CurrentGap1;
+                        CurrentContainer = CurrentGap2;
                         RemoveBinFromListThenAddtoResultList();
                         FitInBins.Add(CurrentBin);
                         Gaps.Add(CurrentGap1);
@@ -282,16 +286,16 @@ namespace boxfittingapp
                         if (!WastedGaps.Contains(CurrentContainer))
                         {
                             WastedGaps.Add(CurrentContainer);
-                            Gaps1.Clear();
+                            Gaps2.Clear();
                         }
-                        Gaps2.Reverse();
-                        foreach (var item in Gaps2.ToList())
+                        Gaps1.Reverse();
+                        foreach (var item in Gaps1.ToList())
                         {
                             CurrentContainer = item;
-                            Gaps2.Remove(item);
+                            Gaps1.Remove(item);
                             FitMyContainerVertical();
                         }
-                        Gaps2.Clear();
+                        Gaps1.Clear();
                     }
                     if (PairIndexValueList.Count == 0 & Gaps1.Count == 0 && Gaps2.Count == 0)
                     {
@@ -563,23 +567,33 @@ namespace boxfittingapp
             OptimizedBoxList = new Dictionary<int, RectangularBox>(BoxList);
             OptimizedBoxList = BoxList;
             boxListCopy = BoxList.Select(t => t.Value).ToList();
+            foreach (var item in boxListCopy)
+            {
+                var width = Math.Max(item.Height, item.Width);
+                var height = Math.Min(item.Width, item.Height);
+                if (IsHorizontal)
+                {
+                    item.Width = height;
+                    item.Height = width;
+                }
+                else
+                {
+                    item.Width = width;
+                    item.Height = height;
+                }
+            }
             if (TypeOfSort == SortType.Area)
             {
                 boxListCopy.Sort(new AreaComparer());
             }
             else
                 boxListCopy.Sort(new PerimeterComparer());
-            //boxListCopy.Sort(new MaxSideComparer());
             foreach (var item in BoxList)
             {
-                PairIndexValueList.Add(new List<int> { item.Key, boxListCopy[item.Key].X });
-                PairIndexValueList.Add(new List<int> { item.Key, boxListCopy[item.Key].Y });
+                PairIndexValueList.Add(new List<int> { item.Key, boxListCopy[item.Key].Width });
+                PairIndexValueList.Add(new List<int> { item.Key, boxListCopy[item.Key].Height });
             }
             Console.WriteLine("sorted List: ");
-
-            //PairIndexValueList.Sort(new PairIndexValueComparerByKey());
-            //PairIndexValueList.Sort(new PairIndexValueComparer());
-            //PairIndexValueList.Sort(new PairIndexValueComparer());
 
             foreach (var item in PairIndexValueList)
             {
