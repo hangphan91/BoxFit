@@ -47,6 +47,8 @@ namespace boxfittingapp
         public const int TimeLimit = 120;
         public float ScaleX { get; set; }
         public float ScaleY { get; set; }
+        public bool IsHidden { get; private set; }
+        public int BufferWidth { get; private set; } = 5;
         #endregion
         public MainForm()
         {
@@ -130,7 +132,7 @@ namespace boxfittingapp
                 this.box.Name = "box " + index;
                 this.box.Size = new System.Drawing.Size(item.Width, item.Height);
                 this.box.TabIndex = 0;
-                this.box.Text = "box " + index;
+                this.box.Text =  (item.Width) + " x " + (item.Height);
                 this.box.FlatStyle = FlatStyle.Popup;
                 this.box.BackColor = Color.FromArgb(180, (item.Height * 2) % 255, (item.Height * 6) % 255, (item.Width * 2) % 255);
                 var toolTip = new System.Windows.Forms.ToolTip();
@@ -141,11 +143,6 @@ namespace boxfittingapp
             DrawBorders(applyAlgorith);
             DrawBarrierForEachContainer(applyAlgorith);
             container.Size = new Size(applyAlgorith.MaxWidth, applyAlgorith.MaxHeight);
-
-            //foreach (Control item in container.Controls)
-            //{
-            //    pnlCopycontainer.Controls.Add(item);
-            //}
 
             this.Refresh();
         }
@@ -194,7 +191,7 @@ namespace boxfittingapp
                 this.box2 = new System.Windows.Forms.Button();
                 this.box2.Location = new System.Drawing.Point(0, MyContainer.Height * (i + 1));
                 this.box2.Size = new System.Drawing.Size(MyContainer.Width, 2);
-                this.box2.BackColor = Color.Red;
+                this.box2.BackColor = Color.DarkBlue;
                 this.box2.FlatStyle = FlatStyle.Flat;
                 this.container.Controls.Add(this.box2);
             }
@@ -307,12 +304,21 @@ namespace boxfittingapp
             if (applyAlgorith.Bins.Count > 0)
             {
                 InputBoxes.Clear();
-                dgvInputSizes.Columns[3].Visible = true;
-                dgvInputSizes.Columns[4].Visible = true;
-                dgvInputSizes.Columns[0].Visible = true;
+                dgvInputSizes.Columns["WidthColumn"].Visible = true;
+                dgvInputSizes.Columns["HeightColumn"].Visible = true;
+                dgvInputSizes.Columns["TagID"].Visible = true;
+                dgvInputSizes.Columns["X"].Visible = false;
+                dgvInputSizes.Columns["Y"].Visible = false;
+                dgvInputSizes.Columns["YWithinContainer"].Visible = true;
+                dgvInputSizes.Columns["XWithinContainer"].Visible = true;
+                dgvInputSizes.Columns["ContainerNumber"].Visible = true;
             }
             foreach (var item in applyAlgorith.Bins)
             {
+                item.Width = item.Width - BufferWidth *2;
+                item.Height = item.Height - BufferWidth *2;
+                item.X = item.X + BufferWidth;
+                item.Y = item.Y + BufferWidth;
                 InputBoxes.Add(item);
             }
 
@@ -525,6 +531,8 @@ namespace boxfittingapp
 
         private void BtnSuggestion_Click(object sender, EventArgs e)
         {
+            lblScore.Visible = true;
+            lblTime.Visible = true;
             timeleft = TimeLimit;
             Timer.Start();
             Timer.Interval = 1000;
@@ -583,6 +591,8 @@ namespace boxfittingapp
                 container.AllowDrop = false;
                 lblTime.Text = "TIME: 0";
                 timeleft = TimeLimit;
+                lblTime.Visible = false;
+                lblScore.Visible = false;
             }
             else if (ListSuggestionToShow.Count == 0 && Score != 0)
             {
@@ -596,6 +606,8 @@ namespace boxfittingapp
                 MessageBox.Show($"Congrat!! You Won!!!\n Your Score: {Score}");
                 lblTime.Text = "TIME: 0";
                 timeleft = TimeLimit;
+                lblTime.Visible = false;
+                lblScore.Visible = false;
             }
         }
 
@@ -732,21 +744,22 @@ namespace boxfittingapp
 
         private void BtnSuggestionResult_Click(object sender, EventArgs e)
         {
-            if (ScaleX == 1 && ScaleY == 1)
-            {
+            lblTime.Visible = false;
+            lblScore.Visible = false;
+            SizeF aSf = new SizeF(1, 1);
+            container.Scale(aSf);
 
-                container.AllowDrop = false;
-                container.DragEnter -= Container_DragEnter;
-                container.DragDrop -= Container_DragDrop;
-                tabPage4.AllowDrop = false;
-                tabPage4.DragEnter -= TabPage4_DragEnter;
-                tabPage4.DragDrop -= TabPage4_DragDrop;
-                Timer.Stop();
-                SuggestionButtonList = new List<Button>();
-                GetSuggestionBins();
-                tabPage4.Controls.Clear();
-                tabPage3.Show();
-            }
+            container.AllowDrop = false;
+            container.DragEnter -= Container_DragEnter;
+            container.DragDrop -= Container_DragDrop;
+            tabPage4.AllowDrop = false;
+            tabPage4.DragEnter -= TabPage4_DragEnter;
+            tabPage4.DragDrop -= TabPage4_DragDrop;
+            Timer.Stop();
+            SuggestionButtonList = new List<Button>();
+            GetSuggestionBins();
+            tabPage4.Controls.Clear();
+            tabPage3.Show();
         }
 
         private void GetSuggestionBins()
@@ -799,6 +812,7 @@ namespace boxfittingapp
                 applyAlgorith.MyContainer = MyContainer;
                 applyAlgorith.CurrentContainer = MyContainer;
                 FittingBinsIntoMyContainer();
+                MessageBox.Show(applyAlgorith.MyResult,"RESULT MESSAGE: ");
             }
         }
         private void Container_Click(object sender, EventArgs e)
@@ -860,8 +874,9 @@ namespace boxfittingapp
                         InputBoxes.Add(new RectangularBox
                         {
                             Width = rand.Next(1, 5) * rand.Next(1, 5) * 20,
-                            Height = rand.Next(1, 5) * rand.Next(1, 5) * 20
-                        });
+                            Height = rand.Next(1, 5) * rand.Next(1, 5) * 20,
+                            Buffer = BufferWidth
+                        }); ;
                     }
                 }
                 else
@@ -872,7 +887,7 @@ namespace boxfittingapp
             }
         }
 
-        private void Button3_Click(object sender, EventArgs e)
+        private void GeneratateRandomlyBoxes_Click(object sender, EventArgs e)
         {
             txtNumber.Visible = true;
             lblNumber.Visible = true;
@@ -907,6 +922,7 @@ namespace boxfittingapp
                 InputBoxes.Clear();
                 foreach (var item in UserCustomizedBoxes)
                 {
+                    item.Buffer = BufferWidth;
                     for (int i = 0; i < item.Quantity; i++)
                     {
                         InputBoxes.Add(item);
@@ -930,6 +946,7 @@ namespace boxfittingapp
                 MyContainer.X = 0;
                 MyContainer.Y = 0;
             }
+            txtWidthPanel.TabIndex = 0;
         }
 
         private void TxtWidthPanel_TextChanged(object sender, EventArgs e)
@@ -986,8 +1003,6 @@ namespace boxfittingapp
 
         private void BtnZoomIn_Click(object sender, EventArgs e)
         {
-            //float scaleX = ((float)Screen.PrimaryScreen.WorkingArea.Width / 2000);
-            //float scaleY = ((float)Screen.PrimaryScreen.WorkingArea.Height / 1500);
             if (ScaleX < 1 || ScaleY < 1)
             {
                 ScaleX = 1;
@@ -1010,6 +1025,66 @@ namespace boxfittingapp
             ScaleY = ScaleY * (float)0.9;
             SizeF aSf = new SizeF(ScaleX, ScaleY);
             container.Scale(aSf);
+        }
+
+        private void TabPage5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ShowHideCustomizeSection(object sender, EventArgs e)
+        {
+            if (IsHidden)
+            {
+                pnlCustomize.Visible = false;
+                splitContainer1.Panel2.Hide();
+                IsHidden = false;
+                btnShowHide.Text = "Show \n>>>";
+            }
+            else
+            {
+                pnlCustomize.Visible = true;
+                splitContainer1.Panel2.Show();
+                IsHidden = true;
+                btnShowHide.Text = "Hide\n<<<";
+            }
+        }
+
+        private void BtnSetBuffer_Click(object sender, EventArgs e)
+        {
+            txtBufferWidth.Visible = true;
+        }
+
+        private void TxtBufferWidth_TextChanged(object sender, EventArgs e)
+        {
+            if (!txtBufferWidth.Text.All(t=>Char.IsDigit(t)))
+            {
+                errorProvider.SetError(txtBufferWidth, "Please Enter Number Only!");
+            }
+            else
+            {
+                errorProvider.Clear();
+                int width;
+                if (int.TryParse(txtBufferWidth.Text,out width))
+                {
+                    BufferWidth = int.Parse(txtBufferWidth.Text);
+                    applyAlgorith.SetBufferWidth(BufferWidth); 
+                }
+            }
+        }
+
+        private void TxtBufferWidth_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Return))
+            {
+                errorProvider.Clear();
+                int width;
+                if (int.TryParse(txtBufferWidth.Text, out width))
+                {
+                    BufferWidth = int.Parse(txtBufferWidth.Text);
+                    applyAlgorith.SetBufferWidth(BufferWidth);
+                }
+            }
         }
     }
 

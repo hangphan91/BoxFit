@@ -15,12 +15,18 @@ namespace boxfittingapp
         public int Width { get; set; }
         public int Height { get; set; }
         public int Quantity { get; set; }
+        public int ContainerNumber { get; set; }
+        public int XWithinContainer { get; set; }
+        public int YWithinContainer { get; set; }
+        public int Buffer { get; set; }
+
         public RectangularBox()
         {
             X = 0;
             Y = 0;
             Width = 0;
             Height = 0;
+            Buffer = 0;
         }
 
         internal bool Compare(RectangularBox C)

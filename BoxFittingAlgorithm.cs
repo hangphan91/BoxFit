@@ -54,6 +54,7 @@ namespace boxfittingapp
         public int NumberOfMyContainerUsed { get; set; }
         public List<int> ContainerNumbers { get; set; }
         public List<Task> Tasks { get; set; }
+        public int BufferWidth { get; private set; }
         #endregion
         public BoxFittingAlgorithm()
         {
@@ -140,10 +141,14 @@ namespace boxfittingapp
             foreach (var item in Bins)
             {
                 item.TagID = i - 1;
+                item.XWithinContainer = item.X;
+                item.YWithinContainer = item.Y - (item.ContainerNumber - 1) * MyContainer.Height;
                 MyResult += $"Container#: {ContainerNumbers[i - 1]} Box {i - 1}@ X: {item.X} - Y: {item.Y} - W: {item.Width} - H: {item.Height} \n";
                 i++;
 
             }
+
+            MyResult = "";
             MyResult += "Used Area: " + UsedArea.ToString();
             TotalArea = MaxWidth * MaxHeight;
             WastedArea = TotalArea - UsedArea;
@@ -152,7 +157,8 @@ namespace boxfittingapp
             MyResult += "\nWasted percent: " + (double)WastedArea * 100 / TotalArea + " %";
             MyResult += "\nUsed percent: " + (double)UsedArea * 100 / TotalArea + " %";
             MyResult += "\nTotal Bins: " + BinList.Count.ToString();
-            MyResult += "\nNumber of Containers: " + (NumberOfMyContainerUsed == 0 ? 1 : NumberOfMyContainerUsed);
+            MyResult += "\nNumber of Containers/Panels: " + (NumberOfMyContainerUsed == 0 ? 1 : NumberOfMyContainerUsed);
+            MyResult += "\nContainers/Panels' Sizes: " + "Width: " + MyContainer.Width + " Height: " + MyContainer.Height;
         }
 
         internal void SetMultipleContainers(bool @checked)
@@ -507,6 +513,7 @@ namespace boxfittingapp
         {
             PairIndexValueList.Remove(CurrentPair1);
             PairIndexValueList.Remove(CurrentPair2);
+            CurrentBin.ContainerNumber = NumberOfMyContainerUsed + 1;
             Bins.Add(CurrentBin);
             ContainerNumbers.Add(NumberOfMyContainerUsed + 1);
         }
@@ -528,7 +535,7 @@ namespace boxfittingapp
                     {
                         CurrentPair1 = item;
                         CurrentPair2 = matchitem;
-                        CurrentBin = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y, Width = width, Height = height };
+                        CurrentBin = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y, Width = width, Height = height , Buffer = BufferWidth};
                         hasBin = true;
                         return hasBin;
                     }
@@ -536,7 +543,7 @@ namespace boxfittingapp
                     {
                         CurrentPair1 = item;
                         CurrentPair2 = matchitem;
-                        CurrentBin = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y, Width = height, Height = width };
+                        CurrentBin = new RectangularBox { X = CurrentContainer.X, Y = CurrentContainer.Y, Width = height, Height = width, Buffer = BufferWidth };
                         hasBin = true;
                         return hasBin;
                     }
@@ -601,5 +608,7 @@ namespace boxfittingapp
                 MyResult += item[0] + " " + item[1] + ",";
             }
         }
+
+        internal void SetBufferWidth(int bufferWidth) => BufferWidth = bufferWidth;
     }
 }

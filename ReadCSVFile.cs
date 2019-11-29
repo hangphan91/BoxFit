@@ -15,6 +15,8 @@ namespace boxfittingapp
         public bool IsReadFile { get; set; } = true;
         public List<int> listA { get; set; }
         public List<int> listB { get; set; }
+        public int BufferWidth { get; private set; }
+
         public ReadInputSizes()
         {
             listA = new List<int>();
@@ -46,7 +48,7 @@ namespace boxfittingapp
             BoxListReadOnly.Clear();
             for (int i = 0; i < listA.Count; i++)
             {
-                BoxList.Add(i, new RectangularBox { Width = listA[i], Height = listB[i] });
+                BoxList.Add(i, new RectangularBox { Width = listA[i], Height = listB[i],Buffer = BufferWidth });
             }
             BoxListReadOnly = BoxList;
         }
@@ -57,9 +59,11 @@ namespace boxfittingapp
             listB.Clear();
             foreach (var item in rects)
             {
-                listA.Add(item.Width);
-                listB.Add(item.Height);
+                listA.Add(item.Width + item.Buffer*2);
+                listB.Add(item.Height + item.Buffer*2);
+                BufferWidth = item.Buffer;
             }
+           
             AssignBoxlistSizes();
         }
     }
