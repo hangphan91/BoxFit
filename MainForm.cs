@@ -45,6 +45,8 @@ namespace boxfittingapp
         public List<DataGridView> ListUserCustomizedBoxes { get; set; }
 
         public const int TimeLimit = 120;
+        public float ScaleX { get; set; }
+        public float ScaleY { get; set; }
         #endregion
         public MainForm()
         {
@@ -65,6 +67,8 @@ namespace boxfittingapp
             dgvInputSizes.DataSource = InputBoxes;
             dgvUserInputs.DataSource = UserCustomizedBoxes;
             ListSuggestionToShow = new List<Button>();
+            ScaleX = 1;
+            ScaleY = 1;
             Start();
         }
 
@@ -72,12 +76,12 @@ namespace boxfittingapp
         {
             dictionary = read.BoxListReadOnly;
             applyAlgorith = new BoxFittingAlgorithm();
+            //container.Controls.Clear();
             CurrentSelection = new Button();
             SuggestionButtonList = new List<Button>();
             Timer = new Timer();
             timeleft = TimeLimit;
             PerformBoxFittingAlgorithm(dictionary);
-            FitMyContainerHorizontal();
             this.Refresh();
         }
 
@@ -118,6 +122,7 @@ namespace boxfittingapp
         private void OptimumDrawing(BoxFittingAlgorithm applyAlgorith)
         {
             var index = 0;
+            container.Controls.Clear();
             foreach (var item in applyAlgorith.BinList)
             {
                 this.box = new System.Windows.Forms.Button();
@@ -320,6 +325,8 @@ namespace boxfittingapp
 
         private void ResetContainers()
         {
+            ScaleX = 1;
+            ScaleY = 1;
             container.Controls.Clear();
             Points = new List<RectangularBox>();
             MaxLine = new List<Point>();
@@ -725,17 +732,21 @@ namespace boxfittingapp
 
         private void BtnSuggestionResult_Click(object sender, EventArgs e)
         {
-            container.AllowDrop = false;
-            container.DragEnter -= Container_DragEnter;
-            container.DragDrop -= Container_DragDrop;
-            tabPage4.AllowDrop = false;
-            tabPage4.DragEnter -= TabPage4_DragEnter;
-            tabPage4.DragDrop -= TabPage4_DragDrop;
-            Timer.Stop();
-            SuggestionButtonList = new List<Button>();
-            GetSuggestionBins();
-            tabPage4.Controls.Clear();
-            tabPage3.Show();
+            if (ScaleX == 1 && ScaleY == 1)
+            {
+
+                container.AllowDrop = false;
+                container.DragEnter -= Container_DragEnter;
+                container.DragDrop -= Container_DragDrop;
+                tabPage4.AllowDrop = false;
+                tabPage4.DragEnter -= TabPage4_DragEnter;
+                tabPage4.DragDrop -= TabPage4_DragDrop;
+                Timer.Stop();
+                SuggestionButtonList = new List<Button>();
+                GetSuggestionBins();
+                tabPage4.Controls.Clear();
+                tabPage3.Show();
+            }
         }
 
         private void GetSuggestionBins()
@@ -771,7 +782,23 @@ namespace boxfittingapp
                 lblNumber.Visible = false;
                 txtNumber.Visible = false;
                 read.SetSizes(InputBoxes);
-                Start();
+                if (btnUserContainer.Text == "Save Panel's Sizes")
+                {
+                    MyContainer.Width = int.Parse(txtWidthPanel.Text);
+                    MyContainer.Height = int.Parse(txtHeightPanel.Text);
+                    MyContainer.X = 0;
+                    MyContainer.Y = 0;
+                }
+                else
+                {
+                    MyContainer.Width = 1000;
+                    MyContainer.Height = 500;
+                    MyContainer.X = 0;
+                    MyContainer.Y = 0;
+                }
+                applyAlgorith.MyContainer = MyContainer;
+                applyAlgorith.CurrentContainer = MyContainer;
+                FittingBinsIntoMyContainer();
             }
         }
         private void Container_Click(object sender, EventArgs e)
@@ -888,6 +915,101 @@ namespace boxfittingapp
                 dgvInputSizes.DataSource = InputBoxes;
                 this.Refresh();
             }
+        }
+
+        private void BtnUserContainer_Click(object sender, EventArgs e)
+        {
+            lblHeightPanel.Visible = true;
+            lblWidthPanel.Visible = true;
+            txtHeightPanel.Visible = true;
+            txtWidthPanel.Visible = true;
+            if (btnUserContainer.Text == "Save Panel's Sizes")
+            {
+                MyContainer.Width = int.Parse(txtWidthPanel.Text);
+                MyContainer.Height = int.Parse(txtHeightPanel.Text);
+                MyContainer.X = 0;
+                MyContainer.Y = 0;
+            }
+        }
+
+        private void TxtWidthPanel_TextChanged(object sender, EventArgs e)
+        {
+            if (!txtWidthPanel.Text.All(t => Char.IsDigit(t)))
+            {
+                errorProvider.SetError(txtWidthPanel, "Please enter number only.");
+            }
+            else
+            {
+                errorProvider.Clear();
+                if (string.IsNullOrWhiteSpace(txtWidthPanel.Text) || int.Parse(txtWidthPanel.Text) == 0)
+                {
+                    errorProvider.SetError(txtWidthPanel, "Please enter Panel's Width.");
+                }
+                else if (int.Parse(txtWidthPanel.Text) != 0 && !string.IsNullOrWhiteSpace(txtHeightPanel.Text))
+                {
+                    errorProvider.Clear();
+                    btnUserContainer.Text = "Save Panel's Sizes";
+                }
+                else
+                {
+                    btnUserContainer.Text = "Set Panel Sizes";
+                }
+            }
+
+        }
+
+        private void TxtHeightPanel_TextChanged(object sender, EventArgs e)
+        {
+            if (!txtHeightPanel.Text.All(t => Char.IsDigit(t)))
+            {
+                errorProvider.SetError(txtHeightPanel, "Please enter number only.");
+            }
+            else
+            {
+                errorProvider.Clear();
+                if (string.IsNullOrWhiteSpace(txtHeightPanel.Text) || int.Parse(txtHeightPanel.Text) == 0)
+                {
+                    errorProvider.SetError(txtHeightPanel, "Please enter Panel's Width.");
+                }
+                else if (!string.IsNullOrWhiteSpace(txtWidthPanel.Text) && int.Parse(txtHeightPanel.Text) != 0)
+                {
+                    errorProvider.Clear();
+                    btnUserContainer.Text = "Save Panel's Sizes";
+                }
+                else
+                {
+                    btnUserContainer.Text = "Set Panel Sizes";
+                }
+            }
+
+        }
+
+        private void BtnZoomIn_Click(object sender, EventArgs e)
+        {
+            //float scaleX = ((float)Screen.PrimaryScreen.WorkingArea.Width / 2000);
+            //float scaleY = ((float)Screen.PrimaryScreen.WorkingArea.Height / 1500);
+            if (ScaleX < 1 || ScaleY < 1)
+            {
+                ScaleX = 1;
+                ScaleY = 1;
+            }
+            ScaleX = ScaleX / (float)0.9;
+            ScaleY = ScaleY / (float)0.9;
+            SizeF aSf = new SizeF(ScaleX, ScaleY);
+            container.Scale(aSf);
+        }
+
+        private void BtnZoomOut_Click(object sender, EventArgs e)
+        {
+            if (ScaleX > 1 || ScaleY > 1)
+            {
+                ScaleX = 1;
+                ScaleY = 1;
+            }
+            ScaleX = ScaleX * (float)0.9;
+            ScaleY = ScaleY * (float)0.9;
+            SizeF aSf = new SizeF(ScaleX, ScaleY);
+            container.Scale(aSf);
         }
     }
 

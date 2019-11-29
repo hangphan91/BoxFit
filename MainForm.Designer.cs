@@ -102,6 +102,13 @@
             this.Image = new System.Windows.Forms.DataGridViewImageColumn();
             this.Suggestions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SortType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnUserContainer = new System.Windows.Forms.Button();
+            this.txtHeightPanel = new System.Windows.Forms.TextBox();
+            this.txtWidthPanel = new System.Windows.Forms.TextBox();
+            this.lblHeightPanel = new System.Windows.Forms.Label();
+            this.lblWidthPanel = new System.Windows.Forms.Label();
+            this.btnZoomIn = new System.Windows.Forms.Button();
+            this.btnZoomOut = new System.Windows.Forms.Button();
             this.widthDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rectangularBoxBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
@@ -172,7 +179,7 @@
             this.container.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.container.Location = new System.Drawing.Point(54, 48);
             this.container.Name = "container";
-            this.container.Padding = new System.Windows.Forms.Padding(40);
+            this.container.Padding = new System.Windows.Forms.Padding(100);
             this.container.Size = new System.Drawing.Size(508, 438);
             this.container.TabIndex = 5;
             this.container.Click += new System.EventHandler(this.Container_Click);
@@ -410,17 +417,18 @@
             // 
             // panel5
             // 
+            this.panel5.AutoScroll = true;
             this.panel5.Controls.Add(this.dgvInputSizes);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(20, 71);
+            this.panel5.Location = new System.Drawing.Point(20, 107);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1213, 422);
+            this.panel5.Size = new System.Drawing.Size(1213, 386);
             this.panel5.TabIndex = 3;
             // 
             // dgvInputSizes
             // 
             this.dgvInputSizes.AutoGenerateColumns = false;
-            this.dgvInputSizes.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
+            this.dgvInputSizes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvInputSizes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.dgvInputSizes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvInputSizes.ColumnHeadersHeight = 29;
@@ -436,7 +444,7 @@
             this.dgvInputSizes.Name = "dgvInputSizes";
             this.dgvInputSizes.RowHeadersWidth = 51;
             this.dgvInputSizes.RowTemplate.Height = 24;
-            this.dgvInputSizes.Size = new System.Drawing.Size(1213, 422);
+            this.dgvInputSizes.Size = new System.Drawing.Size(1213, 386);
             this.dgvInputSizes.TabIndex = 0;
             // 
             // TagID
@@ -447,7 +455,7 @@
             this.TagID.Name = "TagID";
             this.TagID.ReadOnly = true;
             this.TagID.Visible = false;
-            this.TagID.Width = 125;
+            this.TagID.Width = 75;
             // 
             // X
             // 
@@ -457,7 +465,7 @@
             this.X.Name = "X";
             this.X.ReadOnly = true;
             this.X.Visible = false;
-            this.X.Width = 125;
+            this.X.Width = 46;
             // 
             // Y
             // 
@@ -467,10 +475,15 @@
             this.Y.Name = "Y";
             this.Y.ReadOnly = true;
             this.Y.Visible = false;
-            this.Y.Width = 125;
+            this.Y.Width = 46;
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.lblWidthPanel);
+            this.panel4.Controls.Add(this.lblHeightPanel);
+            this.panel4.Controls.Add(this.txtWidthPanel);
+            this.panel4.Controls.Add(this.txtHeightPanel);
+            this.panel4.Controls.Add(this.btnUserContainer);
             this.panel4.Controls.Add(this.panel11);
             this.panel4.Controls.Add(this.lblNumber);
             this.panel4.Controls.Add(this.txtNumber);
@@ -479,13 +492,13 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(20, 20);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1213, 51);
+            this.panel4.Size = new System.Drawing.Size(1213, 87);
             this.panel4.TabIndex = 2;
             // 
             // lblNumber
             // 
             this.lblNumber.AutoSize = true;
-            this.lblNumber.Location = new System.Drawing.Point(340, 7);
+            this.lblNumber.Location = new System.Drawing.Point(614, 55);
             this.lblNumber.Name = "lblNumber";
             this.lblNumber.Size = new System.Drawing.Size(120, 17);
             this.lblNumber.TabIndex = 4;
@@ -494,9 +507,9 @@
             // 
             // txtNumber
             // 
-            this.txtNumber.Location = new System.Drawing.Point(477, 4);
+            this.txtNumber.Location = new System.Drawing.Point(751, 52);
             this.txtNumber.Name = "txtNumber";
-            this.txtNumber.Size = new System.Drawing.Size(113, 22);
+            this.txtNumber.Size = new System.Drawing.Size(65, 22);
             this.txtNumber.TabIndex = 3;
             this.txtNumber.Visible = false;
             this.txtNumber.TextChanged += new System.EventHandler(this.TxtNumber_TextChanged);
@@ -507,9 +520,9 @@
             this.button3.BackColor = System.Drawing.Color.Cyan;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button3.Location = new System.Drawing.Point(154, 0);
+            this.button3.Location = new System.Drawing.Point(616, 15);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(180, 31);
+            this.button3.Size = new System.Drawing.Size(200, 31);
             this.button3.TabIndex = 2;
             this.button3.Text = "Generate Random Boxes";
             this.button3.UseVisualStyleBackColor = false;
@@ -520,9 +533,9 @@
             this.btnDrawInputSizes.BackColor = System.Drawing.Color.Cyan;
             this.btnDrawInputSizes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDrawInputSizes.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnDrawInputSizes.Location = new System.Drawing.Point(3, 0);
+            this.btnDrawInputSizes.Location = new System.Drawing.Point(25, 15);
             this.btnDrawInputSizes.Name = "btnDrawInputSizes";
-            this.btnDrawInputSizes.Size = new System.Drawing.Size(145, 31);
+            this.btnDrawInputSizes.Size = new System.Drawing.Size(164, 31);
             this.btnDrawInputSizes.TabIndex = 1;
             this.btnDrawInputSizes.Text = "Use These Boxes";
             this.btnDrawInputSizes.UseVisualStyleBackColor = false;
@@ -543,6 +556,8 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.btnZoomOut);
+            this.panel3.Controls.Add(this.btnZoomIn);
             this.panel3.Controls.Add(this.lblTime);
             this.panel3.Controls.Add(this.lblScore);
             this.panel3.Controls.Add(this.btnSaveImage);
@@ -567,7 +582,7 @@
             // lblScore
             // 
             this.lblScore.AutoSize = true;
-            this.lblScore.Location = new System.Drawing.Point(574, 14);
+            this.lblScore.Location = new System.Drawing.Point(600, 17);
             this.lblScore.Name = "lblScore";
             this.lblScore.Size = new System.Drawing.Size(64, 17);
             this.lblScore.TabIndex = 10;
@@ -579,7 +594,7 @@
             this.btnSuggestionResult.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSuggestionResult.Location = new System.Drawing.Point(325, 11);
             this.btnSuggestionResult.Name = "btnSuggestionResult";
-            this.btnSuggestionResult.Size = new System.Drawing.Size(110, 28);
+            this.btnSuggestionResult.Size = new System.Drawing.Size(97, 28);
             this.btnSuggestionResult.TabIndex = 9;
             this.btnSuggestionResult.Text = "Fill Spaces";
             this.btnSuggestionResult.UseVisualStyleBackColor = false;
@@ -791,14 +806,15 @@
             // 
             this.panel10.Controls.Add(this.dgvUserInputs);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel10.Location = new System.Drawing.Point(658, 71);
+            this.panel10.Location = new System.Drawing.Point(746, 107);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(575, 422);
+            this.panel10.Size = new System.Drawing.Size(487, 386);
             this.panel10.TabIndex = 4;
             // 
             // dgvUserInputs
             // 
             this.dgvUserInputs.AutoGenerateColumns = false;
+            this.dgvUserInputs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvUserInputs.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.dgvUserInputs.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvUserInputs.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
@@ -808,13 +824,13 @@
             this.heightDataGridViewTextBoxColumn1,
             this.Quantity});
             this.dgvUserInputs.DataSource = this.rectangularBoxBindingSource2;
-            this.dgvUserInputs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvUserInputs.Dock = System.Windows.Forms.DockStyle.Right;
             this.dgvUserInputs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.dgvUserInputs.Location = new System.Drawing.Point(0, 0);
+            this.dgvUserInputs.Location = new System.Drawing.Point(140, 0);
             this.dgvUserInputs.Name = "dgvUserInputs";
             this.dgvUserInputs.RowHeadersWidth = 51;
             this.dgvUserInputs.RowTemplate.Height = 24;
-            this.dgvUserInputs.Size = new System.Drawing.Size(575, 422);
+            this.dgvUserInputs.Size = new System.Drawing.Size(347, 386);
             this.dgvUserInputs.TabIndex = 0;
             this.dgvUserInputs.Visible = false;
             // 
@@ -824,16 +840,16 @@
             this.Quantity.HeaderText = "Quantity";
             this.Quantity.MinimumWidth = 6;
             this.Quantity.Name = "Quantity";
-            this.Quantity.Width = 125;
+            this.Quantity.Width = 90;
             // 
             // btnUserInputs
             // 
             this.btnUserInputs.BackColor = System.Drawing.Color.Cyan;
             this.btnUserInputs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnUserInputs.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnUserInputs.Location = new System.Drawing.Point(3, 0);
+            this.btnUserInputs.Location = new System.Drawing.Point(15, 15);
             this.btnUserInputs.Name = "btnUserInputs";
-            this.btnUserInputs.Size = new System.Drawing.Size(180, 31);
+            this.btnUserInputs.Size = new System.Drawing.Size(163, 31);
             this.btnUserInputs.TabIndex = 5;
             this.btnUserInputs.Text = "Customize My Boxes";
             this.btnUserInputs.UseVisualStyleBackColor = false;
@@ -844,9 +860,9 @@
             this.btnAdd.BackColor = System.Drawing.Color.Cyan;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAdd.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnAdd.Location = new System.Drawing.Point(211, 0);
+            this.btnAdd.Location = new System.Drawing.Point(198, 15);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(180, 31);
+            this.btnAdd.Size = new System.Drawing.Size(141, 31);
             this.btnAdd.TabIndex = 6;
             this.btnAdd.Text = "Add My Boxes";
             this.btnAdd.UseVisualStyleBackColor = false;
@@ -858,9 +874,9 @@
             this.panel11.Controls.Add(this.btnUserInputs);
             this.panel11.Controls.Add(this.btnAdd);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel11.Location = new System.Drawing.Point(638, 0);
+            this.panel11.Location = new System.Drawing.Point(847, 0);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(575, 51);
+            this.panel11.Size = new System.Drawing.Size(366, 87);
             this.panel11.TabIndex = 7;
             // 
             // RowID
@@ -929,13 +945,88 @@
             this.SortType.ReadOnly = true;
             this.SortType.Width = 125;
             // 
+            // btnUserContainer
+            // 
+            this.btnUserContainer.BackColor = System.Drawing.Color.Cyan;
+            this.btnUserContainer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnUserContainer.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnUserContainer.Location = new System.Drawing.Point(204, 15);
+            this.btnUserContainer.Name = "btnUserContainer";
+            this.btnUserContainer.Size = new System.Drawing.Size(145, 31);
+            this.btnUserContainer.TabIndex = 7;
+            this.btnUserContainer.Text = "Set Panel Sizes";
+            this.btnUserContainer.UseVisualStyleBackColor = false;
+            this.btnUserContainer.Click += new System.EventHandler(this.BtnUserContainer_Click);
+            // 
+            // txtHeightPanel
+            // 
+            this.txtHeightPanel.Location = new System.Drawing.Point(485, 24);
+            this.txtHeightPanel.Name = "txtHeightPanel";
+            this.txtHeightPanel.Size = new System.Drawing.Size(113, 22);
+            this.txtHeightPanel.TabIndex = 8;
+            this.txtHeightPanel.Visible = false;
+            this.txtHeightPanel.TextChanged += new System.EventHandler(this.TxtHeightPanel_TextChanged);
+            // 
+            // txtWidthPanel
+            // 
+            this.txtWidthPanel.Location = new System.Drawing.Point(355, 24);
+            this.txtWidthPanel.Name = "txtWidthPanel";
+            this.txtWidthPanel.Size = new System.Drawing.Size(113, 22);
+            this.txtWidthPanel.TabIndex = 9;
+            this.txtWidthPanel.Visible = false;
+            this.txtWidthPanel.TextChanged += new System.EventHandler(this.TxtWidthPanel_TextChanged);
+            // 
+            // lblHeightPanel
+            // 
+            this.lblHeightPanel.AutoSize = true;
+            this.lblHeightPanel.Location = new System.Drawing.Point(482, 4);
+            this.lblHeightPanel.Name = "lblHeightPanel";
+            this.lblHeightPanel.Size = new System.Drawing.Size(53, 17);
+            this.lblHeightPanel.TabIndex = 10;
+            this.lblHeightPanel.Text = "Height:";
+            this.lblHeightPanel.Visible = false;
+            // 
+            // lblWidthPanel
+            // 
+            this.lblWidthPanel.AutoSize = true;
+            this.lblWidthPanel.Location = new System.Drawing.Point(355, 4);
+            this.lblWidthPanel.Name = "lblWidthPanel";
+            this.lblWidthPanel.Size = new System.Drawing.Size(48, 17);
+            this.lblWidthPanel.TabIndex = 11;
+            this.lblWidthPanel.Text = "Width:";
+            this.lblWidthPanel.Visible = false;
+            // 
+            // btnZoomIn
+            // 
+            this.btnZoomIn.BackColor = System.Drawing.Color.Aqua;
+            this.btnZoomIn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnZoomIn.Location = new System.Drawing.Point(428, 11);
+            this.btnZoomIn.Name = "btnZoomIn";
+            this.btnZoomIn.Size = new System.Drawing.Size(70, 28);
+            this.btnZoomIn.TabIndex = 12;
+            this.btnZoomIn.Text = "Zoom In";
+            this.btnZoomIn.UseVisualStyleBackColor = false;
+            this.btnZoomIn.Click += new System.EventHandler(this.BtnZoomIn_Click);
+            // 
+            // btnZoomOut
+            // 
+            this.btnZoomOut.BackColor = System.Drawing.Color.Aqua;
+            this.btnZoomOut.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnZoomOut.Location = new System.Drawing.Point(504, 11);
+            this.btnZoomOut.Name = "btnZoomOut";
+            this.btnZoomOut.Size = new System.Drawing.Size(90, 28);
+            this.btnZoomOut.TabIndex = 13;
+            this.btnZoomOut.Text = "Zoom Out";
+            this.btnZoomOut.UseVisualStyleBackColor = false;
+            this.btnZoomOut.Click += new System.EventHandler(this.BtnZoomOut_Click);
+            // 
             // widthDataGridViewTextBoxColumn1
             // 
             this.widthDataGridViewTextBoxColumn1.DataPropertyName = "Width";
             this.widthDataGridViewTextBoxColumn1.HeaderText = "Width";
             this.widthDataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.widthDataGridViewTextBoxColumn1.Name = "widthDataGridViewTextBoxColumn1";
-            this.widthDataGridViewTextBoxColumn1.Width = 125;
+            this.widthDataGridViewTextBoxColumn1.Width = 73;
             // 
             // heightDataGridViewTextBoxColumn1
             // 
@@ -943,7 +1034,7 @@
             this.heightDataGridViewTextBoxColumn1.HeaderText = "Height";
             this.heightDataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.heightDataGridViewTextBoxColumn1.Name = "heightDataGridViewTextBoxColumn1";
-            this.heightDataGridViewTextBoxColumn1.Width = 125;
+            this.heightDataGridViewTextBoxColumn1.Width = 78;
             // 
             // rectangularBoxBindingSource2
             // 
@@ -955,7 +1046,7 @@
             this.widthDataGridViewTextBoxColumn.HeaderText = "Width";
             this.widthDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.widthDataGridViewTextBoxColumn.Name = "widthDataGridViewTextBoxColumn";
-            this.widthDataGridViewTextBoxColumn.Width = 125;
+            this.widthDataGridViewTextBoxColumn.Width = 73;
             // 
             // heightDataGridViewTextBoxColumn
             // 
@@ -963,7 +1054,7 @@
             this.heightDataGridViewTextBoxColumn.HeaderText = "Height";
             this.heightDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.heightDataGridViewTextBoxColumn.Name = "heightDataGridViewTextBoxColumn";
-            this.heightDataGridViewTextBoxColumn.Width = 125;
+            this.heightDataGridViewTextBoxColumn.Width = 78;
             // 
             // rectangularBoxBindingSource1
             // 
@@ -1216,6 +1307,13 @@
         private System.Windows.Forms.DataGridViewImageColumn Image;
         private System.Windows.Forms.DataGridViewTextBoxColumn Suggestions;
         private System.Windows.Forms.DataGridViewTextBoxColumn SortType;
+        private System.Windows.Forms.Label lblWidthPanel;
+        private System.Windows.Forms.Label lblHeightPanel;
+        private System.Windows.Forms.TextBox txtWidthPanel;
+        private System.Windows.Forms.TextBox txtHeightPanel;
+        private System.Windows.Forms.Button btnUserContainer;
+        private System.Windows.Forms.Button btnZoomIn;
+        private System.Windows.Forms.Button btnZoomOut;
     }
 }
 
