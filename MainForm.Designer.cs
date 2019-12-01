@@ -79,7 +79,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.btnDrawInputSizes = new System.Windows.Forms.Button();
             this.pnlCustomize = new System.Windows.Forms.Panel();
-            this.panel10 = new System.Windows.Forms.Panel();
+            this.PnlUserCustomizeInput = new System.Windows.Forms.Panel();
             this.dgvUserInputs = new System.Windows.Forms.DataGridView();
             this.panel11 = new System.Windows.Forms.Panel();
             this.btnUserInputs = new System.Windows.Forms.Button();
@@ -112,6 +112,26 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.inputValuesModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cboSelectedUnits = new System.Windows.Forms.ComboBox();
+            this.txtWUnit1 = new System.Windows.Forms.TextBox();
+            this.txtWUnit3 = new System.Windows.Forms.TextBox();
+            this.txtWUnit2 = new System.Windows.Forms.TextBox();
+            this.lblWFtMeter = new System.Windows.Forms.Label();
+            this.lblWCmInch = new System.Windows.Forms.Label();
+            this.lblWInchMM = new System.Windows.Forms.Label();
+            this.lblUnitWidth = new System.Windows.Forms.Label();
+            this.lblUnitHeight = new System.Windows.Forms.Label();
+            this.lblHInchMM = new System.Windows.Forms.Label();
+            this.lblHInchCm = new System.Windows.Forms.Label();
+            this.lblHFtMeter = new System.Windows.Forms.Label();
+            this.txtHUnit2 = new System.Windows.Forms.TextBox();
+            this.txtHUnit3 = new System.Windows.Forms.TextBox();
+            this.txtHUnit1 = new System.Windows.Forms.TextBox();
+            this.lblQuanlity = new System.Windows.Forms.Label();
+            this.txtQuantity = new System.Windows.Forms.TextBox();
+            this.btnSaveInput = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.pnlWHQInput = new System.Windows.Forms.Panel();
             this.Source3TagID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Source3X = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Source3Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -157,7 +177,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvInputSizes)).BeginInit();
             this.pnlTop.SuspendLayout();
             this.pnlCustomize.SuspendLayout();
-            this.panel10.SuspendLayout();
+            this.PnlUserCustomizeInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserInputs)).BeginInit();
             this.panel11.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -180,6 +200,8 @@
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputValuesModelBindingSource)).BeginInit();
+            this.panel4.SuspendLayout();
+            this.pnlWHQInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource3)).BeginInit();
@@ -533,6 +555,7 @@
             // pnlTop
             // 
             this.pnlTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pnlTop.Controls.Add(this.cboSelectedUnits);
             this.pnlTop.Controls.Add(this.label1);
             this.pnlTop.Controls.Add(this.txtBufferWidth);
             this.pnlTop.Controls.Add(this.btnShowHide);
@@ -688,7 +711,8 @@
             // 
             this.pnlCustomize.AutoScroll = true;
             this.pnlCustomize.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.pnlCustomize.Controls.Add(this.panel10);
+            this.pnlCustomize.Controls.Add(this.pnlWHQInput);
+            this.pnlCustomize.Controls.Add(this.PnlUserCustomizeInput);
             this.pnlCustomize.Controls.Add(this.panel11);
             this.pnlCustomize.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCustomize.Location = new System.Drawing.Point(0, 0);
@@ -698,16 +722,17 @@
             this.pnlCustomize.TabIndex = 7;
             this.pnlCustomize.Visible = false;
             // 
-            // panel10
+            // PnlUserCustomizeInput
             // 
-            this.panel10.AutoScroll = true;
-            this.panel10.BackColor = System.Drawing.Color.White;
-            this.panel10.Controls.Add(this.dgvUserInputs);
-            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel10.Location = new System.Drawing.Point(20, 56);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(284, 397);
-            this.panel10.TabIndex = 4;
+            this.PnlUserCustomizeInput.AutoScroll = true;
+            this.PnlUserCustomizeInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.PnlUserCustomizeInput.Controls.Add(this.panel4);
+            this.PnlUserCustomizeInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PnlUserCustomizeInput.Location = new System.Drawing.Point(20, 56);
+            this.PnlUserCustomizeInput.Name = "PnlUserCustomizeInput";
+            this.PnlUserCustomizeInput.Size = new System.Drawing.Size(284, 397);
+            this.PnlUserCustomizeInput.TabIndex = 4;
+            this.PnlUserCustomizeInput.Visible = false;
             // 
             // dgvUserInputs
             // 
@@ -1060,6 +1085,236 @@
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
+            // cboSelectedUnits
+            // 
+            this.cboSelectedUnits.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cboSelectedUnits.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboSelectedUnits.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.cboSelectedUnits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSelectedUnits.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboSelectedUnits.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboSelectedUnits.FormattingEnabled = true;
+            this.cboSelectedUnits.Items.AddRange(new object[] {
+            "m/cm/mm",
+            "ft/inch"});
+            this.cboSelectedUnits.Location = new System.Drawing.Point(679, 15);
+            this.cboSelectedUnits.Name = "cboSelectedUnits";
+            this.cboSelectedUnits.Size = new System.Drawing.Size(121, 28);
+            this.cboSelectedUnits.TabIndex = 15;
+            this.cboSelectedUnits.SelectedIndexChanged += new System.EventHandler(this.CboSelectedUnits_SelectedIndexChanged);
+            // 
+            // txtWUnit1
+            // 
+            this.txtWUnit1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWUnit1.Location = new System.Drawing.Point(25, 31);
+            this.txtWUnit1.MaxLength = 1;
+            this.txtWUnit1.Name = "txtWUnit1";
+            this.txtWUnit1.Size = new System.Drawing.Size(53, 26);
+            this.txtWUnit1.TabIndex = 10;
+            this.txtWUnit1.Text = "0";
+            this.txtWUnit1.TextChanged += new System.EventHandler(this.TxtWUnit1_TextChanged);
+            // 
+            // txtWUnit3
+            // 
+            this.txtWUnit3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWUnit3.Location = new System.Drawing.Point(194, 31);
+            this.txtWUnit3.MaxLength = 1;
+            this.txtWUnit3.Name = "txtWUnit3";
+            this.txtWUnit3.Size = new System.Drawing.Size(53, 26);
+            this.txtWUnit3.TabIndex = 12;
+            this.txtWUnit3.Text = "0";
+            this.txtWUnit3.TextChanged += new System.EventHandler(this.TxtWUnit3_TextChanged);
+            // 
+            // txtWUnit2
+            // 
+            this.txtWUnit2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWUnit2.Location = new System.Drawing.Point(105, 31);
+            this.txtWUnit2.MaxLength = 2;
+            this.txtWUnit2.Name = "txtWUnit2";
+            this.txtWUnit2.Size = new System.Drawing.Size(53, 26);
+            this.txtWUnit2.TabIndex = 13;
+            this.txtWUnit2.Text = "0";
+            this.txtWUnit2.TextChanged += new System.EventHandler(this.TxtWUnit2_TextChanged);
+            // 
+            // lblWFtMeter
+            // 
+            this.lblWFtMeter.AutoSize = true;
+            this.lblWFtMeter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWFtMeter.Location = new System.Drawing.Point(84, 40);
+            this.lblWFtMeter.Name = "lblWFtMeter";
+            this.lblWFtMeter.Size = new System.Drawing.Size(19, 17);
+            this.lblWFtMeter.TabIndex = 14;
+            this.lblWFtMeter.Text = "m";
+            // 
+            // lblWCmInch
+            // 
+            this.lblWCmInch.AutoSize = true;
+            this.lblWCmInch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWCmInch.Location = new System.Drawing.Point(165, 40);
+            this.lblWCmInch.Name = "lblWCmInch";
+            this.lblWCmInch.Size = new System.Drawing.Size(26, 17);
+            this.lblWCmInch.TabIndex = 15;
+            this.lblWCmInch.Text = "cm";
+            // 
+            // lblWInchMM
+            // 
+            this.lblWInchMM.AutoSize = true;
+            this.lblWInchMM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWInchMM.Location = new System.Drawing.Point(248, 40);
+            this.lblWInchMM.Name = "lblWInchMM";
+            this.lblWInchMM.Size = new System.Drawing.Size(30, 17);
+            this.lblWInchMM.TabIndex = 16;
+            this.lblWInchMM.Text = "mm";
+            // 
+            // lblUnitWidth
+            // 
+            this.lblUnitWidth.AutoSize = true;
+            this.lblUnitWidth.Location = new System.Drawing.Point(25, 8);
+            this.lblUnitWidth.Name = "lblUnitWidth";
+            this.lblUnitWidth.Size = new System.Drawing.Size(48, 17);
+            this.lblUnitWidth.TabIndex = 17;
+            this.lblUnitWidth.Text = "Width:";
+            // 
+            // lblUnitHeight
+            // 
+            this.lblUnitHeight.AutoSize = true;
+            this.lblUnitHeight.Location = new System.Drawing.Point(25, 71);
+            this.lblUnitHeight.Name = "lblUnitHeight";
+            this.lblUnitHeight.Size = new System.Drawing.Size(53, 17);
+            this.lblUnitHeight.TabIndex = 24;
+            this.lblUnitHeight.Text = "Height:";
+            // 
+            // lblHInchMM
+            // 
+            this.lblHInchMM.AutoSize = true;
+            this.lblHInchMM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHInchMM.Location = new System.Drawing.Point(248, 103);
+            this.lblHInchMM.Name = "lblHInchMM";
+            this.lblHInchMM.Size = new System.Drawing.Size(30, 17);
+            this.lblHInchMM.TabIndex = 23;
+            this.lblHInchMM.Text = "mm";
+            // 
+            // lblHInchCm
+            // 
+            this.lblHInchCm.AutoSize = true;
+            this.lblHInchCm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHInchCm.Location = new System.Drawing.Point(165, 103);
+            this.lblHInchCm.Name = "lblHInchCm";
+            this.lblHInchCm.Size = new System.Drawing.Size(26, 17);
+            this.lblHInchCm.TabIndex = 22;
+            this.lblHInchCm.Text = "cm";
+            // 
+            // lblHFtMeter
+            // 
+            this.lblHFtMeter.AutoSize = true;
+            this.lblHFtMeter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHFtMeter.Location = new System.Drawing.Point(84, 103);
+            this.lblHFtMeter.Name = "lblHFtMeter";
+            this.lblHFtMeter.Size = new System.Drawing.Size(19, 17);
+            this.lblHFtMeter.TabIndex = 21;
+            this.lblHFtMeter.Text = "m";
+            // 
+            // txtHUnit2
+            // 
+            this.txtHUnit2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHUnit2.Location = new System.Drawing.Point(105, 94);
+            this.txtHUnit2.MaxLength = 2;
+            this.txtHUnit2.Name = "txtHUnit2";
+            this.txtHUnit2.Size = new System.Drawing.Size(53, 26);
+            this.txtHUnit2.TabIndex = 20;
+            this.txtHUnit2.Text = "0";
+            this.txtHUnit2.TextChanged += new System.EventHandler(this.TxtHUnit2_TextChanged);
+            // 
+            // txtHUnit3
+            // 
+            this.txtHUnit3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHUnit3.Location = new System.Drawing.Point(194, 94);
+            this.txtHUnit3.MaxLength = 1;
+            this.txtHUnit3.Name = "txtHUnit3";
+            this.txtHUnit3.Size = new System.Drawing.Size(53, 26);
+            this.txtHUnit3.TabIndex = 19;
+            this.txtHUnit3.Text = "0";
+            this.txtHUnit3.TextChanged += new System.EventHandler(this.TxtHUnit3_TextChanged);
+            // 
+            // txtHUnit1
+            // 
+            this.txtHUnit1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHUnit1.Location = new System.Drawing.Point(25, 94);
+            this.txtHUnit1.MaxLength = 1;
+            this.txtHUnit1.Name = "txtHUnit1";
+            this.txtHUnit1.Size = new System.Drawing.Size(53, 26);
+            this.txtHUnit1.TabIndex = 18;
+            this.txtHUnit1.Text = "0";
+            this.txtHUnit1.TextChanged += new System.EventHandler(this.TxtHUnit1_TextChanged);
+            // 
+            // lblQuanlity
+            // 
+            this.lblQuanlity.AutoSize = true;
+            this.lblQuanlity.Location = new System.Drawing.Point(25, 142);
+            this.lblQuanlity.Name = "lblQuanlity";
+            this.lblQuanlity.Size = new System.Drawing.Size(65, 17);
+            this.lblQuanlity.TabIndex = 26;
+            this.lblQuanlity.Text = "Quantity:";
+            // 
+            // txtQuantity
+            // 
+            this.txtQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtQuantity.Location = new System.Drawing.Point(25, 165);
+            this.txtQuantity.MaxLength = 3;
+            this.txtQuantity.Name = "txtQuantity";
+            this.txtQuantity.Size = new System.Drawing.Size(53, 26);
+            this.txtQuantity.TabIndex = 25;
+            this.txtQuantity.Text = "0";
+            this.txtQuantity.TextChanged += new System.EventHandler(this.TxtQuantity_TextChanged);
+            // 
+            // btnSaveInput
+            // 
+            this.btnSaveInput.BackColor = System.Drawing.Color.Aqua;
+            this.btnSaveInput.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSaveInput.ForeColor = System.Drawing.Color.Black;
+            this.btnSaveInput.Location = new System.Drawing.Point(25, 218);
+            this.btnSaveInput.Name = "btnSaveInput";
+            this.btnSaveInput.Size = new System.Drawing.Size(230, 27);
+            this.btnSaveInput.TabIndex = 27;
+            this.btnSaveInput.Text = "Add to Grid";
+            this.btnSaveInput.UseVisualStyleBackColor = false;
+            this.btnSaveInput.Click += new System.EventHandler(this.BtnSaveInput_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.dgvUserInputs);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(284, 397);
+            this.panel4.TabIndex = 28;
+            // 
+            // pnlWHQInput
+            // 
+            this.pnlWHQInput.Controls.Add(this.txtWUnit2);
+            this.pnlWHQInput.Controls.Add(this.btnSaveInput);
+            this.pnlWHQInput.Controls.Add(this.txtWUnit1);
+            this.pnlWHQInput.Controls.Add(this.lblQuanlity);
+            this.pnlWHQInput.Controls.Add(this.txtWUnit3);
+            this.pnlWHQInput.Controls.Add(this.txtQuantity);
+            this.pnlWHQInput.Controls.Add(this.lblWFtMeter);
+            this.pnlWHQInput.Controls.Add(this.lblUnitHeight);
+            this.pnlWHQInput.Controls.Add(this.lblWCmInch);
+            this.pnlWHQInput.Controls.Add(this.lblHInchMM);
+            this.pnlWHQInput.Controls.Add(this.lblWInchMM);
+            this.pnlWHQInput.Controls.Add(this.lblHInchCm);
+            this.pnlWHQInput.Controls.Add(this.lblUnitWidth);
+            this.pnlWHQInput.Controls.Add(this.lblHFtMeter);
+            this.pnlWHQInput.Controls.Add(this.txtHUnit1);
+            this.pnlWHQInput.Controls.Add(this.txtHUnit2);
+            this.pnlWHQInput.Controls.Add(this.txtHUnit3);
+            this.pnlWHQInput.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlWHQInput.Location = new System.Drawing.Point(20, 196);
+            this.pnlWHQInput.Name = "pnlWHQInput";
+            this.pnlWHQInput.Size = new System.Drawing.Size(284, 257);
+            this.pnlWHQInput.TabIndex = 8;
+            this.pnlWHQInput.Visible = false;
+            // 
             // Source3TagID
             // 
             this.Source3TagID.DataPropertyName = "TagID";
@@ -1314,7 +1569,7 @@
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
             this.pnlCustomize.ResumeLayout(false);
-            this.panel10.ResumeLayout(false);
+            this.PnlUserCustomizeInput.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserInputs)).EndInit();
             this.panel11.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -1338,6 +1593,9 @@
             this.panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputValuesModelBindingSource)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.pnlWHQInput.ResumeLayout(false);
+            this.pnlWHQInput.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource3)).EndInit();
@@ -1426,7 +1684,7 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chartPerfomance;
         private System.Windows.Forms.BindingSource gridViewBindingSource2;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Panel PnlUserCustomizeInput;
         private System.Windows.Forms.DataGridView dgvUserInputs;
         private System.Windows.Forms.BindingSource inputValuesModelBindingSource;
         private System.Windows.Forms.BindingSource rectangularBoxBindingSource2;
@@ -1488,6 +1746,26 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn3;
         private System.Windows.Forms.DataGridViewImageColumn imageDataGridViewImageColumn;
         private System.Windows.Forms.BindingSource gridViewBindingSource4;
+        private System.Windows.Forms.ComboBox cboSelectedUnits;
+        private System.Windows.Forms.Button btnSaveInput;
+        private System.Windows.Forms.Label lblQuanlity;
+        private System.Windows.Forms.TextBox txtQuantity;
+        private System.Windows.Forms.Label lblUnitHeight;
+        private System.Windows.Forms.Label lblHInchMM;
+        private System.Windows.Forms.Label lblHInchCm;
+        private System.Windows.Forms.Label lblHFtMeter;
+        private System.Windows.Forms.TextBox txtHUnit2;
+        private System.Windows.Forms.TextBox txtHUnit3;
+        private System.Windows.Forms.TextBox txtHUnit1;
+        private System.Windows.Forms.Label lblUnitWidth;
+        private System.Windows.Forms.Label lblWInchMM;
+        private System.Windows.Forms.Label lblWCmInch;
+        private System.Windows.Forms.Label lblWFtMeter;
+        private System.Windows.Forms.TextBox txtWUnit2;
+        private System.Windows.Forms.TextBox txtWUnit3;
+        private System.Windows.Forms.TextBox txtWUnit1;
+        private System.Windows.Forms.Panel pnlWHQInput;
+        private System.Windows.Forms.Panel panel4;
     }
 }
 

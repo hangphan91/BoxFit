@@ -49,6 +49,7 @@ namespace boxfittingapp
         public float ScaleY { get; set; }
         public bool IsHidden { get; private set; }
         public int BufferWidth { get; private set; }
+        public bool IsValid { get; private set; }
         #endregion
         public MainForm()
         {
@@ -69,6 +70,8 @@ namespace boxfittingapp
             dgvInputSizes.DataSource = InputBoxes;
             dgvUserInputs.DataSource = UserCustomizedBoxes;
             ListSuggestionToShow = new List<Button>();
+            cboSelectedUnits.SelectedIndex = 0;
+            IsValid = false;
             ScaleX = 1;
             ScaleY = 1;
             Start();
@@ -134,7 +137,7 @@ namespace boxfittingapp
                 this.box.Name = "box " + index;
                 this.box.Size = new System.Drawing.Size(item.Width, item.Height);
                 this.box.TabIndex = 0;
-                this.box.Text =  (item.Width) + " x " + (item.Height);
+                this.box.Text = (item.Width) + " x " + (item.Height);
                 this.box.FlatStyle = FlatStyle.Popup;
                 this.box.BackColor = Color.FromArgb(180, (item.Height * 2) % 255, (item.Height * 6) % 255, (item.Width * 2) % 255);
                 var toolTip = new System.Windows.Forms.ToolTip();
@@ -818,7 +821,7 @@ namespace boxfittingapp
                 applyAlgorith.MyContainer = MyContainer;
                 applyAlgorith.CurrentContainer = MyContainer;
                 FittingBinsIntoMyContainer();
-                MessageBox.Show(applyAlgorith.MyResult,"RESULT MESSAGE: ");
+                MessageBox.Show(applyAlgorith.MyResult, "RESULT MESSAGE: ");
             }
         }
         private void Container_Click(object sender, EventArgs e)
@@ -919,6 +922,8 @@ namespace boxfittingapp
             UserCustomizedBoxes.Clear();
             dgvUserInputs.Visible = true;
             btnAdd.Visible = true;
+            PnlUserCustomizeInput.Visible = true;
+            pnlWHQInput.Visible = true;
         }
 
         private void BtnAdd_Click(object sender, EventArgs e)
@@ -1063,7 +1068,7 @@ namespace boxfittingapp
 
         private void TxtBufferWidth_TextChanged(object sender, EventArgs e)
         {
-            if (!txtBufferWidth.Text.All(t=>Char.IsDigit(t)))
+            if (!txtBufferWidth.Text.All(t => Char.IsDigit(t)))
             {
                 errorProvider.SetError(txtBufferWidth, "Please Enter Number Only!");
             }
@@ -1071,10 +1076,10 @@ namespace boxfittingapp
             {
                 errorProvider.Clear();
                 int width;
-                if (int.TryParse(txtBufferWidth.Text,out width))
+                if (int.TryParse(txtBufferWidth.Text, out width))
                 {
                     BufferWidth = int.Parse(txtBufferWidth.Text);
-                    applyAlgorith.SetBufferWidth(BufferWidth); 
+                    applyAlgorith.SetBufferWidth(BufferWidth);
                 }
             }
         }
@@ -1091,6 +1096,93 @@ namespace boxfittingapp
                     applyAlgorith.SetBufferWidth(BufferWidth);
                 }
             }
+        }
+
+        private void TxtWUnit1_TextChanged(object sender, EventArgs e)
+        {
+            SetError(txtWUnit1);
+        }
+
+        private void SetError(TextBox txtWUnit1)
+        {
+            if (!txtWUnit1.Text.All(t => Char.IsDigit(t)))
+            {
+                errorProvider.SetError(txtWUnit1, "Please Enter Number Only!");
+                IsValid = false;
+            }
+            else
+            {
+                errorProvider.Clear();
+                IsValid = true;
+            }
+        }
+
+        private void TxtWUnit2_TextChanged(object sender, EventArgs e)
+        {
+            SetError(txtWUnit2);
+        }
+
+        private void TxtWUnit3_TextChanged(object sender, EventArgs e)
+        {
+            SetError(txtWUnit3);
+        }
+
+        private void TxtHUnit1_TextChanged(object sender, EventArgs e)
+        {
+            SetError(txtHUnit1);
+        }
+
+        private void TxtHUnit2_TextChanged(object sender, EventArgs e)
+        {
+            SetError(txtHUnit2);
+        }
+
+        private void TxtHUnit3_TextChanged(object sender, EventArgs e)
+        {
+            SetError(txtHUnit3);
+        }
+
+        private void TxtQuantity_TextChanged(object sender, EventArgs e)
+        {
+            SetError(txtQuantity);
+        }
+
+        private void BtnSaveInput_Click(object sender, EventArgs e)
+        {
+            if (IsValid)
+            {
+                int quantity = 0;
+                int height = 0;
+                int width = 0;
+                quantity = int.Parse(txtQuantity.Text);
+                if (cboSelectedUnits.SelectedIndex == 0)
+                {
+                    width = int.Parse(txtWUnit1.Text) * 100 + int.Parse(txtWUnit2.Text) * 10 + int.Parse(txtWUnit3.Text);
+                    height = int.Parse(txtHUnit1.Text) * 100 + int.Parse(txtHUnit2.Text) * 10 + int.Parse(txtHUnit3.Text);
+                }
+                else
+                {
+                    width = int.Parse(txtWUnit1.Text) * 100 + int.Parse(txtWUnit2.Text) * 10 + int.Parse(txtWUnit3.Text);
+                    var inchOneTwelve = int.Parse(txtHUnit3.Text);
+                    height = int.Parse(txtHUnit1.Text) * 12 * inchOneTwelve + int.Parse(txtHUnit2.Text) * inchOneTwelve + inchOneTwelve;
+                }
+                UserCustomizedBoxes.Add(new RectangularBox
+                {
+                    Width = width,
+                    Height = height,
+                    Quantity = quantity
+                });
+            }
+        }
+
+        private void CboSelectedUnits_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblWFtMeter.Text = cboSelectedUnits.SelectedIndex == 0 ? "m" : "ft";
+            lblWCmInch.Text = cboSelectedUnits.SelectedIndex == 0 ? "cm" : "in";
+            lblWInchMM.Text = cboSelectedUnits.SelectedIndex == 0 ? "mm" : "1/12 in";
+            lblHFtMeter.Text = cboSelectedUnits.SelectedIndex == 0 ? "m" : "ft";
+            lblHInchCm.Text = cboSelectedUnits.SelectedIndex == 0 ? "cm" : "in";
+            lblHInchMM.Text = cboSelectedUnits.SelectedIndex == 0 ? "mm" : "1/12 in";
         }
     }
 
