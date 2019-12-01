@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.paper = new System.Windows.Forms.Panel();
             this.container = new System.Windows.Forms.Panel();
             this.btnSuggestion = new System.Windows.Forms.Button();
@@ -63,13 +63,11 @@
             this.pnlLeftMain = new System.Windows.Forms.Panel();
             this.pnlMainGrid = new System.Windows.Forms.Panel();
             this.dgvInputSizes = new System.Windows.Forms.DataGridView();
-            this.TagID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ContainerNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.XWithinContainer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.YWithinContainer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WidthDisplayColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HeightDisplayColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlTop = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtBufferWidth = new System.Windows.Forms.TextBox();
             this.btnShowHide = new System.Windows.Forms.Button();
             this.lblWidthPanel = new System.Windows.Forms.Label();
             this.lblHeightPanel = new System.Windows.Forms.Label();
@@ -83,7 +81,6 @@
             this.pnlCustomize = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.dgvUserInputs = new System.Windows.Forms.DataGridView();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel11 = new System.Windows.Forms.Panel();
             this.btnUserInputs = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -98,18 +95,15 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.dgvPanel = new System.Windows.Forms.DataGridView();
-            this.RowID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UsedPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WastedPercent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ContainerWidthAndHeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Image = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Suggestions = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SortType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel7 = new System.Windows.Forms.Panel();
             this.btnExport = new System.Windows.Forms.Button();
             this.tabGraph = new System.Windows.Forms.TabPage();
             this.panel9 = new System.Windows.Forms.Panel();
             this.chartPerfomance = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.gridViewBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.gridViewBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.rectangularBoxBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.rectangularBoxBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeColumnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -117,25 +111,34 @@
             this.rectangularBoxBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel6 = new System.Windows.Forms.Panel();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.WidthColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HeightColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rectangularBoxBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.widthDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rectangularBoxBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MaxHeightCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MaxWidthCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.gridViewBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.gridViewBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.inputValuesModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnSetBuffer = new System.Windows.Forms.Button();
-            this.txtBufferWidth = new System.Windows.Forms.TextBox();
+            this.Source3TagID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Source3X = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Source3Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Source3ContainerNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Source3XContainer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Source3YContainer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rectangularBoxBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
+            this.widthDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.heightDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantityDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rectangularBoxBindingSource4 = new System.Windows.Forms.BindingSource(this.components);
+            this.rowIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UsedPercentGrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WastedPercentGrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.containerWidthAndHeightDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.suggestionsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sortTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaxWidthGrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaxHeightGrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewCheckBoxColumn3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.imageDataGridViewImageColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.gridViewBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
+            this.gridViewBindingSource4 = new System.Windows.Forms.BindingSource(this.components);
             this.paper.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlTab34.SuspendLayout();
@@ -167,16 +170,20 @@
             this.tabGraph.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartPerfomance)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource2)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource)).BeginInit();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputValuesModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource4)).BeginInit();
             this.SuspendLayout();
             // 
             // paper
@@ -208,7 +215,7 @@
             // 
             this.btnSuggestion.BackColor = System.Drawing.Color.Aqua;
             this.btnSuggestion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSuggestion.Location = new System.Drawing.Point(245, 11);
+            this.btnSuggestion.Location = new System.Drawing.Point(247, 11);
             this.btnSuggestion.Name = "btnSuggestion";
             this.btnSuggestion.Size = new System.Drawing.Size(60, 28);
             this.btnSuggestion.TabIndex = 2;
@@ -220,7 +227,7 @@
             // 
             this.btnSaveImage.BackColor = System.Drawing.Color.Aqua;
             this.btnSaveImage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSaveImage.Location = new System.Drawing.Point(130, 11);
+            this.btnSaveImage.Location = new System.Drawing.Point(131, 11);
             this.btnSaveImage.Name = "btnSaveImage";
             this.btnSaveImage.Size = new System.Drawing.Size(109, 28);
             this.btnSaveImage.TabIndex = 1;
@@ -232,7 +239,7 @@
             // 
             this.btnSave.BackColor = System.Drawing.Color.Aqua;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSave.Location = new System.Drawing.Point(19, 11);
+            this.btnSave.Location = new System.Drawing.Point(20, 11);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(105, 28);
             this.btnSave.TabIndex = 0;
@@ -489,15 +496,15 @@
             this.dgvInputSizes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvInputSizes.ColumnHeadersHeight = 29;
             this.dgvInputSizes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.TagID,
-            this.WidthColumn,
-            this.HeightColumn,
-            this.X,
-            this.Y,
-            this.ContainerNumber,
-            this.XWithinContainer,
-            this.YWithinContainer});
-            this.dgvInputSizes.DataSource = this.rectangularBoxBindingSource1;
+            this.Source3TagID,
+            this.WidthDisplayColumn,
+            this.HeightDisplayColumn,
+            this.Source3X,
+            this.Source3Y,
+            this.Source3ContainerNumber,
+            this.Source3XContainer,
+            this.Source3YContainer});
+            this.dgvInputSizes.DataSource = this.rectangularBoxBindingSource3;
             this.dgvInputSizes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvInputSizes.GridColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dgvInputSizes.Location = new System.Drawing.Point(0, 0);
@@ -507,68 +514,27 @@
             this.dgvInputSizes.Size = new System.Drawing.Size(885, 376);
             this.dgvInputSizes.TabIndex = 7;
             // 
-            // TagID
+            // WidthDisplayColumn
             // 
-            this.TagID.DataPropertyName = "TagID";
-            this.TagID.HeaderText = "TagID";
-            this.TagID.MinimumWidth = 6;
-            this.TagID.Name = "TagID";
-            this.TagID.ReadOnly = true;
-            this.TagID.Visible = false;
-            this.TagID.Width = 75;
+            this.WidthDisplayColumn.DataPropertyName = "Width";
+            this.WidthDisplayColumn.HeaderText = "Width";
+            this.WidthDisplayColumn.MinimumWidth = 6;
+            this.WidthDisplayColumn.Name = "WidthDisplayColumn";
+            this.WidthDisplayColumn.Width = 73;
             // 
-            // X
+            // HeightDisplayColumn
             // 
-            this.X.DataPropertyName = "X";
-            this.X.HeaderText = "X";
-            this.X.MinimumWidth = 6;
-            this.X.Name = "X";
-            this.X.ReadOnly = true;
-            this.X.Visible = false;
-            this.X.Width = 46;
-            // 
-            // Y
-            // 
-            this.Y.DataPropertyName = "Y";
-            this.Y.HeaderText = "Y";
-            this.Y.MinimumWidth = 6;
-            this.Y.Name = "Y";
-            this.Y.ReadOnly = true;
-            this.Y.Visible = false;
-            this.Y.Width = 46;
-            // 
-            // ContainerNumber
-            // 
-            this.ContainerNumber.DataPropertyName = "ContainerNumber";
-            this.ContainerNumber.HeaderText = "Container #";
-            this.ContainerNumber.MinimumWidth = 6;
-            this.ContainerNumber.Name = "ContainerNumber";
-            this.ContainerNumber.Visible = false;
-            this.ContainerNumber.Width = 110;
-            // 
-            // XWithinContainer
-            // 
-            this.XWithinContainer.DataPropertyName = "XWithinContainer";
-            this.XWithinContainer.HeaderText = "X in Container";
-            this.XWithinContainer.MinimumWidth = 6;
-            this.XWithinContainer.Name = "XWithinContainer";
-            this.XWithinContainer.Visible = false;
-            this.XWithinContainer.Width = 126;
-            // 
-            // YWithinContainer
-            // 
-            this.YWithinContainer.DataPropertyName = "YWithinContainer";
-            this.YWithinContainer.HeaderText = "Y in Container";
-            this.YWithinContainer.MinimumWidth = 6;
-            this.YWithinContainer.Name = "YWithinContainer";
-            this.YWithinContainer.Visible = false;
-            this.YWithinContainer.Width = 126;
+            this.HeightDisplayColumn.DataPropertyName = "Height";
+            this.HeightDisplayColumn.HeaderText = "Height";
+            this.HeightDisplayColumn.MinimumWidth = 6;
+            this.HeightDisplayColumn.Name = "HeightDisplayColumn";
+            this.HeightDisplayColumn.Width = 78;
             // 
             // pnlTop
             // 
             this.pnlTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.pnlTop.Controls.Add(this.label1);
             this.pnlTop.Controls.Add(this.txtBufferWidth);
-            this.pnlTop.Controls.Add(this.btnSetBuffer);
             this.pnlTop.Controls.Add(this.btnShowHide);
             this.pnlTop.Controls.Add(this.lblWidthPanel);
             this.pnlTop.Controls.Add(this.lblHeightPanel);
@@ -584,6 +550,25 @@
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Size = new System.Drawing.Size(885, 97);
             this.pnlTop.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(56, 72);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(90, 17);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Buffer Width:";
+            // 
+            // txtBufferWidth
+            // 
+            this.txtBufferWidth.Location = new System.Drawing.Point(159, 69);
+            this.txtBufferWidth.Name = "txtBufferWidth";
+            this.txtBufferWidth.Size = new System.Drawing.Size(39, 22);
+            this.txtBufferWidth.TabIndex = 13;
+            this.txtBufferWidth.Text = "0";
+            this.txtBufferWidth.TextChanged += new System.EventHandler(this.TxtBufferWidth_TextChanged);
+            this.txtBufferWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtBufferWidth_KeyPress);
             // 
             // btnShowHide
             // 
@@ -625,6 +610,7 @@
             this.txtWidthPanel.Name = "txtWidthPanel";
             this.txtWidthPanel.Size = new System.Drawing.Size(113, 22);
             this.txtWidthPanel.TabIndex = 2;
+            this.txtWidthPanel.Text = "1000";
             this.txtWidthPanel.Visible = false;
             this.txtWidthPanel.TextChanged += new System.EventHandler(this.TxtWidthPanel_TextChanged);
             // 
@@ -634,6 +620,7 @@
             this.txtHeightPanel.Name = "txtHeightPanel";
             this.txtHeightPanel.Size = new System.Drawing.Size(113, 22);
             this.txtHeightPanel.TabIndex = 3;
+            this.txtHeightPanel.Text = "500";
             this.txtHeightPanel.Visible = false;
             this.txtHeightPanel.TextChanged += new System.EventHandler(this.TxtHeightPanel_TextChanged);
             // 
@@ -689,11 +676,11 @@
             this.btnDrawInputSizes.BackColor = System.Drawing.Color.Cyan;
             this.btnDrawInputSizes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDrawInputSizes.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnDrawInputSizes.Location = new System.Drawing.Point(25, 15);
+            this.btnDrawInputSizes.Location = new System.Drawing.Point(45, 15);
             this.btnDrawInputSizes.Name = "btnDrawInputSizes";
-            this.btnDrawInputSizes.Size = new System.Drawing.Size(173, 31);
+            this.btnDrawInputSizes.Size = new System.Drawing.Size(153, 31);
             this.btnDrawInputSizes.TabIndex = 0;
-            this.btnDrawInputSizes.Text = "Use These Boxes";
+            this.btnDrawInputSizes.Text = "Use && Draw Result";
             this.btnDrawInputSizes.UseVisualStyleBackColor = false;
             this.btnDrawInputSizes.Click += new System.EventHandler(this.BtnDrawInputSizes_Click);
             // 
@@ -731,10 +718,10 @@
             this.dgvUserInputs.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dgvUserInputs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUserInputs.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.widthDataGridViewTextBoxColumn1,
-            this.heightDataGridViewTextBoxColumn1,
-            this.Quantity});
-            this.dgvUserInputs.DataSource = this.rectangularBoxBindingSource2;
+            this.widthDataGridViewTextBoxColumn,
+            this.heightDataGridViewTextBoxColumn,
+            this.quantityDataGridViewTextBoxColumn1});
+            this.dgvUserInputs.DataSource = this.rectangularBoxBindingSource4;
             this.dgvUserInputs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvUserInputs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.dgvUserInputs.Location = new System.Drawing.Point(0, 0);
@@ -744,14 +731,6 @@
             this.dgvUserInputs.Size = new System.Drawing.Size(284, 397);
             this.dgvUserInputs.TabIndex = 9;
             this.dgvUserInputs.Visible = false;
-            // 
-            // Quantity
-            // 
-            this.Quantity.DataPropertyName = "Quantity";
-            this.Quantity.HeaderText = "Quantity";
-            this.Quantity.MinimumWidth = 6;
-            this.Quantity.Name = "Quantity";
-            this.Quantity.Width = 90;
             // 
             // panel11
             // 
@@ -824,7 +803,7 @@
             // 
             this.btnZoomOut.BackColor = System.Drawing.Color.Aqua;
             this.btnZoomOut.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnZoomOut.Location = new System.Drawing.Point(480, 11);
+            this.btnZoomOut.Location = new System.Drawing.Point(507, 11);
             this.btnZoomOut.Name = "btnZoomOut";
             this.btnZoomOut.Size = new System.Drawing.Size(90, 28);
             this.btnZoomOut.TabIndex = 5;
@@ -836,9 +815,9 @@
             // 
             this.btnZoomIn.BackColor = System.Drawing.Color.Aqua;
             this.btnZoomIn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnZoomIn.Location = new System.Drawing.Point(404, 11);
+            this.btnZoomIn.Location = new System.Drawing.Point(416, 11);
             this.btnZoomIn.Name = "btnZoomIn";
-            this.btnZoomIn.Size = new System.Drawing.Size(70, 28);
+            this.btnZoomIn.Size = new System.Drawing.Size(85, 28);
             this.btnZoomIn.TabIndex = 4;
             this.btnZoomIn.Text = "Zoom In";
             this.btnZoomIn.UseVisualStyleBackColor = false;
@@ -868,9 +847,9 @@
             // 
             this.btnSuggestionResult.BackColor = System.Drawing.Color.Aqua;
             this.btnSuggestionResult.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSuggestionResult.Location = new System.Drawing.Point(311, 11);
+            this.btnSuggestionResult.Location = new System.Drawing.Point(313, 11);
             this.btnSuggestionResult.Name = "btnSuggestionResult";
-            this.btnSuggestionResult.Size = new System.Drawing.Size(87, 28);
+            this.btnSuggestionResult.Size = new System.Drawing.Size(97, 28);
             this.btnSuggestionResult.TabIndex = 3;
             this.btnSuggestionResult.Text = "Fill Spaces";
             this.btnSuggestionResult.UseVisualStyleBackColor = false;
@@ -916,125 +895,58 @@
             this.dgvPanel.BackgroundColor = System.Drawing.Color.Azure;
             this.dgvPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvPanel.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPanel.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPanel.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvPanel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPanel.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.RowID,
-            this.UsedPercent,
-            this.WastedPercent,
-            this.dataGridViewTextBoxColumn18,
-            this.dataGridViewTextBoxColumn10,
-            this.dataGridViewTextBoxColumn11,
-            this.dataGridViewTextBoxColumn12,
-            this.ContainerWidthAndHeight,
-            this.MaxHeightCol,
-            this.MaxWidthCol,
-            this.dataGridViewCheckBoxColumn1,
-            this.dataGridViewCheckBoxColumn2,
-            this.Image,
-            this.Suggestions,
-            this.SortType});
-            this.dgvPanel.DataSource = this.gridViewBindingSource1;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPanel.DefaultCellStyle = dataGridViewCellStyle8;
+            this.rowIDDataGridViewTextBoxColumn,
+            this.UsedPercentGrid,
+            this.WastedPercentGrid,
+            this.containerWidthAndHeightDataGridViewTextBoxColumn,
+            this.dataGridViewTextBoxColumn22,
+            this.suggestionsDataGridViewTextBoxColumn,
+            this.dataGridViewTextBoxColumn13,
+            this.dataGridViewTextBoxColumn14,
+            this.dataGridViewTextBoxColumn15,
+            this.sortTypeDataGridViewTextBoxColumn,
+            this.MaxWidthGrid,
+            this.MaxHeightGrid,
+            this.dataGridViewCheckBoxColumn3,
+            this.imageDataGridViewImageColumn});
+            this.dgvPanel.DataSource = this.gridViewBindingSource3;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPanel.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPanel.GridColor = System.Drawing.Color.Gray;
             this.dgvPanel.Location = new System.Drawing.Point(0, 0);
             this.dgvPanel.Name = "dgvPanel";
             this.dgvPanel.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPanel.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPanel.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvPanel.RowHeadersWidth = 51;
             this.dgvPanel.RowTemplate.Height = 24;
             this.dgvPanel.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvPanel.Size = new System.Drawing.Size(1167, 393);
             this.dgvPanel.TabIndex = 1;
             this.dgvPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DgvPanel_MouseDown);
-            // 
-            // RowID
-            // 
-            this.RowID.DataPropertyName = "RowID";
-            this.RowID.Frozen = true;
-            this.RowID.HeaderText = "Row ID";
-            this.RowID.MinimumWidth = 6;
-            this.RowID.Name = "RowID";
-            this.RowID.ReadOnly = true;
-            this.RowID.Width = 125;
-            // 
-            // UsedPercent
-            // 
-            this.UsedPercent.DataPropertyName = "UsedPercent";
-            this.UsedPercent.Frozen = true;
-            this.UsedPercent.HeaderText = "Used Percent";
-            this.UsedPercent.MinimumWidth = 6;
-            this.UsedPercent.Name = "UsedPercent";
-            this.UsedPercent.ReadOnly = true;
-            this.UsedPercent.Width = 125;
-            // 
-            // WastedPercent
-            // 
-            this.WastedPercent.DataPropertyName = "WastedPercent";
-            this.WastedPercent.Frozen = true;
-            this.WastedPercent.HeaderText = "Wasted Percent";
-            this.WastedPercent.MinimumWidth = 6;
-            this.WastedPercent.Name = "WastedPercent";
-            this.WastedPercent.ReadOnly = true;
-            this.WastedPercent.Width = 125;
-            // 
-            // ContainerWidthAndHeight
-            // 
-            this.ContainerWidthAndHeight.DataPropertyName = "ContainerWidthAndHeight";
-            this.ContainerWidthAndHeight.HeaderText = "Container Size";
-            this.ContainerWidthAndHeight.MinimumWidth = 6;
-            this.ContainerWidthAndHeight.Name = "ContainerWidthAndHeight";
-            this.ContainerWidthAndHeight.ReadOnly = true;
-            this.ContainerWidthAndHeight.Width = 125;
-            // 
-            // Image
-            // 
-            this.Image.DataPropertyName = "Image";
-            this.Image.HeaderText = "Image";
-            this.Image.MinimumWidth = 6;
-            this.Image.Name = "Image";
-            this.Image.ReadOnly = true;
-            this.Image.Width = 125;
-            // 
-            // Suggestions
-            // 
-            this.Suggestions.DataPropertyName = "Suggestions";
-            this.Suggestions.HeaderText = "Suggestions";
-            this.Suggestions.MinimumWidth = 6;
-            this.Suggestions.Name = "Suggestions";
-            this.Suggestions.ReadOnly = true;
-            this.Suggestions.Width = 125;
-            // 
-            // SortType
-            // 
-            this.SortType.DataPropertyName = "SortType";
-            this.SortType.HeaderText = "SortType";
-            this.SortType.MinimumWidth = 6;
-            this.SortType.Name = "SortType";
-            this.SortType.ReadOnly = true;
-            this.SortType.Width = 125;
             // 
             // panel7
             // 
@@ -1081,29 +993,33 @@
             // 
             // chartPerfomance
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartPerfomance.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.chartPerfomance.ChartAreas.Add(chartArea1);
             this.chartPerfomance.DataBindings.Add(new System.Windows.Forms.Binding("DataSource", this.gridViewBindingSource1, "WastedArea", true));
-            this.chartPerfomance.DataSource = this.gridViewBindingSource2;
+            this.chartPerfomance.DataSource = this.gridViewBindingSource1;
             this.chartPerfomance.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "Legend1";
-            this.chartPerfomance.Legends.Add(legend3);
+            legend1.Name = "Legend1";
+            this.chartPerfomance.Legends.Add(legend1);
             this.chartPerfomance.Location = new System.Drawing.Point(0, 0);
             this.chartPerfomance.Name = "chartPerfomance";
-            series5.ChartArea = "ChartArea1";
-            series5.Legend = "Legend1";
-            series5.Name = "Wasted Area";
-            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series6.ChartArea = "ChartArea1";
-            series6.Legend = "Legend1";
-            series6.Name = "Used Area";
-            this.chartPerfomance.Series.Add(series5);
-            this.chartPerfomance.Series.Add(series6);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Wasted Area";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Used Area";
+            this.chartPerfomance.Series.Add(series1);
+            this.chartPerfomance.Series.Add(series2);
             this.chartPerfomance.Size = new System.Drawing.Size(1253, 513);
             this.chartPerfomance.TabIndex = 0;
             this.chartPerfomance.Text = "chart1";
-            title3.Name = "Wasted and Used in Percentage Chart";
-            this.chartPerfomance.Titles.Add(title3);
+            title1.Name = "Wasted and Used in Percentage Chart";
+            this.chartPerfomance.Titles.Add(title1);
+            // 
+            // gridViewBindingSource1
+            // 
+            this.gridViewBindingSource1.DataSource = this.gridViewBindingSource4;
             // 
             // contextMenuStrip1
             // 
@@ -1144,153 +1060,227 @@
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
-            // WidthColumn
+            // Source3TagID
             // 
-            this.WidthColumn.DataPropertyName = "Width";
-            this.WidthColumn.HeaderText = "Width";
-            this.WidthColumn.MinimumWidth = 6;
-            this.WidthColumn.Name = "WidthColumn";
-            this.WidthColumn.Width = 73;
+            this.Source3TagID.DataPropertyName = "TagID";
+            this.Source3TagID.HeaderText = "TagID";
+            this.Source3TagID.MinimumWidth = 6;
+            this.Source3TagID.Name = "Source3TagID";
+            this.Source3TagID.Visible = false;
+            this.Source3TagID.Width = 75;
             // 
-            // HeightColumn
+            // Source3X
             // 
-            this.HeightColumn.DataPropertyName = "Height";
-            this.HeightColumn.HeaderText = "Height";
-            this.HeightColumn.MinimumWidth = 6;
-            this.HeightColumn.Name = "HeightColumn";
-            this.HeightColumn.Width = 78;
+            this.Source3X.DataPropertyName = "X";
+            this.Source3X.HeaderText = "X";
+            this.Source3X.MinimumWidth = 6;
+            this.Source3X.Name = "Source3X";
+            this.Source3X.Visible = false;
+            this.Source3X.Width = 46;
             // 
-            // rectangularBoxBindingSource1
+            // Source3Y
             // 
-            this.rectangularBoxBindingSource1.DataSource = typeof(boxfittingapp.RectangularBox);
+            this.Source3Y.DataPropertyName = "Y";
+            this.Source3Y.HeaderText = "Y";
+            this.Source3Y.MinimumWidth = 6;
+            this.Source3Y.Name = "Source3Y";
+            this.Source3Y.Visible = false;
+            this.Source3Y.Width = 46;
             // 
-            // widthDataGridViewTextBoxColumn1
+            // Source3ContainerNumber
             // 
-            this.widthDataGridViewTextBoxColumn1.DataPropertyName = "Width";
-            this.widthDataGridViewTextBoxColumn1.HeaderText = "Width";
-            this.widthDataGridViewTextBoxColumn1.MinimumWidth = 6;
-            this.widthDataGridViewTextBoxColumn1.Name = "widthDataGridViewTextBoxColumn1";
-            this.widthDataGridViewTextBoxColumn1.Width = 73;
+            this.Source3ContainerNumber.DataPropertyName = "ContainerNumber";
+            this.Source3ContainerNumber.HeaderText = "Container#";
+            this.Source3ContainerNumber.MinimumWidth = 6;
+            this.Source3ContainerNumber.Name = "Source3ContainerNumber";
+            this.Source3ContainerNumber.Visible = false;
+            this.Source3ContainerNumber.Width = 106;
             // 
-            // heightDataGridViewTextBoxColumn1
+            // Source3XContainer
             // 
-            this.heightDataGridViewTextBoxColumn1.DataPropertyName = "Height";
-            this.heightDataGridViewTextBoxColumn1.HeaderText = "Height";
-            this.heightDataGridViewTextBoxColumn1.MinimumWidth = 6;
-            this.heightDataGridViewTextBoxColumn1.Name = "heightDataGridViewTextBoxColumn1";
-            this.heightDataGridViewTextBoxColumn1.Width = 78;
+            this.Source3XContainer.DataPropertyName = "XWithinContainer";
+            this.Source3XContainer.HeaderText = "X in Container";
+            this.Source3XContainer.MinimumWidth = 6;
+            this.Source3XContainer.Name = "Source3XContainer";
+            this.Source3XContainer.Visible = false;
+            this.Source3XContainer.Width = 126;
             // 
-            // rectangularBoxBindingSource2
+            // Source3YContainer
             // 
-            this.rectangularBoxBindingSource2.DataSource = typeof(boxfittingapp.RectangularBox);
+            this.Source3YContainer.DataPropertyName = "YWithinContainer";
+            this.Source3YContainer.HeaderText = "Y in Container";
+            this.Source3YContainer.MinimumWidth = 6;
+            this.Source3YContainer.Name = "Source3YContainer";
+            this.Source3YContainer.Visible = false;
+            this.Source3YContainer.Width = 126;
             // 
-            // dataGridViewTextBoxColumn18
+            // rectangularBoxBindingSource3
             // 
-            this.dataGridViewTextBoxColumn18.DataPropertyName = "NumberOfMyContainerUsed";
-            this.dataGridViewTextBoxColumn18.HeaderText = "Used Containers ";
-            this.dataGridViewTextBoxColumn18.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
-            this.dataGridViewTextBoxColumn18.ReadOnly = true;
-            this.dataGridViewTextBoxColumn18.Width = 125;
+            this.rectangularBoxBindingSource3.DataSource = typeof(boxfittingapp.RectangularBox);
             // 
-            // dataGridViewTextBoxColumn10
+            // widthDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "WastedArea";
-            this.dataGridViewTextBoxColumn10.HeaderText = "Wasted Area";
-            this.dataGridViewTextBoxColumn10.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.Width = 125;
+            this.widthDataGridViewTextBoxColumn.DataPropertyName = "Width";
+            this.widthDataGridViewTextBoxColumn.HeaderText = "Width";
+            this.widthDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.widthDataGridViewTextBoxColumn.Name = "widthDataGridViewTextBoxColumn";
+            this.widthDataGridViewTextBoxColumn.Width = 73;
             // 
-            // dataGridViewTextBoxColumn11
+            // heightDataGridViewTextBoxColumn
             // 
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "UsedArea";
-            this.dataGridViewTextBoxColumn11.HeaderText = "Used Area";
-            this.dataGridViewTextBoxColumn11.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            this.dataGridViewTextBoxColumn11.Width = 125;
+            this.heightDataGridViewTextBoxColumn.DataPropertyName = "Height";
+            this.heightDataGridViewTextBoxColumn.HeaderText = "Height";
+            this.heightDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.heightDataGridViewTextBoxColumn.Name = "heightDataGridViewTextBoxColumn";
+            this.heightDataGridViewTextBoxColumn.Width = 78;
             // 
-            // dataGridViewTextBoxColumn12
+            // quantityDataGridViewTextBoxColumn1
             // 
-            this.dataGridViewTextBoxColumn12.DataPropertyName = "TotalArea";
-            this.dataGridViewTextBoxColumn12.HeaderText = "Total Area";
-            this.dataGridViewTextBoxColumn12.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.ReadOnly = true;
-            this.dataGridViewTextBoxColumn12.Width = 125;
+            this.quantityDataGridViewTextBoxColumn1.DataPropertyName = "Quantity";
+            this.quantityDataGridViewTextBoxColumn1.HeaderText = "Quantity";
+            this.quantityDataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.quantityDataGridViewTextBoxColumn1.Name = "quantityDataGridViewTextBoxColumn1";
+            this.quantityDataGridViewTextBoxColumn1.Width = 90;
             // 
-            // MaxHeightCol
+            // rectangularBoxBindingSource4
             // 
-            this.MaxHeightCol.DataPropertyName = "MaxHeight";
-            this.MaxHeightCol.HeaderText = "Max Height";
-            this.MaxHeightCol.MinimumWidth = 6;
-            this.MaxHeightCol.Name = "MaxHeightCol";
-            this.MaxHeightCol.ReadOnly = true;
-            this.MaxHeightCol.Width = 125;
+            this.rectangularBoxBindingSource4.DataSource = typeof(boxfittingapp.RectangularBox);
             // 
-            // MaxWidthCol
+            // rowIDDataGridViewTextBoxColumn
             // 
-            this.MaxWidthCol.DataPropertyName = "MaxWidth";
-            this.MaxWidthCol.HeaderText = "Max Width";
-            this.MaxWidthCol.MinimumWidth = 6;
-            this.MaxWidthCol.Name = "MaxWidthCol";
-            this.MaxWidthCol.ReadOnly = true;
-            this.MaxWidthCol.Width = 125;
+            this.rowIDDataGridViewTextBoxColumn.DataPropertyName = "RowID";
+            this.rowIDDataGridViewTextBoxColumn.Frozen = true;
+            this.rowIDDataGridViewTextBoxColumn.HeaderText = "Row ID";
+            this.rowIDDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.rowIDDataGridViewTextBoxColumn.Name = "rowIDDataGridViewTextBoxColumn";
+            this.rowIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.rowIDDataGridViewTextBoxColumn.Width = 125;
             // 
-            // dataGridViewCheckBoxColumn1
+            // UsedPercentGrid
             // 
-            this.dataGridViewCheckBoxColumn1.DataPropertyName = "IsHorizontal";
-            this.dataGridViewCheckBoxColumn1.HeaderText = "Is Horizontal";
-            this.dataGridViewCheckBoxColumn1.MinimumWidth = 6;
-            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            this.dataGridViewCheckBoxColumn1.ReadOnly = true;
-            this.dataGridViewCheckBoxColumn1.Width = 125;
+            this.UsedPercentGrid.DataPropertyName = "UsedPercent";
+            this.UsedPercentGrid.Frozen = true;
+            this.UsedPercentGrid.HeaderText = "Used Percent";
+            this.UsedPercentGrid.MinimumWidth = 6;
+            this.UsedPercentGrid.Name = "UsedPercentGrid";
+            this.UsedPercentGrid.ReadOnly = true;
+            this.UsedPercentGrid.Width = 125;
             // 
-            // dataGridViewCheckBoxColumn2
+            // WastedPercentGrid
             // 
-            this.dataGridViewCheckBoxColumn2.DataPropertyName = "HasResult";
-            this.dataGridViewCheckBoxColumn2.HeaderText = "HasResult";
-            this.dataGridViewCheckBoxColumn2.MinimumWidth = 6;
-            this.dataGridViewCheckBoxColumn2.Name = "dataGridViewCheckBoxColumn2";
-            this.dataGridViewCheckBoxColumn2.ReadOnly = true;
-            this.dataGridViewCheckBoxColumn2.Width = 125;
+            this.WastedPercentGrid.DataPropertyName = "WastedPercent";
+            this.WastedPercentGrid.HeaderText = "Wasted Percent";
+            this.WastedPercentGrid.MinimumWidth = 6;
+            this.WastedPercentGrid.Name = "WastedPercentGrid";
+            this.WastedPercentGrid.ReadOnly = true;
+            this.WastedPercentGrid.Width = 125;
             // 
-            // gridViewBindingSource1
+            // containerWidthAndHeightDataGridViewTextBoxColumn
             // 
-            this.gridViewBindingSource1.DataSource = typeof(boxfittingapp.Model.GridView);
+            this.containerWidthAndHeightDataGridViewTextBoxColumn.DataPropertyName = "ContainerWidthAndHeight";
+            this.containerWidthAndHeightDataGridViewTextBoxColumn.HeaderText = "Container\'s Sizes";
+            this.containerWidthAndHeightDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.containerWidthAndHeightDataGridViewTextBoxColumn.Name = "containerWidthAndHeightDataGridViewTextBoxColumn";
+            this.containerWidthAndHeightDataGridViewTextBoxColumn.ReadOnly = true;
+            this.containerWidthAndHeightDataGridViewTextBoxColumn.Width = 125;
             // 
-            // gridViewBindingSource2
+            // dataGridViewTextBoxColumn22
             // 
-            this.gridViewBindingSource2.DataSource = typeof(boxfittingapp.Model.GridView);
+            this.dataGridViewTextBoxColumn22.DataPropertyName = "NumberOfMyContainerUsed";
+            this.dataGridViewTextBoxColumn22.HeaderText = "Number of Containers";
+            this.dataGridViewTextBoxColumn22.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn22.Name = "dataGridViewTextBoxColumn22";
+            this.dataGridViewTextBoxColumn22.ReadOnly = true;
+            this.dataGridViewTextBoxColumn22.Width = 125;
             // 
-            // inputValuesModelBindingSource
+            // suggestionsDataGridViewTextBoxColumn
             // 
-            this.inputValuesModelBindingSource.DataSource = typeof(boxfittingapp.Model.InputValuesModel);
+            this.suggestionsDataGridViewTextBoxColumn.DataPropertyName = "Suggestions";
+            this.suggestionsDataGridViewTextBoxColumn.HeaderText = "Suggestions";
+            this.suggestionsDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.suggestionsDataGridViewTextBoxColumn.Name = "suggestionsDataGridViewTextBoxColumn";
+            this.suggestionsDataGridViewTextBoxColumn.ReadOnly = true;
+            this.suggestionsDataGridViewTextBoxColumn.Width = 125;
             // 
-            // btnSetBuffer
+            // dataGridViewTextBoxColumn13
             // 
-            this.btnSetBuffer.BackColor = System.Drawing.Color.Cyan;
-            this.btnSetBuffer.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnSetBuffer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSetBuffer.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSetBuffer.Location = new System.Drawing.Point(679, 15);
-            this.btnSetBuffer.Name = "btnSetBuffer";
-            this.btnSetBuffer.Size = new System.Drawing.Size(94, 31);
-            this.btnSetBuffer.TabIndex = 12;
-            this.btnSetBuffer.Text = "Buffer Width";
-            this.btnSetBuffer.UseVisualStyleBackColor = false;
-            this.btnSetBuffer.Click += new System.EventHandler(this.BtnSetBuffer_Click);
+            this.dataGridViewTextBoxColumn13.DataPropertyName = "WastedArea";
+            this.dataGridViewTextBoxColumn13.HeaderText = "Wasted Area";
+            this.dataGridViewTextBoxColumn13.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.dataGridViewTextBoxColumn13.ReadOnly = true;
+            this.dataGridViewTextBoxColumn13.Width = 125;
             // 
-            // txtBufferWidth
+            // dataGridViewTextBoxColumn14
             // 
-            this.txtBufferWidth.Location = new System.Drawing.Point(779, 19);
-            this.txtBufferWidth.Name = "txtBufferWidth";
-            this.txtBufferWidth.Size = new System.Drawing.Size(39, 22);
-            this.txtBufferWidth.TabIndex = 13;
-            this.txtBufferWidth.Visible = false;
-            this.txtBufferWidth.TextChanged += new System.EventHandler(this.TxtBufferWidth_TextChanged);
-            this.txtBufferWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtBufferWidth_KeyPress);
+            this.dataGridViewTextBoxColumn14.DataPropertyName = "UsedArea";
+            this.dataGridViewTextBoxColumn14.HeaderText = "Used Area";
+            this.dataGridViewTextBoxColumn14.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            this.dataGridViewTextBoxColumn14.ReadOnly = true;
+            this.dataGridViewTextBoxColumn14.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.DataPropertyName = "TotalArea";
+            this.dataGridViewTextBoxColumn15.HeaderText = "Total Area";
+            this.dataGridViewTextBoxColumn15.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            this.dataGridViewTextBoxColumn15.ReadOnly = true;
+            this.dataGridViewTextBoxColumn15.Width = 125;
+            // 
+            // sortTypeDataGridViewTextBoxColumn
+            // 
+            this.sortTypeDataGridViewTextBoxColumn.DataPropertyName = "SortType";
+            this.sortTypeDataGridViewTextBoxColumn.HeaderText = "Sort Type";
+            this.sortTypeDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.sortTypeDataGridViewTextBoxColumn.Name = "sortTypeDataGridViewTextBoxColumn";
+            this.sortTypeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.sortTypeDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // MaxWidthGrid
+            // 
+            this.MaxWidthGrid.DataPropertyName = "MaxHeight";
+            this.MaxWidthGrid.HeaderText = "Max Height";
+            this.MaxWidthGrid.MinimumWidth = 6;
+            this.MaxWidthGrid.Name = "MaxWidthGrid";
+            this.MaxWidthGrid.ReadOnly = true;
+            this.MaxWidthGrid.Width = 125;
+            // 
+            // MaxHeightGrid
+            // 
+            this.MaxHeightGrid.DataPropertyName = "MaxWidth";
+            this.MaxHeightGrid.HeaderText = "Max Width";
+            this.MaxHeightGrid.MinimumWidth = 6;
+            this.MaxHeightGrid.Name = "MaxHeightGrid";
+            this.MaxHeightGrid.ReadOnly = true;
+            this.MaxHeightGrid.Width = 125;
+            // 
+            // dataGridViewCheckBoxColumn3
+            // 
+            this.dataGridViewCheckBoxColumn3.DataPropertyName = "IsHorizontal";
+            this.dataGridViewCheckBoxColumn3.HeaderText = "Is Horizontal";
+            this.dataGridViewCheckBoxColumn3.MinimumWidth = 6;
+            this.dataGridViewCheckBoxColumn3.Name = "dataGridViewCheckBoxColumn3";
+            this.dataGridViewCheckBoxColumn3.ReadOnly = true;
+            this.dataGridViewCheckBoxColumn3.Width = 125;
+            // 
+            // imageDataGridViewImageColumn
+            // 
+            this.imageDataGridViewImageColumn.DataPropertyName = "Image";
+            this.imageDataGridViewImageColumn.HeaderText = "Image";
+            this.imageDataGridViewImageColumn.MinimumWidth = 6;
+            this.imageDataGridViewImageColumn.Name = "imageDataGridViewImageColumn";
+            this.imageDataGridViewImageColumn.ReadOnly = true;
+            this.imageDataGridViewImageColumn.Width = 125;
+            // 
+            // gridViewBindingSource3
+            // 
+            this.gridViewBindingSource3.DataSource = typeof(boxfittingapp.Model.GridView);
+            // 
+            // gridViewBindingSource4
+            // 
+            this.gridViewBindingSource4.DataSource = typeof(boxfittingapp.Model.GridView);
             // 
             // MainForm
             // 
@@ -1338,16 +1328,20 @@
             this.tabGraph.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartPerfomance)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource2)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource)).EndInit();
             this.panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputValuesModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rectangularBoxBindingSource4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewBindingSource4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1438,25 +1432,17 @@
         private System.Windows.Forms.BindingSource rectangularBoxBindingSource2;
         private System.Windows.Forms.DataGridViewTextBoxColumn widthDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn heightDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.Button btnUserInputs;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RowID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UsedPercent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WastedPercent;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ContainerWidthAndHeight;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaxHeightCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaxWidthCol;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn2;
-        private System.Windows.Forms.DataGridViewImageColumn Image;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Suggestions;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SortType;
         private System.Windows.Forms.Label lblWidthPanel;
         private System.Windows.Forms.Label lblHeightPanel;
         private System.Windows.Forms.TextBox txtWidthPanel;
@@ -1469,16 +1455,39 @@
         private System.Windows.Forms.Panel pnlMainGrid;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Button btnShowHide;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TagID;
         private System.Windows.Forms.DataGridViewTextBoxColumn WidthColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn HeightColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn X;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Y;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ContainerNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn XWithinContainer;
-        private System.Windows.Forms.DataGridViewTextBoxColumn YWithinContainer;
         private System.Windows.Forms.TextBox txtBufferWidth;
-        private System.Windows.Forms.Button btnSetBuffer;
+        private System.Windows.Forms.BindingSource rectangularBoxBindingSource3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn widthDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn heightDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantityDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.BindingSource rectangularBoxBindingSource4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Source3TagID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WidthDisplayColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HeightDisplayColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Source3X;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Source3Y;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Source3ContainerNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Source3XContainer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Source3YContainer;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.BindingSource gridViewBindingSource3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rowIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UsedPercentGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WastedPercentGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn containerWidthAndHeightDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
+        private System.Windows.Forms.DataGridViewTextBoxColumn suggestionsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sortTypeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaxWidthGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaxHeightGrid;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn3;
+        private System.Windows.Forms.DataGridViewImageColumn imageDataGridViewImageColumn;
+        private System.Windows.Forms.BindingSource gridViewBindingSource4;
     }
 }
 

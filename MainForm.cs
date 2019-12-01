@@ -48,7 +48,7 @@ namespace boxfittingapp
         public float ScaleX { get; set; }
         public float ScaleY { get; set; }
         public bool IsHidden { get; private set; }
-        public int BufferWidth { get; private set; } = 5;
+        public int BufferWidth { get; private set; }
         #endregion
         public MainForm()
         {
@@ -119,6 +119,8 @@ namespace boxfittingapp
         {
             MyContainer.Width = width;
             MyContainer.Height = height;
+            txtHeightPanel.Text = height.ToString();
+            txtWidthPanel.Text = width.ToString();
         }
 
         private void OptimumDrawing(BoxFittingAlgorithm applyAlgorith)
@@ -190,7 +192,7 @@ namespace boxfittingapp
             {
                 this.box2 = new System.Windows.Forms.Button();
                 this.box2.Location = new System.Drawing.Point(0, MyContainer.Height * (i + 1));
-                this.box2.Size = new System.Drawing.Size(MyContainer.Width, 2);
+                this.box2.Size = new System.Drawing.Size(MyContainer.Width, 1);
                 this.box2.BackColor = Color.DarkBlue;
                 this.box2.FlatStyle = FlatStyle.Flat;
                 this.container.Controls.Add(this.box2);
@@ -304,19 +306,19 @@ namespace boxfittingapp
             if (applyAlgorith.Bins.Count > 0)
             {
                 InputBoxes.Clear();
-                dgvInputSizes.Columns["WidthColumn"].Visible = true;
-                dgvInputSizes.Columns["HeightColumn"].Visible = true;
-                dgvInputSizes.Columns["TagID"].Visible = true;
-                dgvInputSizes.Columns["X"].Visible = false;
-                dgvInputSizes.Columns["Y"].Visible = false;
-                dgvInputSizes.Columns["YWithinContainer"].Visible = true;
-                dgvInputSizes.Columns["XWithinContainer"].Visible = true;
-                dgvInputSizes.Columns["ContainerNumber"].Visible = true;
+                dgvInputSizes.Columns["WidthDisplayColumn"].Visible = true;
+                dgvInputSizes.Columns["HeightDisplayColumn"].Visible = true;
+                dgvInputSizes.Columns["Source3TagID"].Visible = true;
+                dgvInputSizes.Columns["Source3X"].Visible = false;
+                dgvInputSizes.Columns["Source3Y"].Visible = false;
+                dgvInputSizes.Columns["Source3YContainer"].Visible = true;
+                dgvInputSizes.Columns["Source3XContainer"].Visible = true;
+                dgvInputSizes.Columns["Source3ContainerNumber"].Visible = true;
             }
             foreach (var item in applyAlgorith.Bins)
             {
-                item.Width = item.Width - BufferWidth *2;
-                item.Height = item.Height - BufferWidth *2;
+                item.Width = item.Width - BufferWidth * 2;
+                item.Height = item.Height - BufferWidth * 2;
                 item.X = item.X + BufferWidth;
                 item.Y = item.Y + BufferWidth;
                 InputBoxes.Add(item);
@@ -372,20 +374,20 @@ namespace boxfittingapp
                 chartPerfomance.Titles[0].Text = "Percent of Space in Use and Wasted";
                 foreach (DataGridViewCell col in item.Cells)
                 {
-                    if (col.OwningColumn.Name == "WastedPercent")
+                    if (col.OwningColumn.Name == "WastedPercentGrid")
                     {
                         chartPerfomance.Series["Wasted Area"].Points.AddXY(item.Index, (float)col.Value);
 
                     }
-                    if (col.OwningColumn.Name == "UsedPercent")
+                    if (col.OwningColumn.Name == "UsedPercentGrid")
                     {
                         chartPerfomance.Series["Used Area"].Points.AddXY(item.Index, (float)col.Value);
                     }
-                    if (col.OwningColumn.Name == "MaxWidthCol")
+                    if (col.OwningColumn.Name == "MaxWidthGrid")
                     {
                         w = (int)col.Value;
                     }
-                    if (col.OwningColumn.Name == "MaxHeightCol")
+                    if (col.OwningColumn.Name == "MaxHeightGrid")
                     {
                         h = (int)(int)col.Value;
                     }
@@ -794,6 +796,10 @@ namespace boxfittingapp
                 read.IsReadFile = false;
                 lblNumber.Visible = false;
                 txtNumber.Visible = false;
+                foreach (var item in InputBoxes)
+                {
+                    item.Buffer = BufferWidth;
+                }
                 read.SetSizes(InputBoxes);
                 if (btnUserContainer.Text == "Save Panel's Sizes")
                 {
