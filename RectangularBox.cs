@@ -19,6 +19,7 @@ namespace boxfittingapp
         public int XWithinContainer { get; set; }
         public int YWithinContainer { get; set; }
         public int Buffer { get; set; }
+        public string Unit { get; set; }
 
         public RectangularBox()
         {

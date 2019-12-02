@@ -50,6 +50,7 @@ namespace boxfittingapp
         public bool IsHidden { get; private set; }
         public int BufferWidth { get; private set; }
         public bool IsValid { get; private set; }
+        public UnitSelected SelectedUnit { get; private set; }
         #endregion
         public MainForm()
         {
@@ -71,6 +72,7 @@ namespace boxfittingapp
             dgvUserInputs.DataSource = UserCustomizedBoxes;
             ListSuggestionToShow = new List<Button>();
             cboSelectedUnits.SelectedIndex = 0;
+            SelectedUnit = UnitSelected.Meter;
             IsValid = false;
             ScaleX = 1;
             ScaleY = 1;
@@ -884,306 +886,356 @@ namespace boxfittingapp
                         {
                             Width = rand.Next(1, 5) * rand.Next(1, 5) * 20,
                             Height = rand.Next(1, 5) * rand.Next(1, 5) * 20,
-                            Buffer = BufferWidth
-                        }); ;
-                    }
+                            Buffer = BufferWidth,
+                            Unit = SelectedUnit == UnitSelected.Meter ? "mm" : "1/12 in"
+                    }); ;
                 }
-                else
-                {
-                    errorProvider.SetError(txtNumber, "Please Enter a number greater than 1.");
-                }
-
             }
-        }
-
-        private void GeneratateRandomlyBoxes_Click(object sender, EventArgs e)
-        {
-            txtNumber.Visible = true;
-            lblNumber.Visible = true;
-            InputBoxes.Clear();
-        }
-
-        private void CheckPerimeter_Click(object sender, EventArgs e)
-        {
-            checkArea.Checked = false;
-            checkPerimeter.Checked = true;
-            applyAlgorith.SetTypeOfSort(BoxFittingAlgorithm.SortType.Perimeter);
-        }
-
-        private void CheckArea_Click(object sender, EventArgs e)
-        {
-            checkPerimeter.Checked = false;
-            checkArea.Checked = true;
-            applyAlgorith.SetTypeOfSort(BoxFittingAlgorithm.SortType.Area);
-        }
-
-        private void BtnUserInputs_Click(object sender, EventArgs e)
-        {
-            UserCustomizedBoxes.Clear();
-            dgvUserInputs.Visible = true;
-            btnAdd.Visible = true;
-            PnlUserCustomizeInput.Visible = true;
-            pnlWHQInput.Visible = true;
-        }
-
-        private void BtnAdd_Click(object sender, EventArgs e)
-        {
-            if (UserCustomizedBoxes.Count > 0)
+            else
             {
-                InputBoxes.Clear();
-                foreach (var item in UserCustomizedBoxes)
+                errorProvider.SetError(txtNumber, "Please Enter a number greater than 1.");
+            }
+
+        }
+    }
+
+    private void GeneratateRandomlyBoxes_Click(object sender, EventArgs e)
+    {
+        txtNumber.Visible = true;
+        lblNumber.Visible = true;
+        InputBoxes.Clear();
+    }
+
+    private void CheckPerimeter_Click(object sender, EventArgs e)
+    {
+        checkArea.Checked = false;
+        checkPerimeter.Checked = true;
+        applyAlgorith.SetTypeOfSort(BoxFittingAlgorithm.SortType.Perimeter);
+    }
+
+    private void CheckArea_Click(object sender, EventArgs e)
+    {
+        checkPerimeter.Checked = false;
+        checkArea.Checked = true;
+        applyAlgorith.SetTypeOfSort(BoxFittingAlgorithm.SortType.Area);
+    }
+
+    private void BtnUserInputs_Click(object sender, EventArgs e)
+    {
+        UserCustomizedBoxes.Clear();
+        dgvUserInputs.Visible = true;
+        btnAdd.Visible = true;
+        PnlUserCustomizeInput.Visible = true;
+        pnlWHQInput.Visible = true;
+    }
+
+    private void BtnAdd_Click(object sender, EventArgs e)
+    {
+        if (UserCustomizedBoxes.Count > 0)
+        {
+            InputBoxes.Clear();
+            foreach (var item in UserCustomizedBoxes)
+            {
+                if (string.IsNullOrWhiteSpace(item.Unit))
                 {
-                    item.Buffer = BufferWidth;
-                    for (int i = 0; i < item.Quantity; i++)
+                    item.Unit = SelectedUnit == UnitSelected.Meter ? "mm" : "1/12 in";
+                }
+                item.Buffer = BufferWidth;
+                for (int i = 0; i < item.Quantity; i++)
+                {
+                    if (SelectedUnit == UnitSelected.Meter && item.Unit.Contains("mm") ||
+                        SelectedUnit == UnitSelected.Feet && item.Unit.Contains("1/12 in"))
                     {
                         InputBoxes.Add(item);
                     }
                 }
-                dgvInputSizes.DataSource = InputBoxes;
-                this.Refresh();
-            }
-        }
-
-        private void BtnUserContainer_Click(object sender, EventArgs e)
-        {
-            lblHeightPanel.Visible = true;
-            lblWidthPanel.Visible = true;
-            txtHeightPanel.Visible = true;
-            txtWidthPanel.Visible = true;
-            if (btnUserContainer.Text == "Save Panel's Sizes")
-            {
-                MyContainer.Width = int.Parse(txtWidthPanel.Text);
-                MyContainer.Height = int.Parse(txtHeightPanel.Text);
-                MyContainer.X = 0;
-                MyContainer.Y = 0;
-            }
-            txtWidthPanel.TabIndex = 0;
-        }
-
-        private void TxtWidthPanel_TextChanged(object sender, EventArgs e)
-        {
-            if (!txtWidthPanel.Text.All(t => Char.IsDigit(t)))
-            {
-                errorProvider.SetError(txtWidthPanel, "Please enter number only.");
-            }
-            else
-            {
-                errorProvider.Clear();
-                if (string.IsNullOrWhiteSpace(txtWidthPanel.Text) || int.Parse(txtWidthPanel.Text) == 0)
-                {
-                    errorProvider.SetError(txtWidthPanel, "Please enter Panel's Width.");
-                }
-                else if (int.Parse(txtWidthPanel.Text) != 0 && !string.IsNullOrWhiteSpace(txtHeightPanel.Text))
-                {
-                    errorProvider.Clear();
-                    btnUserContainer.Text = "Save Panel's Sizes";
-                }
-                else
-                {
-                    btnUserContainer.Text = "Set Panel Sizes";
-                }
             }
 
-        }
-
-        private void TxtHeightPanel_TextChanged(object sender, EventArgs e)
-        {
-            if (!txtHeightPanel.Text.All(t => Char.IsDigit(t)))
-            {
-                errorProvider.SetError(txtHeightPanel, "Please enter number only.");
-            }
-            else
-            {
-                errorProvider.Clear();
-                if (string.IsNullOrWhiteSpace(txtHeightPanel.Text) || int.Parse(txtHeightPanel.Text) == 0)
-                {
-                    errorProvider.SetError(txtHeightPanel, "Please enter Panel's Width.");
-                }
-                else if (!string.IsNullOrWhiteSpace(txtWidthPanel.Text) && int.Parse(txtHeightPanel.Text) != 0)
-                {
-                    errorProvider.Clear();
-                    btnUserContainer.Text = "Save Panel's Sizes";
-                }
-                else
-                {
-                    btnUserContainer.Text = "Set Panel Sizes";
-                }
-            }
-
-        }
-
-        private void BtnZoomIn_Click(object sender, EventArgs e)
-        {
-            if (ScaleX < 1 || ScaleY < 1)
-            {
-                ScaleX = 1;
-                ScaleY = 1;
-            }
-            ScaleX = ScaleX / (float)0.9;
-            ScaleY = ScaleY / (float)0.9;
-            SizeF aSf = new SizeF(ScaleX, ScaleY);
-            container.Scale(aSf);
-        }
-
-        private void BtnZoomOut_Click(object sender, EventArgs e)
-        {
-            if (ScaleX > 1 || ScaleY > 1)
-            {
-                ScaleX = 1;
-                ScaleY = 1;
-            }
-            ScaleX = ScaleX * (float)0.9;
-            ScaleY = ScaleY * (float)0.9;
-            SizeF aSf = new SizeF(ScaleX, ScaleY);
-            container.Scale(aSf);
-        }
-
-        private void TabPage5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ShowHideCustomizeSection(object sender, EventArgs e)
-        {
-            if (IsHidden)
-            {
-                pnlCustomize.Visible = false;
-                splitContainer1.Panel2.Hide();
-                IsHidden = false;
-                btnShowHide.Text = "Show \n>>>";
-            }
-            else
-            {
-                pnlCustomize.Visible = true;
-                splitContainer1.Panel2.Show();
-                IsHidden = true;
-                btnShowHide.Text = "Hide\n<<<";
-            }
-        }
-
-        private void BtnSetBuffer_Click(object sender, EventArgs e)
-        {
-            txtBufferWidth.Visible = true;
-        }
-
-        private void TxtBufferWidth_TextChanged(object sender, EventArgs e)
-        {
-            if (!txtBufferWidth.Text.All(t => Char.IsDigit(t)))
-            {
-                errorProvider.SetError(txtBufferWidth, "Please Enter Number Only!");
-            }
-            else
-            {
-                errorProvider.Clear();
-                int width;
-                if (int.TryParse(txtBufferWidth.Text, out width))
-                {
-                    BufferWidth = int.Parse(txtBufferWidth.Text);
-                    applyAlgorith.SetBufferWidth(BufferWidth);
-                }
-            }
-        }
-
-        private void TxtBufferWidth_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Return))
-            {
-                errorProvider.Clear();
-                int width;
-                if (int.TryParse(txtBufferWidth.Text, out width))
-                {
-                    BufferWidth = int.Parse(txtBufferWidth.Text);
-                    applyAlgorith.SetBufferWidth(BufferWidth);
-                }
-            }
-        }
-
-        private void TxtWUnit1_TextChanged(object sender, EventArgs e)
-        {
-            SetError(txtWUnit1);
-        }
-
-        private void SetError(TextBox txtWUnit1)
-        {
-            if (!txtWUnit1.Text.All(t => Char.IsDigit(t)))
-            {
-                errorProvider.SetError(txtWUnit1, "Please Enter Number Only!");
-                IsValid = false;
-            }
-            else
-            {
-                errorProvider.Clear();
-                IsValid = true;
-            }
-        }
-
-        private void TxtWUnit2_TextChanged(object sender, EventArgs e)
-        {
-            SetError(txtWUnit2);
-        }
-
-        private void TxtWUnit3_TextChanged(object sender, EventArgs e)
-        {
-            SetError(txtWUnit3);
-        }
-
-        private void TxtHUnit1_TextChanged(object sender, EventArgs e)
-        {
-            SetError(txtHUnit1);
-        }
-
-        private void TxtHUnit2_TextChanged(object sender, EventArgs e)
-        {
-            SetError(txtHUnit2);
-        }
-
-        private void TxtHUnit3_TextChanged(object sender, EventArgs e)
-        {
-            SetError(txtHUnit3);
-        }
-
-        private void TxtQuantity_TextChanged(object sender, EventArgs e)
-        {
-            SetError(txtQuantity);
-        }
-
-        private void BtnSaveInput_Click(object sender, EventArgs e)
-        {
-            if (IsValid)
-            {
-                int quantity = 0;
-                int height = 0;
-                int width = 0;
-                quantity = int.Parse(txtQuantity.Text);
-                if (cboSelectedUnits.SelectedIndex == 0)
-                {
-                    width = int.Parse(txtWUnit1.Text) * 100 + int.Parse(txtWUnit2.Text) * 10 + int.Parse(txtWUnit3.Text);
-                    height = int.Parse(txtHUnit1.Text) * 100 + int.Parse(txtHUnit2.Text) * 10 + int.Parse(txtHUnit3.Text);
-                }
-                else
-                {
-                    width = int.Parse(txtWUnit1.Text) * 100 + int.Parse(txtWUnit2.Text) * 10 + int.Parse(txtWUnit3.Text);
-                    var inchOneTwelve = int.Parse(txtHUnit3.Text);
-                    height = int.Parse(txtHUnit1.Text) * 12 * inchOneTwelve + int.Parse(txtHUnit2.Text) * inchOneTwelve + inchOneTwelve;
-                }
-                UserCustomizedBoxes.Add(new RectangularBox
-                {
-                    Width = width,
-                    Height = height,
-                    Quantity = quantity
-                });
-            }
-        }
-
-        private void CboSelectedUnits_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lblWFtMeter.Text = cboSelectedUnits.SelectedIndex == 0 ? "m" : "ft";
-            lblWCmInch.Text = cboSelectedUnits.SelectedIndex == 0 ? "cm" : "in";
-            lblWInchMM.Text = cboSelectedUnits.SelectedIndex == 0 ? "mm" : "1/12 in";
-            lblHFtMeter.Text = cboSelectedUnits.SelectedIndex == 0 ? "m" : "ft";
-            lblHInchCm.Text = cboSelectedUnits.SelectedIndex == 0 ? "cm" : "in";
-            lblHInchMM.Text = cboSelectedUnits.SelectedIndex == 0 ? "mm" : "1/12 in";
+            dgvInputSizes.DataSource = InputBoxes;
+            this.Refresh();
         }
     }
+
+    private void BtnUserContainer_Click(object sender, EventArgs e)
+    {
+        lblHeightPanel.Visible = true;
+        lblWidthPanel.Visible = true;
+        txtHeightPanel.Visible = true;
+        txtWidthPanel.Visible = true;
+        if (btnUserContainer.Text == "Save Panel's Sizes")
+        {
+            MyContainer.Width = int.Parse(txtWidthPanel.Text);
+            MyContainer.Height = int.Parse(txtHeightPanel.Text);
+            MyContainer.X = 0;
+            MyContainer.Y = 0;
+        }
+        txtWidthPanel.TabIndex = 0;
+    }
+
+    private void TxtWidthPanel_TextChanged(object sender, EventArgs e)
+    {
+        if (!txtWidthPanel.Text.All(t => Char.IsDigit(t)))
+        {
+            errorProvider.SetError(txtWidthPanel, "Please enter number only.");
+        }
+        else
+        {
+            errorProvider.Clear();
+            if (string.IsNullOrWhiteSpace(txtWidthPanel.Text) || int.Parse(txtWidthPanel.Text) == 0)
+            {
+                errorProvider.SetError(txtWidthPanel, "Please enter Panel's Width.");
+            }
+            else if (int.Parse(txtWidthPanel.Text) != 0 && !string.IsNullOrWhiteSpace(txtHeightPanel.Text))
+            {
+                errorProvider.Clear();
+                btnUserContainer.Text = "Save Panel's Sizes";
+            }
+            else
+            {
+                btnUserContainer.Text = "Set Panel Sizes";
+            }
+        }
+
+    }
+
+    private void TxtHeightPanel_TextChanged(object sender, EventArgs e)
+    {
+        if (!txtHeightPanel.Text.All(t => Char.IsDigit(t)))
+        {
+            errorProvider.SetError(txtHeightPanel, "Please enter number only.");
+        }
+        else
+        {
+            errorProvider.Clear();
+            if (string.IsNullOrWhiteSpace(txtHeightPanel.Text) || int.Parse(txtHeightPanel.Text) == 0)
+            {
+                errorProvider.SetError(txtHeightPanel, "Please enter Panel's Width.");
+            }
+            else if (!string.IsNullOrWhiteSpace(txtWidthPanel.Text) && int.Parse(txtHeightPanel.Text) != 0)
+            {
+                errorProvider.Clear();
+                btnUserContainer.Text = "Save Panel's Sizes";
+            }
+            else
+            {
+                btnUserContainer.Text = "Set Panel Sizes";
+            }
+        }
+
+    }
+
+    private void BtnZoomIn_Click(object sender, EventArgs e)
+    {
+        if (ScaleX < 1 || ScaleY < 1)
+        {
+            ScaleX = 1;
+            ScaleY = 1;
+        }
+        ScaleX = ScaleX / (float)0.9;
+        ScaleY = ScaleY / (float)0.9;
+        SizeF aSf = new SizeF(ScaleX, ScaleY);
+        container.Scale(aSf);
+    }
+
+    private void BtnZoomOut_Click(object sender, EventArgs e)
+    {
+        if (ScaleX > 1 || ScaleY > 1)
+        {
+            ScaleX = 1;
+            ScaleY = 1;
+        }
+        ScaleX = ScaleX * (float)0.9;
+        ScaleY = ScaleY * (float)0.9;
+        SizeF aSf = new SizeF(ScaleX, ScaleY);
+        container.Scale(aSf);
+    }
+
+    private void TabPage5_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void ShowHideCustomizeSection(object sender, EventArgs e)
+    {
+        if (IsHidden)
+        {
+            pnlCustomize.Visible = false;
+            splitContainer1.Panel2.Hide();
+            IsHidden = false;
+            btnShowHide.Text = "Show \n>>>";
+        }
+        else
+        {
+            pnlCustomize.Visible = true;
+            splitContainer1.Panel2.Show();
+            IsHidden = true;
+            btnShowHide.Text = "Hide\n<<<";
+        }
+    }
+
+    private void BtnSetBuffer_Click(object sender, EventArgs e)
+    {
+        txtBufferWidth.Visible = true;
+    }
+
+    private void TxtBufferWidth_TextChanged(object sender, EventArgs e)
+    {
+        if (!txtBufferWidth.Text.All(t => Char.IsDigit(t)))
+        {
+            errorProvider.SetError(txtBufferWidth, "Please Enter Number Only!");
+        }
+        else
+        {
+            errorProvider.Clear();
+            int width;
+            if (int.TryParse(txtBufferWidth.Text, out width))
+            {
+                BufferWidth = int.Parse(txtBufferWidth.Text);
+                applyAlgorith.SetBufferWidth(BufferWidth);
+            }
+        }
+    }
+
+    private void TxtBufferWidth_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        if (e.KeyChar == Convert.ToChar(Keys.Return))
+        {
+            errorProvider.Clear();
+            int width;
+            if (int.TryParse(txtBufferWidth.Text, out width))
+            {
+                BufferWidth = int.Parse(txtBufferWidth.Text);
+                applyAlgorith.SetBufferWidth(BufferWidth);
+            }
+        }
+    }
+
+    private void TxtWUnit1_TextChanged(object sender, EventArgs e)
+    {
+        SetError(txtWUnit1);
+    }
+
+    private void SetError(TextBox txtWUnit1)
+    {
+        if (!txtWUnit1.Text.All(t => Char.IsDigit(t)))
+        {
+            errorProvider.SetError(txtWUnit1, "Please Enter Number Only!");
+            IsValid = false;
+        }
+        else
+        {
+            errorProvider.Clear();
+            IsValid = true;
+        }
+    }
+
+    private void TxtWUnit2_TextChanged(object sender, EventArgs e)
+    {
+        SetError(txtWUnit2);
+    }
+
+    private void TxtWUnit3_TextChanged(object sender, EventArgs e)
+    {
+        SetError(txtWUnit3);
+    }
+
+    private void TxtHUnit1_TextChanged(object sender, EventArgs e)
+    {
+        SetError(txtHUnit1);
+    }
+
+    private void TxtHUnit2_TextChanged(object sender, EventArgs e)
+    {
+        SetError(txtHUnit2);
+    }
+
+    private void TxtHUnit3_TextChanged(object sender, EventArgs e)
+    {
+        SetError(txtHUnit3);
+    }
+
+    private void TxtQuantity_TextChanged(object sender, EventArgs e)
+    {
+        SetError(txtQuantity);
+    }
+
+    private void BtnSaveInput_Click(object sender, EventArgs e)
+    {
+        if (IsValid)
+        {
+            int quantity = 0;
+            int height = 0;
+            int width = 0;
+            quantity = int.Parse(txtQuantity.Text);
+            if (cboSelectedUnits.SelectedIndex == 0)
+            {
+                width = int.Parse(txtWUnit1.Text) * 1000 + int.Parse(txtWUnit2.Text) * 10 + int.Parse(txtWUnit3.Text);
+                height = int.Parse(txtHUnit1.Text) * 1000 + int.Parse(txtHUnit2.Text) * 10 + int.Parse(txtHUnit3.Text);
+            }
+            else
+            {
+                width = int.Parse(txtWUnit1.Text) * 144 + int.Parse(txtWUnit2.Text) * 12 + int.Parse(txtWUnit3.Text);
+                var inchOneTwelve = int.Parse(txtHUnit3.Text);
+                height = int.Parse(txtHUnit1.Text) * 144 + int.Parse(txtHUnit2.Text) * 12 + inchOneTwelve;
+            }
+            UserCustomizedBoxes.Add(new RectangularBox
+            {
+                Width = width,
+                Height = height,
+                Quantity = quantity,
+                Unit = SelectedUnit == UnitSelected.Meter ? "mm" : "1/12 in"
+            });
+        }
+    }
+
+    private void CboSelectedUnits_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        lblUnitBuffer.Text = cboSelectedUnits.SelectedIndex == 0 ? "mm" : "1/12 in";
+        lblWFtMeter.Text = cboSelectedUnits.SelectedIndex == 0 ? "m" : "ft";
+        lblWCmInch.Text = cboSelectedUnits.SelectedIndex == 0 ? "cm" : "in";
+        lblWInchMM.Text = cboSelectedUnits.SelectedIndex == 0 ? "mm" : "1/12 in";
+        lblHFtMeter.Text = cboSelectedUnits.SelectedIndex == 0 ? "m" : "ft";
+        lblHInchCm.Text = cboSelectedUnits.SelectedIndex == 0 ? "cm" : "in";
+        lblHInchMM.Text = cboSelectedUnits.SelectedIndex == 0 ? "mm" : "1/12 in";
+        SelectedUnit = cboSelectedUnits.SelectedIndex == 0 ? BoxFittingAlgorithm.UnitSelected.Meter : BoxFittingAlgorithm.UnitSelected.Feet;
+        if (applyAlgorith != null)
+        {
+            applyAlgorith.SetUnit(SelectedUnit);
+        }
+    }
+    private void DgvUserInputs_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    {
+
+    }
+
+    private void DgvUserInputs_DoubleClick(object sender, EventArgs e)
+    {
+        if (dgvUserInputs.SelectedRows.Count == 1)
+        {
+            var width = (int)dgvUserInputs.SelectedRows[0].Cells["widthDataGridViewTextBoxColumn"].Value;
+            var height = (int)dgvUserInputs.SelectedRows[0].Cells["heightDataGridViewTextBoxColumn"].Value;
+            var quantity = (int)dgvUserInputs.SelectedRows[0].Cells["quantityDataGridViewTextBoxColumn1"].Value;
+            txtQuantity.Text = quantity.ToString();
+            if (SelectedUnit == UnitSelected.Meter)
+            {
+                txtWUnit1.Text = ((int)(width / 1000)).ToString();
+                txtWUnit2.Text = ((int)width / 10 - (int)(width / 1000) * 10).ToString();
+                txtWUnit3.Text = (((width % 1000) % 100) % 10).ToString();
+                txtHUnit1.Text = ((int)(height / 1000)).ToString();
+                txtHUnit2.Text = ((int)height / 10 - (int)(height / 1000) * 10).ToString();
+                txtHUnit3.Text = (((height % 1000) % 100) % 10).ToString();
+            }
+            else
+            {
+                txtWUnit1.Text = ((int)(width / 144)).ToString();
+                txtWUnit2.Text = ((int)width / 12 - (int)(width / 144) * 12).ToString();
+                txtWUnit3.Text = (((width % 144) % 12)).ToString();
+                txtHUnit1.Text = ((int)(height / 144)).ToString();
+                txtHUnit2.Text = ((int)height / 12 - (int)(height / 144) * 12).ToString();
+                txtHUnit3.Text = (((height % 144) % 12)).ToString();
+            }
+        }
+    }
+}
 
 }

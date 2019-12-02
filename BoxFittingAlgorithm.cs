@@ -55,6 +55,7 @@ namespace boxfittingapp
         public List<int> ContainerNumbers { get; set; }
         public List<Task> Tasks { get; set; }
         public int BufferWidth { get; private set; }
+        public UnitSelected SelectedUnit { get; private set; }
         #endregion
         public BoxFittingAlgorithm()
         {
@@ -147,13 +148,13 @@ namespace boxfittingapp
                 i++;
 
             }
-
+            var unit = SelectedUnit == UnitSelected.Meter ? "mm\u00b2" : "ft\u00b2";
             MyResult = "";
-            MyResult += "Used Area: " + UsedArea.ToString();
+            MyResult += "Used Area: " + UsedArea.ToString() +" " + unit;
             TotalArea = MaxWidth * MaxHeight;
             WastedArea = TotalArea - UsedArea;
-            MyResult += "\nTotal Area: " + TotalArea.ToString();
-            MyResult += "\nWasted Area: " + (WastedArea).ToString();
+            MyResult += "\nTotal Area: " + TotalArea.ToString() + " " + unit;
+            MyResult += "\nWasted Area: " + (WastedArea).ToString() + " " + unit;
             MyResult += "\nWasted percent: " + (double)WastedArea * 100 / TotalArea + " %";
             MyResult += "\nUsed percent: " + (double)UsedArea * 100 / TotalArea + " %";
             MyResult += "\nTotal Bins: " + BinList.Count.ToString();
@@ -610,5 +611,16 @@ namespace boxfittingapp
         }
 
         internal void SetBufferWidth(int bufferWidth) => BufferWidth = bufferWidth;
+
+        public enum UnitSelected
+        {
+            Meter,
+            Feet
+        }
+
+        internal void SetUnit(UnitSelected selectedUnit)
+        {
+            SelectedUnit = selectedUnit;
+        }
     }
 }
