@@ -65,6 +65,11 @@ namespace boxfittingapp
             }
            
             AssignBoxlistSizes();
+            foreach (var item in BoxList)
+            {
+                item.Value.WidthInterpreter = rects[item.Key].WidthInterpreter; 
+                item.Value.HeightInterpreter = rects[item.Key].HeightInterpreter; 
+            }
         }
     }
 }

@@ -131,10 +131,16 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.pnlWHQInput = new System.Windows.Forms.Panel();
             this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblUnitBuffer = new System.Windows.Forms.Label();
+            this.WidthInterpreter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HeightInterpreter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WidthDisplayColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HeightDisplayColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblUnitBuffer = new System.Windows.Forms.Label();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.XInterpreter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.YInterpreter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Source3TagID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Source3X = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Source3Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -225,7 +231,7 @@
             // 
             // container
             // 
-            this.container.BackColor = System.Drawing.Color.Black;
+            this.container.BackColor = System.Drawing.Color.Silver;
             this.container.Location = new System.Drawing.Point(54, 48);
             this.container.Name = "container";
             this.container.Padding = new System.Windows.Forms.Padding(100);
@@ -529,7 +535,11 @@
             this.Source3Y,
             this.Source3ContainerNumber,
             this.Source3XContainer,
-            this.Source3YContainer});
+            this.Source3YContainer,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.XInterpreter,
+            this.YInterpreter});
             this.dgvInputSizes.DataSource = this.rectangularBoxBindingSource3;
             this.dgvInputSizes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvInputSizes.GridColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -727,6 +737,7 @@
             // 
             this.dgvUserInputs.AutoGenerateColumns = false;
             this.dgvUserInputs.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dgvUserInputs.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dgvUserInputs.BackgroundColor = System.Drawing.Color.White;
             this.dgvUserInputs.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvUserInputs.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
@@ -735,7 +746,9 @@
             this.widthDataGridViewTextBoxColumn,
             this.heightDataGridViewTextBoxColumn,
             this.quantityDataGridViewTextBoxColumn1,
-            this.Unit});
+            this.Unit,
+            this.WidthInterpreter,
+            this.HeightInterpreter});
             this.dgvUserInputs.DataSource = this.rectangularBoxBindingSource4;
             this.dgvUserInputs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvUserInputs.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -1316,6 +1329,33 @@
             this.Unit.ReadOnly = true;
             this.Unit.Width = 62;
             // 
+            // lblUnitBuffer
+            // 
+            this.lblUnitBuffer.AutoSize = true;
+            this.lblUnitBuffer.Location = new System.Drawing.Point(133, 72);
+            this.lblUnitBuffer.Name = "lblUnitBuffer";
+            this.lblUnitBuffer.Size = new System.Drawing.Size(30, 17);
+            this.lblUnitBuffer.TabIndex = 16;
+            this.lblUnitBuffer.Text = "mm";
+            // 
+            // WidthInterpreter
+            // 
+            this.WidthInterpreter.DataPropertyName = "WidthInterpreter";
+            this.WidthInterpreter.HeaderText = "WidthInterpreter";
+            this.WidthInterpreter.MinimumWidth = 6;
+            this.WidthInterpreter.Name = "WidthInterpreter";
+            this.WidthInterpreter.ReadOnly = true;
+            this.WidthInterpreter.Width = 139;
+            // 
+            // HeightInterpreter
+            // 
+            this.HeightInterpreter.DataPropertyName = "HeightInterpreter";
+            this.HeightInterpreter.HeaderText = "HeightInterpreter";
+            this.HeightInterpreter.MinimumWidth = 6;
+            this.HeightInterpreter.Name = "HeightInterpreter";
+            this.HeightInterpreter.ReadOnly = true;
+            this.HeightInterpreter.Width = 144;
+            // 
             // WidthDisplayColumn
             // 
             this.WidthDisplayColumn.DataPropertyName = "Width";
@@ -1341,14 +1381,41 @@
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Width = 62;
             // 
-            // lblUnitBuffer
+            // dataGridViewTextBoxColumn2
             // 
-            this.lblUnitBuffer.AutoSize = true;
-            this.lblUnitBuffer.Location = new System.Drawing.Point(133, 72);
-            this.lblUnitBuffer.Name = "lblUnitBuffer";
-            this.lblUnitBuffer.Size = new System.Drawing.Size(30, 17);
-            this.lblUnitBuffer.TabIndex = 16;
-            this.lblUnitBuffer.Text = "mm";
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "WidthInterpreter";
+            this.dataGridViewTextBoxColumn2.HeaderText = "WidthInterpreter";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 139;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "HeightInterpreter";
+            this.dataGridViewTextBoxColumn3.HeaderText = "HeightInterpreter";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 144;
+            // 
+            // XInterpreter
+            // 
+            this.XInterpreter.DataPropertyName = "XInterpreter";
+            this.XInterpreter.HeaderText = "XInterpreter";
+            this.XInterpreter.MinimumWidth = 6;
+            this.XInterpreter.Name = "XInterpreter";
+            this.XInterpreter.ReadOnly = true;
+            this.XInterpreter.Width = 112;
+            // 
+            // YInterpreter
+            // 
+            this.YInterpreter.DataPropertyName = "YInterpreter";
+            this.YInterpreter.HeaderText = "YInterpreter";
+            this.YInterpreter.MinimumWidth = 6;
+            this.YInterpreter.Name = "YInterpreter";
+            this.YInterpreter.ReadOnly = true;
+            this.YInterpreter.Width = 112;
             // 
             // Source3TagID
             // 
@@ -1794,6 +1861,9 @@
         private System.Windows.Forms.Panel pnlWHQInput;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
+        private System.Windows.Forms.Label lblUnitBuffer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WidthInterpreter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HeightInterpreter;
         private System.Windows.Forms.DataGridViewTextBoxColumn Source3TagID;
         private System.Windows.Forms.DataGridViewTextBoxColumn WidthDisplayColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn HeightDisplayColumn;
@@ -1803,7 +1873,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Source3ContainerNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn Source3XContainer;
         private System.Windows.Forms.DataGridViewTextBoxColumn Source3YContainer;
-        private System.Windows.Forms.Label lblUnitBuffer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn XInterpreter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn YInterpreter;
     }
 }
 

@@ -11,9 +11,13 @@ namespace boxfittingapp
     {
         public int TagID { get; set; }
         public int X { get; set; }
+        public string XInterpreter { get; set; }
         public int Y { get; set; }
+        public string YInterpreter { get; set; }
         public int Width { get; set; }
+        public string WidthInterpreter { get; set; }
         public int Height { get; set; }
+        public string HeightInterpreter { get; set; }
         public int Quantity { get; set; }
         public int ContainerNumber { get; set; }
         public int XWithinContainer { get; set; }

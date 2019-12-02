@@ -148,18 +148,21 @@ namespace boxfittingapp
                 i++;
 
             }
-            var unit = SelectedUnit == UnitSelected.Meter ? "mm\u00b2" : "ft\u00b2";
+            var unitSquare = SelectedUnit == UnitSelected.Meter ? "m\u00b2" : "(ft)\u00b2";
+            var unit = SelectedUnit == UnitSelected.Meter ? "mm" : "in/12";
             MyResult = "";
-            MyResult += "Used Area: " + UsedArea.ToString() +" " + unit;
+            
             TotalArea = MaxWidth * MaxHeight;
             WastedArea = TotalArea - UsedArea;
-            MyResult += "\nTotal Area: " + TotalArea.ToString() + " " + unit;
-            MyResult += "\nWasted Area: " + (WastedArea).ToString() + " " + unit;
+
+            MyResult += "Used Area: " + (SelectedUnit == UnitSelected.Meter ? ((float)UsedArea/1000000).ToString(): ((float)UsedArea / (144*144)).ToString()) + " " + unitSquare;
+            MyResult += "\nTotal Area: " + (SelectedUnit == UnitSelected.Meter ? ((float)TotalArea/1000000).ToString(): ((float)TotalArea / (144 * 144)).ToString()) + " " + unitSquare;
+            MyResult += "\nWasted Area: " + (SelectedUnit == UnitSelected.Meter ? ((float)WastedArea/1000000).ToString(): ((float)WastedArea / (144 * 144)).ToString()) + " " + unitSquare;
             MyResult += "\nWasted percent: " + (double)WastedArea * 100 / TotalArea + " %";
             MyResult += "\nUsed percent: " + (double)UsedArea * 100 / TotalArea + " %";
             MyResult += "\nTotal Bins: " + BinList.Count.ToString();
             MyResult += "\nNumber of Containers/Panels: " + (NumberOfMyContainerUsed == 0 ? 1 : NumberOfMyContainerUsed);
-            MyResult += "\nContainers/Panels' Sizes: " + "Width: " + MyContainer.Width + " Height: " + MyContainer.Height;
+            MyResult += "\nContainers/Panels' Sizes: " + "Width: " + MyContainer.Width + " " + unit + " Height: " + MyContainer.Height + " " + unit;
         }
 
         internal void SetMultipleContainers(bool @checked)
