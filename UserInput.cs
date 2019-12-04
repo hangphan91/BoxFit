@@ -89,8 +89,6 @@ namespace boxfittingapp
                 {
                     errorProvider.SetError(txtHeight, "Please Enter number only.");
                 }
-              
-                
             }
         }
     }

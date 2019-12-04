@@ -78,7 +78,7 @@ namespace boxfittingapp
     {
         public int Compare(RectangularBox x, RectangularBox y)
         {
-            return y.X.CompareTo(x.X);
+            return x.Y.CompareTo(y.Y);
         }
     }
     public class RectangularBoxComparerVertical : IComparer<RectangularBox>

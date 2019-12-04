@@ -156,8 +156,8 @@ namespace boxfittingapp
 
         private void DrawBorders(BoxFittingAlgorithm applyAlgorith)
         {
-            txtWidth.Text = "Width: " + applyAlgorith.MaxWidth.ToString();
-            txtHeight.Text = "Height: " + MaxHeight.ToString();
+            txtWidth.Text = "Width: " + applyAlgorith.MaxWidth.ToString() + " " +lblUnitBuffer.Text;
+            txtHeight.Text = "Height: " + MaxHeight.ToString()+ " " + lblUnitBuffer.Text;
             this.box2 = new System.Windows.Forms.Button();
             this.box2.Location = new System.Drawing.Point(0, MaxHeight);
             this.box2.Size = new System.Drawing.Size(applyAlgorith.MaxWidth, 2);
@@ -252,7 +252,7 @@ namespace boxfittingapp
             UserInput.ShowDialog();
 
             PerformBoxFittingAlgorithm(dictionary);
-
+            DrawSuggestionBins();
             this.Show();
             this.Refresh();
         }
@@ -635,10 +635,6 @@ namespace boxfittingapp
             RandomList = GetRandomListOfInterger();
             SuggestionListToShow(x, y);
             ShowNextSuggestionBox();
-            //if (applyAlgorith.SuggestionBins.Count > 0)
-            //{
-            //    panel1.Width = this.Width - container.Width - 200;
-            //}
             tabControl1.SelectedIndex = 1;
             this.Refresh();
         }
