@@ -253,6 +253,7 @@ namespace boxfittingapp
 
             PerformBoxFittingAlgorithm(dictionary);
             DrawSuggestionBins();
+            tabControl1.SelectedIndex = 0;
             this.Show();
             this.Refresh();
         }
