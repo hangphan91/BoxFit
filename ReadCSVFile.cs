@@ -23,19 +23,31 @@ namespace boxfittingapp
             listB = new List<int>();
             if (IsReadFile)
             {
-                using (var reader = new StreamReader(@"C:\Users\hang2\Source\Repos\BoxFit2\Properties\fittingboxsamples2.csv"))
+                try
                 {
-                    while (!reader.EndOfStream)
-                    {
-                        var line = reader.ReadLine();
-                        var values = line.Split(',');
-                        int x, y;
 
-                        if (int.TryParse(values[0], out x) && int.TryParse(values[1], out y))
+                    using (var reader = new StreamReader(@"C:\Users\hang2\Source\Repos\BoxFit2\Properties\fittingboxsample.csv"))
+                    {
+                        while (!reader.EndOfStream)
                         {
-                            listA.Add(x);
-                            listB.Add(y);
+                            var line = reader.ReadLine();
+                            var values = line.Split(',');
+                            int x, y;
+
+                            if (int.TryParse(values[0], out x) && int.TryParse(values[1], out y))
+                            {
+                                listA.Add(x);
+                                listB.Add(y);
+                            }
                         }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    for (int   i  = 0;   i  < 10;   i ++)
+                    {
+                        listA.Add(new Random().Next(100,200));
+                        listB.Add(new Random().Next(100,200)); 
                     }
                 }
             }
